@@ -1,6 +1,8 @@
 <?php
 
-use Prepare\Forms\Form;
+namespace Prepare\Forms;
+
+use Phalcon\Forms\Form;
 
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
@@ -17,7 +19,10 @@ class SignUpForm extends Form
 {
     public function initialize($entity = null, $options = null)
     {
-        $name = new Text('name');
+        $name = new Text('name',[
+            'placeholder' => 'name',
+            'class' => 'form-control'
+        ]);
         $name->setLabel('Name');
         $name->addValidators([
             new PresenceOf([
@@ -27,7 +32,12 @@ class SignUpForm extends Form
         $this->add($name);
 
         // Email
-        $email = new Text('email');
+        $email = new Text('email',
+            [
+                'placeholder' => 'email',
+                'class' => 'form-control'
+            ]
+            );
         $email->setLabel('E-Mail');
         $email->addValidators([
             new PresenceOf([
@@ -40,8 +50,14 @@ class SignUpForm extends Form
         $this->add($email);
 
         // Password
-        $password = new Password('password');
+        $password = new Password('password',
+            [
+                'placeholder' => 'password',
+                'class' => 'form-control'
+            ]
+            );
         $password->setLabel('Password');
+
         $password->addValidators([
             new PresenceOf([
                 'message' => 'The password is required'
@@ -57,15 +73,6 @@ class SignUpForm extends Form
         ]);
         $this->add($password);
 
-        // Confirm Password
-        $confirmPassword = new Password('confirmPassword');
-        $confirmPassword->setLabel('Confirm Password');
-        $confirmPassword->addValidators([
-            new PresenceOf([
-                'message' => 'The confirmation password is required'
-            ])
-        ]);
-        $this->add($confirmPassword);
         // Remember
         $terms = new Check('terms', [
             'value' => 'yes'

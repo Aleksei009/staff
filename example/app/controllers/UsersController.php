@@ -18,6 +18,23 @@ class UsersController extends \Phalcon\Mvc\Controller
     /**
      * Searches for users
      */
+
+    public function registerAction()
+    {
+        $user = new Users();
+
+        $login    = $this->request->getPost('login');
+        $password = $this->request->getPost('password');
+
+        $user->login = $login;
+
+        // Сохраняем пароль хэшированным
+        $user->password = $this->security->hash($password);
+
+        $user->save();
+    }
+
+
     public function searchAction()
     {
         $numberPage = 1;
@@ -98,6 +115,7 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function createAction()
     {
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "users",
@@ -107,10 +125,35 @@ class UsersController extends \Phalcon\Mvc\Controller
             return;
         }
 
+        $data = $this->request->get();
+        $data['password'] = $this->security->hash( $data['password']);
+
         $user = new Users();
+        $user->registerUser($data);
+
+       // print_r($user->registerUser($data));
+
+        if (!$user->registerUser($data)) {
+            foreach ($user->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            /*$this->dispatcher->forward([
+                'controller' => "users",
+                'action' => 'new'
+            ]);*/
+            $this->response->redirect('');
+            return;
+        }else{
+            $this->flashSession->success('successful');
+            $this->response->redirect('');
+        }
+
+        /*$user = new Users();
         $user->name = $this->request->getPost("name");
         $user->email = $this->request->getPost("email", "email");
-        
+        $user->password = $this->request->getPost("password");
+
 
         if (!$user->save()) {
             foreach ($user->getMessages() as $message) {
@@ -130,7 +173,7 @@ class UsersController extends \Phalcon\Mvc\Controller
         $this->dispatcher->forward([
             'controller' => "users",
             'action' => 'index'
-        ]);
+        ]);*/
     }
 
     /**
@@ -197,6 +240,7 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function deleteAction($id)
     {
+
         $user = Users::findFirstByid($id);
         if (!$user) {
             $this->flash->error("user was not found");

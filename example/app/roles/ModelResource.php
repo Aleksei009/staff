@@ -1,11 +1,11 @@
 <?php
 
-namespace Prepare\Auths;
+namespace Prepare\Roles;
 
 use Phalcon\Acl\ResourceAware;
 
 
-class ModelResource
+class ModelResource implements ResourceAware
 {
     protected $id;
 

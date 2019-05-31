@@ -6,6 +6,9 @@ use Phalcon\Validation\Validator\Email as EmailValidator;
 class Users extends \Phalcon\Mvc\Model
 {
 
+    const ROLE_USER_ADMIN = 1;
+    const ROLE_USER_GUEST = 0;
+
     /**
      *
      * @var integer
@@ -23,6 +26,18 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      */
     public $email;
+
+    /**
+     *
+     * @var string
+     */
+    public $password;
+
+    /**
+     *
+     * @var integer
+     */
+    public $role;
 
     /**
      * Validations and business logic
@@ -44,6 +59,27 @@ class Users extends \Phalcon\Mvc\Model
         );
 
         return $this->validate($validator);
+    }
+
+    public function registerUser($data)
+    {
+
+        $save = self::save([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            //'password' => $this->security->hash($data['password']),
+            'password'  => $data['password'],
+            'role' => self::ROLE_USER_GUEST
+
+        ]);
+
+        return $save;
+    }
+
+    public function checkArticles()
+    {
+
+
     }
 
     /**
@@ -87,4 +123,16 @@ class Users extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    public function getRoles()
+    {
+        return [
+
+            self::ROLE_USER_ADMIN => "Администратор",
+            self::ROLE_USER_GUEST => "Гость"
+
+        ];
+    }
+
+
 }
+

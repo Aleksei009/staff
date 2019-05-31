@@ -144,6 +144,8 @@
 
                     {{  form.render("email") }}
 
+                    {{  form.render("password") }}
+
                     {{ submit_button("register", "class": "btn btn-primary") }}
 
                 {% endif %}

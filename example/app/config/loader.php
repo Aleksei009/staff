@@ -19,6 +19,7 @@ $loader->registerNamespaces([
     'Prepare\Models'      => $config->application->modelsDir,
     'Prepare\Controllers' => $config->application->controllersDir,
     'Prepare\Forms'       => $config->application->formsDir,
+    'Prepare\Roles'       => $config->application->formsDir,
     'Prepare'             => $config->application->libraryDir
 ]);
 $loader->register();

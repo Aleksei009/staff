@@ -144,6 +144,8 @@
 
                     <?= $form->render('email') ?>
 
+                    <?= $form->render('password') ?>
+
                     <?= $this->tag->submitButton(['register', 'class' => 'btn btn-primary']) ?>
 
                 <?php } ?>

@@ -49,7 +49,7 @@ class SessionController extends ControllerBase
     /**
      * Starts a session in the admin backend
      */
-    public function loginAction()
+    /*public function loginAction()
     {
         $form = new LoginForm();
         try {
@@ -75,6 +75,23 @@ class SessionController extends ControllerBase
             $this->flash->error($e->getMessage());
         }
         $this->view->form = $form;
+    }*/
+    public function loginAction()
+    {
+        $login    = $this->request->getPost('login');
+        $password = $this->request->getPost('password');
+
+        $user = Users::findFirstByLogin($login);
+
+        if ($user) {
+            if ($this->security->checkHash($password, $user->password)) {
+                
+            }
+        } else {
+
+            $this->security->hash(rand());
+        }
+
     }
     /**
      * Closes the session

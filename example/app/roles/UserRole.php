@@ -1,6 +1,6 @@
 <?php
 
-namespace Prepare\Auths;
+ namespace Prepare\Roles;
 
 use Phalcon\Acl\RoleAware;
 
