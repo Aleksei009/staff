@@ -1,6 +1,6 @@
 <?php
 
-namespace Prepare\Controllers;
+
 
 class PostsController extends \Phalcon\Mvc\Controller
 {

@@ -1,10 +1,11 @@
 <?php
 
+
 use Prepare\Models\EmailConfirmations;
 use Prepare\Models\ResetPasswords;
 
 
-class UserControlController extends ControllerBase
+class UserControlController extends \Phalcon\Mvc\Controller
 {
     public function initialize()
     {

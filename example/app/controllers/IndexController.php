@@ -1,6 +1,6 @@
 <?php
 
-use Prepare\Controllers\ControllerBase;
+use Prepare\Forms\UsersForm;
 
 class IndexController extends ControllerBase
 {
@@ -13,7 +13,8 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-
+        $form = new UsersForm();
+        $this->view->form = $form;
     }
 
 }

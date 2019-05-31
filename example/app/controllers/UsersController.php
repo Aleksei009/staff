@@ -1,10 +1,11 @@
 <?php
- 
+
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
 
-class UsersController extends ControllerBase
+class UsersController extends \Phalcon\Mvc\Controller
 {
     /**
      * Index action
