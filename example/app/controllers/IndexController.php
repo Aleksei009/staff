@@ -1,6 +1,6 @@
 <?php
 
-//use Prepare\Controllers\ControllerBase;
+use Prepare\Controllers\ControllerBase;
 
 class IndexController extends ControllerBase
 {
