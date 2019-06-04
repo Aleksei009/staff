@@ -2,23 +2,48 @@
 
 <?= $this->getContent() ?>
 
+
+
 <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
 
+<h2>
+    Sign Up
+</h2>
 
+<p><?= $form->label('name') ?></p>
+<p>
+    <?= $form->render('name') ?>
+    <?= $form->messages('name') ?>
+</p>
 
-<div class="form-grope" style=" display: flex; flex-direction: column; ">
+<p><?= $form->label('email') ?></p>
+<p>
+    <?= $form->render('email') ?>
+    <?= $form->messages('email') ?>
+</p>
 
-    <?php if (($form)) { ?>
+<p><?= $form->label('password') ?></p>
+<p>
+    <?= $form->render('password') ?>
+    <?= $form->messages('password') ?>
+</p>
 
-        <?= $form->render('name') ?>
-        <?= $form->render('email') ?>
-        <?= $form->render('password') ?>
-        <?= $form->render('Sign Up') ?>
+<p><?= $form->label('confirmPassword') ?></p>
+<p>
+    <?= $form->render('confirmPassword') ?>
+    <?= $form->messages('confirmPassword') ?>
+</p>
 
+<p>
+    <?= $form->render('terms') ?> <?= $form->label('terms') ?>
+    <?= $form->messages('terms') ?>
+</p>
 
+<p><?= $form->render('Sign Up') ?></p>
 
-    <?php } ?>
+<?= $form->render('csrf', ['value' => $this->security->getToken()]) ?>
+    <?= $form->messages('csrf') ?>
 
-</div>
+<hr>
 
-<?= $this->tag->endForm() ?>
+<?= $this->tag->endform() ?>

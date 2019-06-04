@@ -7,6 +7,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 use Staff\Forms\SignUpForm;
 use Staff\Forms\SignInForm;
+use Staff\Forms\SignUpUserForm;
 
 use Staff\Controllers\ControllerBase;
 use Staff\Services\UserService;
@@ -137,17 +138,18 @@ class UsersController extends ControllerBase
        /* $this->session->set('user-name', 'Michael');
         print_die($this->session->get('user-name'));*/
 
-        $form = new SignUpForm();
+        //$form = new SignUpForm();
+        $form = new SignUpUserForm();
 
         if(!$form->isValid($_POST)){
 
            // return "Эта форма не валидна";
 
-            $messages = $form->getMessages();
+            /*$messages = $form->getMessages();
 
             foreach ($messages as $message) {
                 $this->flash->error($message);
-            }
+            }*/
 
             //print_die($this->session->get());
 
@@ -337,7 +339,29 @@ class UsersController extends ControllerBase
 
     public function signUpAction()
     {
-        $form = new SignUpForm();
+        /*$form = new SignUpForm();
+        $this->view->form = $form;*/
+/*
+        $form = new SignUpUserForm();
+        $this->view->form = $form;*/
+
+        $form = new SignUpUserForm();
+        if ($this->request->isPost()) {
+            if ($form->isValid($this->request->getPost()) != false) {
+                $user = new Users([
+                    'name' => $this->request->getPost('name', 'striptags'),
+                    'email' => $this->request->getPost('email'),
+                    'password' => $this->security->hash($this->request->getPost('password'))
+                ]);
+                if ($user->save()) {
+                    return $this->dispatcher->forward([
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ]);
+                }
+                $this->flash->error($user->getMessages());
+            }
+        }
         $this->view->form = $form;
 
     }
