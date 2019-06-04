@@ -1,8 +1,10 @@
 <?php
 
+namespace Staff\Controllers;
 
+use Staff\Controllers\ControllerBase;
 
-class PostsController extends \Phalcon\Mvc\Controller
+class PostsController extends ControllerBase
 {
 
     public function indexAction()

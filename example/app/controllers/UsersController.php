@@ -1,18 +1,37 @@
 <?php
 
+namespace Staff\Controllers;
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+use Staff\Forms\SignUpForm;
+use Staff\Forms\SignInForm;
 
-class UsersController extends \Phalcon\Mvc\Controller
+use Staff\Controllers\ControllerBase;
+use Staff\Services\UserService;
+use Staff\Models\Users;
+
+
+class UsersController extends ControllerBase
 {
+
+    public function initialize()
+    {
+
+    }
+
     /**
      * Index action
      */
     public function indexAction()
     {
-        $this->persistent->parameters = null;
+
+       // $this->view->setTemplateBefore('main-public');
+       // $this->persistent->parameters = null;
+
+        //$form = new SignUpForm();
+       // $this->view->form = $form;
     }
 
     /**
@@ -115,65 +134,47 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function createAction()
     {
+       /* $this->session->set('user-name', 'Michael');
+        print_die($this->session->get('user-name'));*/
 
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "users",
                 'action' => 'index'
             ]);
-
             return;
         }
-
         $data = $this->request->get();
         $data['password'] = $this->security->hash( $data['password']);
 
-        $user = new Users();
-        $user->registerUser($data);
+        $userService = new UserService();
+        $userSave    = $userService->registerUser($data);
 
-       // print_r($user->registerUser($data));
+        if (!$userSave) {
+            $messages = $userSave->getMessages();
+            foreach($messages as $message){
 
-        if (!$user->registerUser($data)) {
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
+               $this->flashSession->error($message);
+                //return $this->response->redirect('index');
+                $this->dispatcher->forward([
+                   'controller' => 'index',
+                    'action' => 'index'
+                ]);
             }
+        }else{
+            $this->flash->success("user is created");
+
+            $this->response->redirect('index');
+            return;
 
             /*$this->dispatcher->forward([
                 'controller' => "users",
-                'action' => 'new'
-            ]);*/
-            $this->response->redirect('');
-            return;
-        }else{
-            $this->flashSession->success('successful');
-            $this->response->redirect('');
-        }
-
-        /*$user = new Users();
-        $user->name = $this->request->getPost("name");
-        $user->email = $this->request->getPost("email", "email");
-        $user->password = $this->request->getPost("password");
-
-
-        if (!$user->save()) {
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'new'
+                'action' => 'index'
             ]);
-
-            return;
+            return;*/
         }
 
-        $this->flash->success("user was created successfully");
-
-        $this->dispatcher->forward([
-            'controller' => "users",
-            'action' => 'index'
-        ]);*/
+       // $this->view->disable();
     }
 
     /**
@@ -241,6 +242,12 @@ class UsersController extends \Phalcon\Mvc\Controller
     public function deleteAction($id)
     {
 
+        /*$users = Users::find();
+
+        foreach($users as $user){
+            $user->delete();
+        }*/
+
         $user = Users::findFirstByid($id);
         if (!$user) {
             $this->flash->error("user was not found");
@@ -273,6 +280,165 @@ class UsersController extends \Phalcon\Mvc\Controller
             'controller' => "users",
             'action' => "index"
         ]);
+    }
+
+    public function signInAction()
+    {
+        $form = new SignInForm();
+        $this->view->form = $form;
+
+    }
+
+    public function signUpAction()
+    {
+        $form = new SignUpForm();
+        $this->view->form = $form;
+
+    }
+
+    public function authAction()
+    {
+
+
+        //$data = $this->request->get();
+       // $user = Users::query()->where('email = $data[email]')->execute();
+        /*if($this->request()->isPost()){
+
+            $email    = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
+
+            $user = Users::find([
+                'email' =>  $data['email']
+            ]);
+
+            $user = Users::findFirst(
+                [
+                    "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
+                    'bind' => [
+                        'email'    => $email,
+                        'password' => sha1($password),
+                    ]
+                ]
+            );
+
+
+
+
+            print_die($user);
+        }*/
+       // $user = Users::findFirst($data['email']);
+
+
+        if ($this->request->isPost()) {
+            /*
+            $email    = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
+
+            $user = Users::findFirst(
+                [
+                    "email = :email: AND password = :password:",
+                    'bind' => [
+                        'email'    => $email,
+                        'password' => $password,
+                    ]
+                ]
+            );
+
+            print_die($user);*/
+
+            $email    = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
+
+            $user = Users::findFirstByEmail($email);
+
+          //  print_die($user->email);
+            if ($user) {
+                if ($this->security->checkHash($password, $user->password)) {
+                    // Пароль верный
+
+                    if($user->role == 'admin'){
+
+                        $this->session->set('auth',[
+                            'id'   => $user->id,
+                            'role' => $user->role,
+                            'name' => $user->name,
+                            'user' => $user->email
+                        ]);
+
+                        // $this->session->set('role','admin');
+                        $this->response->redirect('admin');
+                    }
+
+                    if($user->role == 'user'){
+
+                        $this->session->set('auth',[
+                            'id' => $user->id,
+                            'role' =>  $user->role,
+                            'name' =>  $user->name,
+                            'email' => $user->email
+                        ]);
+                        // $this->session->set('role', 'user');
+                        $this->response->redirect('profils');
+                    }
+
+                }
+            }
+
+            } else {
+                // Защита от атак по времени. Regardless of whether a user
+                // exists or not, the script will take roughly the same amount as
+                // it will always be computing a hash.
+
+                $this->security->hash(rand());
+                 return  $this->response->redirect('');
+            }
+
+
+
+            /* $data = $this->request->get();
+
+             $user = Users::findFirst($data['email']);
+             */
+
+
+            //print_die($user);
+
+           /* if($user){
+
+                if($user->role == 'admin'){
+
+                    $this->session->set('auth',[
+                        'id'   => $user->id,
+                        'role' => $user->role,
+                        'name' => $user->name,
+                        'user' => $user->email
+                    ]);
+
+                   // $this->session->set('role','admin');
+                    $this->response->redirect('');
+                }
+
+                if($user->role == 'user'){
+
+                    $this->session->set('auth',[
+                        'id' => $user->id,
+                       'role' =>  $user->role,
+                       'name' =>  $user->name,
+                       'email' => $user->email
+                    ]);
+                   // $this->session->set('role', 'user');
+                    $this->response->redirect('');
+                }
+
+            }
+        }else{
+
+          return  $this->response->redirect('');
+        }*/
+
+      //  print_die($user);
+
+
     }
 
 }

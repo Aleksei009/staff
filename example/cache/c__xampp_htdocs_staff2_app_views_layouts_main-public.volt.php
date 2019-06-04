@@ -88,18 +88,13 @@
                             <a href="#">Hide/Show</a>
                         </th>
 
-                        {% for user in users %}
+                        <?php foreach ($users as $user) { ?>
 
-                            <th scope="col">{{ user.name }}</th>
+                            <th scope="col"><?= $user->name ?></th>
 
-                        {% endfor %}
+                        <?php } ?>
 
-                       {# <?php foreach($users as $user){?>
-
-                        <th scope="col"> <?php echo $user->name ?></th>
-
-
-                        <?php }?>#}
+                       
                     </tr>
                     </thead>
                     <tbody>
@@ -146,26 +141,26 @@
 
     <div class="float-right-need" style="float: right;width: 300px">
         <h5>Register new User</h5>
-        {{ form('users/create', 'method': 'post') }}
+        <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
 
             <div class="form-group" style=" display: flex; flex-direction: column; ">
-                {% if (form) %}
+                <?php if (($form)) { ?>
 
-                    {{  form.render("name") }}
+                    <?= $form->render('name') ?>
 
-                    {{  form.render("email") }}
+                    <?= $form->render('email') ?>
 
-                    {{  form.render("password") }}
+                    <?= $form->render('password') ?>
 
                     <div>
-                        <label for="">запомнить меня {{  form.render("terms") }}</label>
+                        <label for="">запомнить меня <?= $form->render('terms') ?></label>
                     </div>
-                    {{ form.render('Sign Up') }}
+                    <?= $form->render('Sign Up') ?>
 
-                {% endif %}
+                <?php } ?>
             </div>
 
-        {{ end_form() }}
+        <?= $this->tag->endForm() ?>
     </div>
 </div>
 

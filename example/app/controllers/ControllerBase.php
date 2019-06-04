@@ -1,5 +1,6 @@
 <?php
 
+namespace Staff\Controllers;
 
 use Phalcon\Mvc\Controller;
 

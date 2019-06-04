@@ -1,6 +1,6 @@
 <?php
 
-namespace Prepare\Auth;
+namespace Staff\Library\Auth;
 
 
 use Phalcon\Mvc\User\Component;

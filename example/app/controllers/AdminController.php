@@ -1,5 +1,9 @@
 <?php
 
+namespace Staff\Controllers;
+
+use Staff\Controllers\ControllerBase;
+
 
 class AdminController extends  ControllerBase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Prepare\Controllers;
+namespace Staff\Controllers;
 
-use Prepare\Forms\LoginForm;
-use Prepare\Forms\SignUpForm;
-use Vokuro\Auth\Exception as AuthException;
-//use Vokuro\Models\Users;
+use Staff\Forms\LoginForm;
+use Staff\Forms\SignUpForm;
+use Staff\Auth\Exception as AuthException;
+use Staff\Models\Users;
 /**
  * Controller used handle non-authenticated session actions like login/logout, user signup, and forgotten passwords
  */

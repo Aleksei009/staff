@@ -6,8 +6,8 @@ use Phalcon\Validation\Validator\Email as EmailValidator;
 class Users extends \Phalcon\Mvc\Model
 {
 
-    const ROLE_USER_ADMIN = 1;
-    const ROLE_USER_GUEST = 0;
+    const ROLE_USER_ADMIN = 'admin';
+    const ROLE_USER_GUEST = 'user';
 
     /**
      *
@@ -37,6 +37,12 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
+    public $status;
+
+    /**
+     *
+     * @var string
+     */
     public $role;
 
     /**
@@ -61,33 +67,12 @@ class Users extends \Phalcon\Mvc\Model
         return $this->validate($validator);
     }
 
-    public function registerUser($data)
-    {
-
-        $save = self::save([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            //'password' => $this->security->hash($data['password']),
-            'password'  => $data['password'],
-            'role' => self::ROLE_USER_GUEST
-
-        ]);
-
-        return $save;
-    }
-
-    public function checkArticles()
-    {
-
-
-    }
-
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("phalcon");
+        $this->setSchema("staff");
         $this->setSource("users");
     }
 
@@ -123,6 +108,74 @@ class Users extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function registerAdmin($data)
+    {
+        $this->save([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password'  => $data['password'],
+            'role' => self::ROLE_USER_ADMIN
+        ]);
+
+        return $this;
+
+    }
+
+    public function registerGuest($data)
+    {
+        $this->save([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password'  => $data['password'],
+            'role' => self::ROLE_USER_GUEST
+        ]);
+        return $this;
+    }
+
+    static public function registerUser($data)
+    {
+        // $role = null;
+
+        if(self::TableHasUsers()){
+
+            $save = self::save([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password'  => $data['password'],
+                'role' => self::ROLE_USER_ADMIN
+            ]);
+
+
+        }else{
+            $save = self::save([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password'  => $data['password'],
+                'role' => self::ROLE_USER_GUEST
+            ]);
+        }
+
+        return $save;
+    }
+
+    static public function TableHasUsers()
+    {
+        $users = self::find();
+
+        if(count($users) == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function checkArticles()
+    {
+
+
+    }
+
     public function getRoles()
     {
         return [
@@ -134,5 +187,5 @@ class Users extends \Phalcon\Mvc\Model
     }
 
 
-}
 
+}

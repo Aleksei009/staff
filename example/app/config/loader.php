@@ -10,17 +10,18 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir
     ]
-)->register();
+);
 
 /**
  * We're a registering a set of directories taken from the configuration file
  */
 $loader->registerNamespaces([
-    'Prepare\Models'      => $config->application->modelsDir,
-    'Prepare\Controllers' => $config->application->controllersDir,
-    'Prepare\Forms'       => $config->application->formsDir,
-    'Prepare\Roles'       => $config->application->formsDir,
-    'Prepare'             => $config->application->libraryDir
+    'Staff\Models'      => $config->application->modelsDir,
+    'Staff\Controllers' => $config->application->controllersDir,
+    'Staff\Forms'       => $config->application->formsDir,
+    'Staff\Roles'       => $config->application->formsDir,
+    'Staff\Services'    => $config->application->servicesDir,
+    'Staff\Library'     => $config->application->libraryDir
 ]);
 $loader->register();
 

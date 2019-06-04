@@ -1,6 +1,6 @@
 <?php
 
-namespace Prepare\Forms;
+namespace Staff\Forms;
 
 use Phalcon\Forms\Form;
 
@@ -50,32 +50,29 @@ class SignUpForm extends Form
         $this->add($email);
 
         // Password
-        $password = new Password('password',
+        $password = new Text('password',
             [
                 'placeholder' => 'password',
                 'class' => 'form-control'
             ]
             );
-        $password->setLabel('Password');
+       // $password->setLabel('Password');
 
         $password->addValidators([
             new PresenceOf([
-                'message' => 'The password is required'
+                'message' => 'The password is required',
+
             ]),
             new StringLength([
                 'min' => 8,
                 'messageMinimum' => 'Password is too short. Minimum 8 characters'
-            ]),
-            new Confirmation([
-                'message' => 'Password doesn\'t match confirmation',
-                'with' => 'confirmPassword'
             ])
         ]);
         $this->add($password);
 
         // Remember
         $terms = new Check('terms', [
-            'value' => 'yes'
+            'value' => 'yes',
         ]);
         $terms->setLabel('Accept terms and conditions');
         $terms->addValidator(new Identical([

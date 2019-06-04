@@ -1,6 +1,6 @@
 <?php
 
- namespace Prepare\Roles;
+ namespace Staff\Roles;
 
 use Phalcon\Acl\RoleAware;
 

@@ -1,11 +1,15 @@
 <?php
 
+namespace Staff\Controllers;
 
-use Prepare\Models\EmailConfirmations;
-use Prepare\Models\ResetPasswords;
+use Staff\Models\EmailConfirmations;
+use Staff\Models\ResetPasswords;
+
+use Staff\Controllers\ControllerBase;
 
 
-class UserControlController extends \Phalcon\Mvc\Controller
+
+class UserControlController extends ControllerBase
 {
     public function initialize()
     {

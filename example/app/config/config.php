@@ -12,7 +12,7 @@ return new \Phalcon\Config([
         'host'        => 'localhost',
         'username'    => 'root',
         'password'    => '',
-        'dbname'      => 'phalcon',
+        'dbname'      => 'staff',
         'charset'     => 'utf8',
     ],
     'application' => [
@@ -21,6 +21,7 @@ return new \Phalcon\Config([
         'rolesDir'       => APP_PATH . '/roles/',
         'formsDir'       => APP_PATH . '/forms/',
         'modelsDir'      => APP_PATH . '/models/',
+        'servicesDir'    => APP_PATH . '/services/',
         'migrationsDir'  => APP_PATH . '/migrations/',
         'viewsDir'       => APP_PATH . '/views/',
         'pluginsDir'     => APP_PATH . '/plugins/',

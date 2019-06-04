@@ -1,15 +1,23 @@
 <?php
 
-use Prepare\Forms\UsersForm;
+namespace Staff\Controllers;
 
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Acl as Acl;
 use Phalcon\Acl\Role;
 use Phalcon\Acl\Resource;
-use Prepare\Roles\UserRole;
-use Prepare\Roles\ModelResource;
 
-use Prepare\Forms\SignUpForm;
+
+use Staff\Controllers\ControllerBase;
+use Staff\Roles\UserRole;
+use Staff\Roles\ModelResource;
+
+use Staff\Forms\SignUpForm;
+use Staff\Forms\UsersForm;
+use Staff\Forms\SignInForm;
+
+use Staff\Models\Users;
+use Staff\Models\Times;
 
 
 class IndexController extends ControllerBase
@@ -17,16 +25,52 @@ class IndexController extends ControllerBase
 
     public function initialize()
     {
-        $this->view->setTemplateBefore('main-public');
+
+        if(!$this->session->get('auth')){
+
+            $this->view->setTemplateBefore('main-public');
+
+        }else{
+
+            if($this->session->get('role') == 'admin'){
+
+                $this->view->setTemplateBefore('main-private-admin');
+            }
+
+            if($this->session->get('role') == 'user'){
+
+                $this->view->setTemplateBefore('main-private-user');
+            }
+
+        }
+
+        $this->view->setTemplateBefore('index');
+
     }
 
 
     public function indexAction()
     {
 
-        $users = Users::find();
+       /* if(!$this->session->get('auth')){
 
-        $data = null;
+            return $this->response->redirect('')
+        }*/
+
+       // $startSession = $session->set('name','Alseksei');
+
+
+        /*$this->session->set('auth',[
+            'role' => 'admin',
+            'name' => 'aleksei',
+            'email' => 'aleksei@mail.ru'
+        ]);
+
+        print_die($this->session->get('auth'));*/
+
+        /*$users = Users::find();
+
+        $data = null;*/
 
 
         //print_die($data);
@@ -36,7 +80,7 @@ class IndexController extends ControllerBase
                 Acl::DENY
         );
 
-        $roleAdmins = new Role('Administrators', 'Super-User role');
+        $roleAdmins = new Role('Administrators', 'Super-UserRepository role');
         $roleGuests = new Role('Guests');
 
         $acl->addRole($roleGuests);
@@ -78,9 +122,24 @@ class IndexController extends ControllerBase
 
 
          //$form = new UsersForm();
+
+        $users = Users::find([
+            'order' => 'id DESC'
+        ]);
+        $this->view->users = $users;
+
         $form = new SignUpForm();
         $this->view->form = $form;
 
+
+
+
+    }
+
+    public function signInAction()
+    {
+        $form = new SignInForm();
+        $this->view->form = $form;
 
     }
 

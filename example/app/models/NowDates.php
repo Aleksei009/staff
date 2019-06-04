@@ -1,6 +1,6 @@
 <?php
 
-class Articles extends \Phalcon\Mvc\Model
+class NowDates extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,27 +13,15 @@ class Articles extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $title;
-
-    /**
-     *
-     * @var string
-     */
-    public $desc;
-
-    /**
-     *
-     * @var string
-     */
-    public $text;
+    public $current_date;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("phalcon");
-        $this->setSource("articles");
+        $this->setSchema("staff");
+        $this->setSource("now_dates");
     }
 
     /**
@@ -43,14 +31,14 @@ class Articles extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'articles';
+        return 'now_dates';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Articles[]|Articles|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return NowDates[]|NowDates|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -61,7 +49,7 @@ class Articles extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Articles|\Phalcon\Mvc\Model\ResultInterface
+     * @return NowDates|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

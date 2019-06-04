@@ -1,11 +1,14 @@
 <?php
 
+namespace Staff\Controllers;
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+use Staff\Controllers\ControllerBase;
 
-class ArticlesController extends \Phalcon\Mvc\Controller
+
+class ArticlesController extends ControllerBase
 {
 
     public function initialize()
