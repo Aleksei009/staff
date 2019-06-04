@@ -1,5 +1,7 @@
 <?php
 
+namespace Staff\Models;
+
 class NowDates extends \Phalcon\Mvc\Model
 {
 

@@ -1,3 +1,5 @@
+{{ content() }}
+
 
 {{ form('users/auth', 'method': 'post')}}
 

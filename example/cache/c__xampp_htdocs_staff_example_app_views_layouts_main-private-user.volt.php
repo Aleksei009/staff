@@ -88,18 +88,13 @@
                             <a href="#">Hide/Show</a>
                         </th>
 
-                        {% for user in users %}
+                        <?php foreach ($users as $user) { ?>
 
-                            <th scope="col">{{ user.name }}</th>
+                            <th scope="col"><?= $user->name ?></th>
 
-                        {% endfor %}
+                        <?php } ?>
 
-                        {# <?php foreach($users as $user){?>
-
-                         <th scope="col"> <?php echo $user->name ?></th>
-
-
-                         <?php }?>#}
+                        
                     </tr>
                     </thead>
                     <tbody>
@@ -145,29 +140,35 @@
 
 
     <div class="float-right-need" style="float: right;width: 300px">
-        <h5>Register new User</h5>
-        {{ form('users/create', 'method': 'post') }}
-
-        <div class="form-group" style=" display: flex; flex-direction: column; ">
-            {% if (form) %}
-
-                {{  form.render("name") }}
-
-                {{  form.render("email") }}
-
-                {{  form.render("password") }}
-
-                {{ form.render('Sign Up') }}
-
-            {% endif %}
+        <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
+            <?= $this->tag->linkTo(['users/removeAuth', 'Logout']) ?>
         </div>
 
-        {{ end_form() }}
+        <h5>Register new User</h5>
+        <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
 
+        <div class="form-group" style=" display: flex; flex-direction: column; ">
+            <?php if (($form)) { ?>
+
+                <?= $form->render('name') ?>
+
+                <?= $form->render('email') ?>
+
+                <?= $form->render('password') ?>
+
+                <div>
+                    <label for="">запомнить меня <?= $form->render('terms') ?></label>
+                </div>
+                <?= $form->render('Sign Up') ?>
+
+            <?php } ?>
+        </div>
+
+        <?= $this->tag->endForm() ?>
     </div>
-    <div class="button">
-        {{ link_to('users/removeAuth', 'Search') }}
-    </div>
+
+
+
 </div>
 
 

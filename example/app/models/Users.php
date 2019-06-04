@@ -1,5 +1,7 @@
 <?php
 
+namespace Staff\Models;
+
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
@@ -133,7 +135,7 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
-    static public function registerUser($data)
+    /*static public function registerUser($data)
     {
         // $role = null;
 
@@ -157,9 +159,9 @@ class Users extends \Phalcon\Mvc\Model
         }
 
         return $save;
-    }
+    }*/
 
-    static public function TableHasUsers()
+    /*static public function TableHasUsers()
     {
         $users = self::find();
 
@@ -168,7 +170,7 @@ class Users extends \Phalcon\Mvc\Model
         }else{
             return false;
         }
-    }
+    }*/
 
     public function checkArticles()
     {

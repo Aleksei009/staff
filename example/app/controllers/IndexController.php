@@ -26,7 +26,7 @@ class IndexController extends ControllerBase
     public function initialize()
     {
 
-        if(!$this->session->get('auth')){
+        /*if($this->session->get('auth')){
 
             $this->view->setTemplateBefore('main-public');
 
@@ -44,13 +44,36 @@ class IndexController extends ControllerBase
 
         }
 
-        $this->view->setTemplateBefore('index');
+        $this->view->setTemplateBefore('index');*/
+
+
+        if($this->session->has('auth')){
+
+            if($this->session->get('auth')['role'] == 'admin'){
+
+                $this->view->setTemplateBefore('main-private-admin');
+            }
+
+            if($this->session->get('auth')['role'] == 'user'){
+
+                $this->view->setTemplateBefore('main-private-user');
+            }
+
+        }else{
+
+            $this->view->setTemplateBefore('form-register');
+
+        }
 
     }
 
 
     public function indexAction()
     {
+
+      //  print_die($this->session->get('auth')['role'] == 'user');
+
+        //print_die($this->session->get('auth')['role']);
 
        /* if(!$this->session->get('auth')){
 
@@ -130,8 +153,6 @@ class IndexController extends ControllerBase
 
         $form = new SignUpForm();
         $this->view->form = $form;
-
-
 
 
     }

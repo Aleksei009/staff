@@ -1,5 +1,7 @@
 <?php
 
+namespace Staff\Models;
+
 class Times extends \Phalcon\Mvc\Model
 {
 

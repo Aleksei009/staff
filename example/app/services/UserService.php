@@ -22,7 +22,18 @@ class UserService extends MainService
             $user = $user->registerAdmin($data);
         }
 
-        return $user;
+        if (!$user){
+
+            throw new \Exception("Пользователь с такими данными уже зарегистрирован в системе");
+
+        }else{
+
+            return $user;
+        }
+
+
+
+
 
     }
 

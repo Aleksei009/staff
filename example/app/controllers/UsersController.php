@@ -137,18 +137,58 @@ class UsersController extends ControllerBase
        /* $this->session->set('user-name', 'Michael');
         print_die($this->session->get('user-name'));*/
 
-        if (!$this->request->isPost()) {
+        $form = new SignUpForm();
+
+        if(!$form->isValid($_POST)){
+
+           // return "Эта форма не валидна";
+
+            $messages = $form->getMessages();
+
+            foreach ($messages as $message) {
+                $this->flash->error($message);
+            }
+
+            //print_die($this->session->get());
+
+            return $this->dispatcher->forward(
+                [
+                    'action' => 'signUp',
+
+                ]
+            );
+        }
+
+        /*if ($this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "users",
                 'action' => 'index'
             ]);
-            return;
-        }
+
+        }*/
         $data = $this->request->get();
         $data['password'] = $this->security->hash( $data['password']);
 
         $userService = new UserService();
-        $userSave    = $userService->registerUser($data);
+
+        try {
+            $userService->registerUser($data);
+        } catch (\Exception $e) {
+
+            $this->flashSession->error('Пользователь с такими данными уже существует!');
+
+            $this->response->redirect('users/signUp');
+            return;
+          /*  $this->dispatcher->forward([
+                'controller' => "users",
+                'action' => 'signUp'
+            ]);*/
+
+        }
+
+        /*$userSave    = $userService->registerUser($data);
+
+        print_die($userSave);
 
         if (!$userSave) {
             $messages = $userSave->getMessages();
@@ -171,8 +211,8 @@ class UsersController extends ControllerBase
                 'controller' => "users",
                 'action' => 'index'
             ]);
-            return;*/
-        }
+            return;
+        }*/
 
        // $this->view->disable();
     }
@@ -287,6 +327,12 @@ class UsersController extends ControllerBase
         $form = new SignInForm();
         $this->view->form = $form;
 
+       // $this->response->redirect('index');
+
+        /*if($this->request->isPost()){
+            $this->response->redirect('index');
+        }*/
+
     }
 
     public function signUpAction()
@@ -299,6 +345,8 @@ class UsersController extends ControllerBase
     public function authAction()
     {
 
+
+           // print_die($this->request->get());
 
         //$data = $this->request->get();
        // $user = Users::query()->where('email = $data[email]')->execute();
@@ -329,7 +377,10 @@ class UsersController extends ControllerBase
        // $user = Users::findFirst($data['email']);
 
 
-        if ($this->request->isPost()) {
+
+       // print_die($this->request->isPost());
+
+        if (!$this->request->isPost()) {
             /*
             $email    = $this->request->getPost('email');
             $password = $this->request->getPost('password');
@@ -351,8 +402,11 @@ class UsersController extends ControllerBase
 
             $user = Users::findFirstByEmail($email);
 
+           // print_die($user);
+
           //  print_die($user->email);
             if ($user) {
+
                 if ($this->security->checkHash($password, $user->password)) {
                     // Пароль верный
 
@@ -366,7 +420,7 @@ class UsersController extends ControllerBase
                         ]);
 
                         // $this->session->set('role','admin');
-                        $this->response->redirect('admin');
+                       // $this->response->redirect('admin');
                     }
 
                     if($user->role == 'user'){
@@ -378,19 +432,30 @@ class UsersController extends ControllerBase
                             'email' => $user->email
                         ]);
                         // $this->session->set('role', 'user');
-                        $this->response->redirect('profils');
+                       // $this->response->redirect('profils');
                     }
+
+                    /*$this->dispatcher->forward([
+                        'controller' => "index",
+                        'action' => "index"
+                    ]);
+                    return;*/
+                    $this->response->redirect('index');
+                  //  return;
 
                 }
             }
 
             } else {
-                // Защита от атак по времени. Regardless of whether a user
-                // exists or not, the script will take roughly the same amount as
-                // it will always be computing a hash.
 
-                $this->security->hash(rand());
-                 return  $this->response->redirect('');
+                $this->flash->error('Неверный логин или пароль!');
+                $this->dispatcher->forward([
+                    'controller' => 'users',
+                    'action'  => 'signIn'
+                ]);
+
+
+
             }
 
 
@@ -438,6 +503,23 @@ class UsersController extends ControllerBase
 
       //  print_die($user);
 
+
+    }
+
+    public function removeAuthAction()
+    {
+        if($this->session->remove('auth')){
+
+            $this->dispatcher->forward([
+                'controller' => 'index',
+                'action' => 'index'
+            ]);
+            return;
+        }else{
+
+            $this->response->redirect('index');
+            return;
+        }
 
     }
 

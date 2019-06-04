@@ -1,8 +1,10 @@
 
 
-
+{{ content() }}
 
 {{ form('users/create','method': 'post') }}
+
+
 
 <div class="form-grope" style=" display: flex; flex-direction: column; ">
 
