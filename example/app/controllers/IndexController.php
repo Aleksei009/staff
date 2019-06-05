@@ -112,6 +112,10 @@ class IndexController extends ControllerBase
 
         $this->view->times = $times;
 
+        $users = Users::find();
+
+        $this->view->users = $users;
+
 
 
        // $t = date('d-m-Y');

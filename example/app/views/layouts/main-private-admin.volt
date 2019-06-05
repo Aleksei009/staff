@@ -240,30 +240,40 @@
                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
                            </th>
 
-
-                           <td>
-                               <div>
-                                   <label for="" disabled>Fullday</label>
-                                   <input type="checkbox" checked disabled>
-                                   <div class="time-start-finaly">
+                           {% for user  in users %}
+                               <td>
+                                   <div>
+                                       <label for="" disabled>Fullday</label>
+                                       <input type="checkbox" checked disabled>
                                        {% for time in times %}
-                                           {% if (item['year'] == time.current_date) %}
-                                               <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+                                           {% if user.id == time.user_id %}
+                                               {% if (item['year'] == time.current_date) %}
+                                               <div class="time-start-finaly">
+
+                                                   <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+
+                                                   {% else %}
+                                                       <div></div>
+                                               {% endif %}
                                            {% endif %}
 
                                        {% endfor %}
 
-                                       {{ link_to('index/setstart','Start') }}
-                                       {{ link_to('index/setend','End') }}
-                                       {# <span><button name="active" value="1">Start</button></span>
-                                        <span><button name="active" value="0">End</button></span>#}
+                                           {#{% if (time.user_id == auth['id']) %}
+
+                                           {% endif %}#}
+                                           {{ link_to('index/setstart','Start') }}
+                                           {{ link_to('index/setend','End') }}
+
+                                           {# <span><button name="active" value="1">Start</button></span>
+                                            <span><button name="active" value="0">End</button></span>#}
+                                       </div>
+
+                                       <div class="total">total: 07:53</div>
                                    </div>
-                                   <div class="total">total: 07:53</div>
-                               </div>
-                           </td>
-                           <td>Jacob</td>
-                           <td>Thornton</td>
-                           <td>@fat</td>
+                               </td>
+                           {% endfor %}
+
                        </tr>
                    {% endfor %}
                     {#{% for item  in currentWeks %}

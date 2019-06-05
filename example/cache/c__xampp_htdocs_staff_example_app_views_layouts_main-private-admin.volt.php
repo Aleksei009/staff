@@ -173,29 +173,37 @@
                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
                            </th>
 
-
-                           <td>
-                               <div>
-                                   <label for="" disabled>Fullday</label>
-                                   <input type="checkbox" checked disabled>
-                                   <div class="time-start-finaly">
+                           <?php foreach ($users as $user) { ?>
+                               <td>
+                                   <div>
+                                       <label for="" disabled>Fullday</label>
+                                       <input type="checkbox" checked disabled>
                                        <?php foreach ($times as $time) { ?>
-                                           <?php if (($item['year'] == $time->current_date)) { ?>
-                                               <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
-                                           <?php } ?>
+                                           <?php if ($user->id == $time->user_id) { ?>
+                                               <?php if (($item['year'] == $time->current_date)) { ?>
+                                               <div class="time-start-finaly">
 
+                                                   <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+
+                                                   <?php } else { ?>
+                                                       <div></div>
+                                               <?php } ?>
+                                           <?php } ?>
+                                       
                                        <?php } ?>
 
-                                       <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
-                                       <?= $this->tag->linkTo(['index/setend', 'End']) ?>
-                                       
+                                           
+                                           <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
+                                           <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+
+                                           
+                                       </div>
+
+                                       <div class="total">total: 07:53</div>
                                    </div>
-                                   <div class="total">total: 07:53</div>
-                               </div>
-                           </td>
-                           <td>Jacob</td>
-                           <td>Thornton</td>
-                           <td>@fat</td>
+                               </td>
+                           <?php } ?>
+
                        </tr>
                    <?php } ?>
                     
