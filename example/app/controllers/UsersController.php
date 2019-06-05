@@ -449,6 +449,9 @@ class UsersController extends ControllerBase
 
                         ]);
                     }
+
+                    $user->status = 1;
+                    $user->save();
                     $this->response->redirect('index');
                 }
             }else {
@@ -461,12 +464,25 @@ class UsersController extends ControllerBase
             }
 
         }
-
     }
-
     public function removeAuthAction()
     {
-        if($this->session->remove('auth')){
+
+        $user = Users::findFirst($this->session->get('auth')['id']);
+        $user->status = 0;
+
+        if($user->save()){
+            if($this->session->remove('auth')){
+                $this->dispatcher->forward([
+                    'controller' => 'index',
+                    'action' => 'index'
+                ]);
+                return;
+            }
+            return $this->response->redirect('index');
+        }
+
+        /*if($this->session->remove('auth')){
 
             $this->dispatcher->forward([
                 'controller' => 'index',
@@ -477,8 +493,7 @@ class UsersController extends ControllerBase
 
             $this->response->redirect('index');
             return;
-        }
-
+        }*/
     }
 
 }

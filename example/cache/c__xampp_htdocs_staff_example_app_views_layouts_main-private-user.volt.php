@@ -126,10 +126,24 @@
                             </th>
 
                             <?php foreach ($users as $user) { ?>
+                                <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                                    <td style="background: red;">
+                                <?php } else { ?>
+
+                                    <td>
+
+                                <?php } ?>
                                 <td>
                                     <div>
-                                        <label for="" disabled>Fullday</label>
-                                        <input type="checkbox" checked disabled>
+                                        <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                                            <label for="">Fullday</label>
+                                            <input type="checkbox" >
+                                        <?php } else { ?>
+
+                                            <label for="">Fullday</label>
+                                            <input type="checkbox" checked >
+
+                                        <?php } ?>
                                         <?php foreach ($times as $time) { ?>
 
                                         
