@@ -163,46 +163,34 @@
                     </tr>
                     </thead>
                     <tbody>
+                   
+
+                   <?php foreach ($users as $user) { ?>
+
+
+                   <?php } ?>
+                    <?php foreach ($currentWeks as $item) { ?>
                     <tr>
-
-                       
-
                         <th scope="row">
 
-                             <div class="day-now">1</div>
-                               <div class="week-now">Wednesday</div>
+                            <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
+                            <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
                         </th>
+
+
                         <td>
                             <div>
-
-                                
-
                                 <label for="" disabled>Fullday</label>
                                 <input type="checkbox" checked disabled>
                                 <div class="time-start-finaly">
                                     <span class="time-start">8:45 -</span>
 
-                                    <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
-                                    <?= $this->tag->linkTo(['index/setend', 'End']) ?>
                                    
+                                    
                                 </div>
                                 <div class="total">total:07:53</div>
-
                             </div>
                         </td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <?php foreach ($currentWeks as $item) { ?>
-                    <tr>
-
-                        <th scope="row">
-
-                            <div class="day-now"><?= $item['day'] ?></div>
-                            <div class="week-now"><?= $item['week'] ?></div>
-                        </th>
-
-                        <th scope="row">2</th>
                         <td>Jacob</td>
                         <td>Thornton</td>
                         <td>@fat</td>

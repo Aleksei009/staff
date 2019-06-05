@@ -185,11 +185,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                   {# <tr>
 
-                       {# {% for user in users %}
+                       #}{# {% for user in users %}
 
-                            #}{#<th scope="col">{{ user.name }}</th>#}{#
+                            #}{##}{#<th scope="col">{{ user.name }}</th>#}{##}{#
 
                             <th scope="row">
 
@@ -202,7 +202,7 @@
                                 </div>
                             </th>
 
-                        {% endfor %}#}
+                        {% endfor %}#}{#
 
                         <th scope="row">
 
@@ -221,8 +221,8 @@
 
                                     {{ link_to('index/setstart','Start') }}
                                     {{ link_to('index/setend','End') }}
-                                   {# <span><button name="active" value="1">Start</button></span>
-                                    <span><button name="active" value="0">End</button></span>#}
+                                   #}{# <span><button name="active" value="1">Start</button></span>
+                                    <span><button name="active" value="0">End</button></span>#}{#
                                 </div>
                                 <div class="total">total:07:53</div>
 
@@ -230,17 +230,32 @@
                         </td>
                         <td>Otto</td>
                         <td>@mdo</td>
-                    </tr>
+                    </tr>#}
+
                     {% for item  in currentWeks %}
                     <tr>
-
                         <th scope="row">
 
-                            <div class="day-now">{{ item['day'] }}</div>
-                            <div class="week-now">{{ item['week'] }}</div>
+                            <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
+                            <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
                         </th>
 
-                        <th scope="row">2</th>
+
+                        <td>
+                            <div>
+                                <label for="" disabled>Fullday</label>
+                                <input type="checkbox" checked disabled>
+                                <div class="time-start-finaly">
+                                    <span class="time-start">8:45 -</span>
+
+                                   {# {{ link_to('index/setstart','Start') }}
+                                    {{ link_to('index/setend','End') }}#}
+                                    {# <span><button name="active" value="1">Start</button></span>
+                                     <span><button name="active" value="0">End</button></span>#}
+                                </div>
+                                <div class="total">total:07:53</div>
+                            </div>
+                        </td>
                         <td>Jacob</td>
                         <td>Thornton</td>
                         <td>@fat</td>
