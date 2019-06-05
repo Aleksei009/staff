@@ -207,7 +207,7 @@
                             <div>
                                 {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
                                     <label for="">Fullday</label>
-                                    <input type="checkbox" >
+                                    <input type="checkbox" disabled>
                                 {% else %}
 
                                     <label for="">Fullday</label>
