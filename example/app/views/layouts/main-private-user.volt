@@ -190,6 +190,13 @@
                             </th>
 
                             {% for user  in users %}
+                                {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
+                                    <td style="background: red;">
+                                {% else %}
+
+                                    <td>
+
+                                {% endif %}
                                 <td>
                                     <div>
                                         {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}

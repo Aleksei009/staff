@@ -166,7 +166,13 @@
                    
 
                    <?php foreach ($currentWeks as $item) { ?>
-                       <tr>
+                       <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                           <tr style="background: #ffdf38;">
+                       <?php } else { ?>
+
+                           <tr style="background: #fbffef;">
+
+                       <?php } ?>
                            <th scope="row">
 
                                <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
@@ -177,7 +183,7 @@
 
                            <?php foreach ($users as $user) { ?>
 
-                               <td>
+                              <td>
                                    <div>
                                        <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
                                            <label for="">Fullday</label>

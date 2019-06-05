@@ -233,7 +233,13 @@
                     </tr>#}
 
                    {% for item  in currentWeks %}
-                       <tr>
+                       {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
+                           <tr style="background: #ffdf38;">
+                       {% else %}
+
+                           <tr style="background: #fbffef;">
+
+                       {% endif %}
                            <th scope="row">
 
                                <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
@@ -244,7 +250,7 @@
 
                            {% for user  in users %}
 
-                               <td>
+                              <td>
                                    <div>
                                        {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
                                            <label for="">Fullday</label>
