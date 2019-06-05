@@ -18,7 +18,11 @@ class SignUpUserForm extends Form
 {
     public function initialize($entity = null, $options = null)
     {
-        $name = new Text('name');
+        $name = new Text('name',
+            [
+                'placeholder' => 'name',
+                'class' => 'form-control'
+            ]);
         $name->setLabel('Name');
         $name->addValidators([
             new PresenceOf([
@@ -26,8 +30,13 @@ class SignUpUserForm extends Form
             ])
         ]);
         $this->add($name);
+
         // Email
-        $email = new Text('email');
+        $email = new Text('email',
+            [
+                'placeholder' => 'email',
+                'class' => 'form-control'
+            ]);
         $email->setLabel('E-Mail');
         $email->addValidators([
             new PresenceOf([
@@ -38,8 +47,12 @@ class SignUpUserForm extends Form
             ])
         ]);
         $this->add($email);
+
         // Password
-        $password = new Password('password');
+        $password = new Password('password',[
+            'placeholder' => 'password',
+            'class' => 'form-control'
+        ]);
         $password->setLabel('Password');
         $password->addValidators([
             new PresenceOf([
@@ -56,7 +69,10 @@ class SignUpUserForm extends Form
         ]);
         $this->add($password);
         // Confirm Password
-        $confirmPassword = new Password('confirmPassword');
+        $confirmPassword = new Password('confirmPassword',[
+            'placeholder' => 'confirmPassword',
+            'class' => 'form-control'
+        ]);
         $confirmPassword->setLabel('Confirm Password');
         $confirmPassword->addValidators([
             new PresenceOf([
@@ -64,16 +80,7 @@ class SignUpUserForm extends Form
             ])
         ]);
         $this->add($confirmPassword);
-        // Remember
-        $terms = new Check('terms', [
-            'value' => 'yes'
-        ]);
-        $terms->setLabel('Accept terms and conditions');
-        $terms->addValidator(new Identical([
-            'value' => 'yes',
-            'message' => 'Terms and conditions must be accepted'
-        ]));
-        $this->add($terms);
+
         // CSRF
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical([

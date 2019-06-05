@@ -8,6 +8,9 @@
 
             <?= $form->render('email') ?>
             <?= $form->render('password') ?>
+
+            <?= $form->render('csrf', ['value' => $this->security->getToken()]) ?>
+
             <?= $form->render('go') ?>
 
         <?php } ?>

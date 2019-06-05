@@ -1,8 +1,7 @@
 <?php
-
 namespace Staff\Models;
 
-class Times extends \Phalcon\Mvc\Model
+class Blogs extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -15,30 +14,7 @@ class Times extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $time_start;
-
-    /**
-     *
-     * @var string
-     */
-    public $time_end;
-
-    /**
-     *
-     * @var integer
-     */
-    public $current_date;
-
-    /**
-     *
-     * @var integer
-     */
-    public $user_id;
-    /**
-     *
-     * @var integer
-     */
-    public $active;
+    public $title;
 
     /**
      * Initialize method for model.
@@ -46,14 +22,7 @@ class Times extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("staff");
-        $this->setSource("times");
-
-        $this->belongsTo('user_id', 'Staff\Models\Users', 'id', [
-            'alias' => 'user',
-            'foreignKey' => array(
-                'action' => \Phalcon\Mvc\Model\Relation::ACTION_CASCADE
-            )
-        ]);
+        $this->setSource("blogs");
     }
 
     /**
@@ -63,14 +32,14 @@ class Times extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'times';
+        return 'blogs';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Times[]|Times|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Blogs[]|Blogs|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -81,7 +50,7 @@ class Times extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Times|\Phalcon\Mvc\Model\ResultInterface
+     * @return Blogs|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

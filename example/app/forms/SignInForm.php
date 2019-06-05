@@ -5,8 +5,10 @@ namespace Staff\Forms;
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Identical;
 
 
 class SignInForm extends Form
@@ -43,6 +45,15 @@ class SignInForm extends Form
         ]);
 
         $this->add($password);
+
+        // CSRF
+        $csrf = new Hidden('csrf');
+        $csrf->addValidator(new Identical([
+            'value' => $this->security->getSessionToken(),
+            'message' => 'CSRF validation failed'
+        ]));
+        $csrf->clear();
+        $this->add($csrf);
 
         $this->add(new Submit('go',[
             'class' => 'btn btn-success'

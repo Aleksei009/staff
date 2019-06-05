@@ -152,7 +152,7 @@
         <h5>Register new User</h5>
         {{ form('users/create', 'method': 'post') }}
 
-        <div class="form-group" style=" display: flex; flex-direction: column; ">
+        {#<div class="form-group" style=" display: flex; flex-direction: column; ">
             {% if (form) %}
 
                 {{  form.render("name") }}
@@ -166,7 +166,7 @@
             {% endif %}
         </div>
 
-        {{ end_form() }}
+        {{ end_form() }}#}
     </div>
 
 

@@ -4,6 +4,7 @@ namespace Staff\Models;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
+//use Staff\Models\Times;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -76,6 +77,20 @@ class Users extends \Phalcon\Mvc\Model
     {
         $this->setSchema("staff");
         $this->setSource("users");
+
+
+        $this->hasMany('id', 'Staff\Models\Times', 'user_id', [
+            'alias' => 'times',
+            'foreignKey' => [
+                'message' => 'User cannot be deleted because he/she has activity in the system'
+            ]
+        ]);
+
+        /*$this->hasMany(
+            'id',
+            'Times',
+            'user_id'
+        );*/
     }
 
     /**

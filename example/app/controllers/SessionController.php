@@ -5,7 +5,10 @@ namespace Staff\Controllers;
 use Staff\Forms\LoginForm;
 use Staff\Forms\SignUpForm;
 use Staff\Auth\Exception as AuthException;
+use Staff\Forms\SignUpUserForm;
 use Staff\Models\Users;
+
+use Staff\Services\UserService;
 /**
  * Controller used handle non-authenticated session actions like login/logout, user signup, and forgotten passwords
  */
@@ -26,7 +29,14 @@ class SessionController extends ControllerBase
      */
     public function signupAction()
     {
-        $form = new SignUpForm();
+
+       /* if($this->request->isPost()){
+            return $this->dispatcher->forward([
+               'controller' => 'index',
+               'action'  => 'index'
+            ]);
+        }*/
+       /* $form = new SignUpForm();
         if ($this->request->isPost()) {
             if ($form->isValid($this->request->getPost()) != false) {
                 $user = new Users([
@@ -44,7 +54,88 @@ class SessionController extends ControllerBase
                 $this->flash->error($user->getMessages());
             }
         }
-        $this->view->form = $form;
+        $this->view->form = $form;*/
+
+     /*  $form = new SignUpUserForm();
+       $data = $this->request->get();
+       $data['password'] = $this->security->hash( $data['password']);*/
+
+      // print_die($this->request->getPost());
+
+       /* if(!$form->isValid($_POST)){
+
+            return $this->dispatcher->forward(
+                [
+                    'action' => 'index',
+                ]
+            );
+        }*/
+
+
+          // print_die(!$form->isValid($this->request->getPost()));
+
+           /*$userService = new UserService();
+           $data = $this->request->get();
+            if($this->request->siPost()){
+                try{
+                    $userService->registerUser($data);
+
+                    return $this->dispatcher->forward([
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ]);
+
+                }catch (\Exception $e){
+
+                    $this->flashSession->error('Пользователь с такими данными уже существует!');
+
+                    $this->response->redirect('index');
+                    return;
+                }
+            }*/
+
+        $form = new SignUpUserForm();
+
+        if(!$form->isValid($_POST)){
+
+            return $this->dispatcher->forward(
+                [
+                    'controller' => 'index',
+                    'action' => 'index',
+                ]
+            );
+        }else{
+            $data = $this->request->get();
+            $data['password'] = $this->security->hash( $data['password']);
+
+            $userService = new UserService();
+
+            try {
+                $userService->registerUser($data);
+
+                if($userService){
+                   // $this->flash->success('Пользователь успешно создан!');
+                    return $this->dispatcher->forward([
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ]);
+                }
+            } catch (\Exception $e) {
+
+                $this->flashSession->error('Пользователь с такими данными уже существует!');
+
+               return $this->response->redirect('index/index');
+
+               /* return   $this->dispatcher->forward([
+                    'controller' => "index",
+                    'action' => 'index'
+                ]);*/
+
+
+            }
+        }
+
+       //$this->view->form = $form;
     }
     /**
      * Starts a session in the admin backend

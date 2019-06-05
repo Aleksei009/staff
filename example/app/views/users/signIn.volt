@@ -8,6 +8,9 @@
 
             {{ form.render("email") }}
             {{ form.render('password') }}
+
+            {{ form.render('csrf', ['value': security.getToken()]) }}
+
             {{ form.render("go") }}
 
         {% endif %}

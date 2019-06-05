@@ -25,34 +25,29 @@
     Sign Up
 </h2>
 
-<p>{{ form.label('name') }}</p>
-<p>
+{{ form.label('name') }}
+
     {{ form.render('name') }}
     {{ form.messages('name') }}
-</p>
 
-<p>{{ form.label('email') }}</p>
-<p>
+
+{{ form.label('email') }}
+
     {{ form.render('email') }}
     {{ form.messages('email') }}
-</p>
 
-<p>{{ form.label('password') }}</p>
-<p>
+
+{{ form.label('password') }}
+
     {{ form.render('password') }}
     {{ form.messages('password') }}
-</p>
 
-<p>{{ form.label('confirmPassword') }}</p>
-<p>
+
+{{ form.label('confirmPassword') }}
+
     {{ form.render('confirmPassword') }}
     {{ form.messages('confirmPassword') }}
-</p>
 
-<p>
-    {{ form.render('terms') }} {{ form.label('terms') }}
-    {{ form.messages('terms') }}
-</p>
 
 <p>{{ form.render('Sign Up') }}</p>
 

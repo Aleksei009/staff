@@ -153,10 +153,12 @@ class UsersController extends ControllerBase
 
             //print_die($this->session->get());
 
+
+           // return $this->response->redirect('users/signUp');
+
             return $this->dispatcher->forward(
                 [
                     'action' => 'signUp',
-
                 ]
             );
         }
@@ -326,6 +328,8 @@ class UsersController extends ControllerBase
 
     public function signInAction()
     {
+        //$form = new SignInForm();
+
         $form = new SignInForm();
         $this->view->form = $form;
 
@@ -369,7 +373,8 @@ class UsersController extends ControllerBase
     public function authAction()
     {
 
-
+       // print_die($this->request->get('auth'));
+       // print_die($this->request->get());
            // print_die($this->request->get());
 
         //$data = $this->request->get();
@@ -402,36 +407,19 @@ class UsersController extends ControllerBase
 
 
 
-       // print_die($this->request->isPost());
+      // print_die($this->request->get());
 
-        if (!$this->request->isPost()) {
-            /*
-            $email    = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
-
-            $user = Users::findFirst(
-                [
-                    "email = :email: AND password = :password:",
-                    'bind' => [
-                        'email'    => $email,
-                        'password' => $password,
-                    ]
-                ]
-            );
-
-            print_die($user);*/
+        if ($this->request->isPost()) {
 
             $email    = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
             $user = Users::findFirstByEmail($email);
 
-           // print_die($user);
-
-          //  print_die($user->email);
             if ($user) {
 
                 if ($this->security->checkHash($password, $user->password)) {
+
                     // Пароль верный
 
                     if($user->role == 'admin'){
@@ -440,7 +428,10 @@ class UsersController extends ControllerBase
                             'id'   => $user->id,
                             'role' => $user->role,
                             'name' => $user->name,
-                            'user' => $user->email
+                            'user' => $user->email,
+                            'csrf' => $this->request->get('csrf')
+
+
                         ]);
 
                         // $this->session->set('role','admin');
@@ -453,80 +444,23 @@ class UsersController extends ControllerBase
                             'id' => $user->id,
                             'role' =>  $user->role,
                             'name' =>  $user->name,
-                            'email' => $user->email
+                            'email' => $user->email,
+                            'csrf' => $this->request->get('csrf')
+
                         ]);
-                        // $this->session->set('role', 'user');
-                       // $this->response->redirect('profils');
                     }
-
-                    /*$this->dispatcher->forward([
-                        'controller' => "index",
-                        'action' => "index"
-                    ]);
-                    return;*/
                     $this->response->redirect('index');
-                  //  return;
-
                 }
-            }
-
-            } else {
-
+            }else {
+                //Пароль не верный или маил
                 $this->flash->error('Неверный логин или пароль!');
                 $this->dispatcher->forward([
                     'controller' => 'users',
                     'action'  => 'signIn'
                 ]);
-
-
-
             }
 
-
-
-            /* $data = $this->request->get();
-
-             $user = Users::findFirst($data['email']);
-             */
-
-
-            //print_die($user);
-
-           /* if($user){
-
-                if($user->role == 'admin'){
-
-                    $this->session->set('auth',[
-                        'id'   => $user->id,
-                        'role' => $user->role,
-                        'name' => $user->name,
-                        'user' => $user->email
-                    ]);
-
-                   // $this->session->set('role','admin');
-                    $this->response->redirect('');
-                }
-
-                if($user->role == 'user'){
-
-                    $this->session->set('auth',[
-                        'id' => $user->id,
-                       'role' =>  $user->role,
-                       'name' =>  $user->name,
-                       'email' => $user->email
-                    ]);
-                   // $this->session->set('role', 'user');
-                    $this->response->redirect('');
-                }
-
-            }
-        }else{
-
-          return  $this->response->redirect('');
-        }*/
-
-      //  print_die($user);
-
+        }
 
     }
 
