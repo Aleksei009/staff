@@ -131,18 +131,21 @@
                                         <label for="" disabled>Fullday</label>
                                         <input type="checkbox" checked disabled>
                                         <?php foreach ($times as $time) { ?>
-                                        <?php if ($user->id == $time->user_id) { ?>
-                                        <?php if (($item['year'] == $time->current_date)) { ?>
-                                        <div class="time-start-finaly">
+
+                                        
+
+                                            <?php if ($user->id == $time->user_id) { ?>
+                                                 <?php if (($item['year'] == $time->current_date)) { ?>
+                                            <div class="time-start-finaly">
 
                                             <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
 
-                                            <?php } else { ?>
+                                                    <?php } else { ?>
                                                 <div></div>
-                                            <?php } ?>
+                                                 <?php } ?>
                                             <?php } ?>
 
-                                            <?php } ?>
+                                        <?php } ?>
 
                                             
 
@@ -156,7 +159,7 @@
                                             
                                         </div>
 
-                                        <div class="total">total: 07:53</div>
+                                       
                                     </div>
                                 </td>
                             <?php } ?>

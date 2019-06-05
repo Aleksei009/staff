@@ -192,21 +192,36 @@
                             {% for user  in users %}
                                 <td>
                                     <div>
-                                        <label for="" disabled>Fullday</label>
-                                        <input type="checkbox" checked disabled>
+                                        {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
+                                            <label for="">Fullday</label>
+                                            <input type="checkbox" >
+                                        {% else %}
+
+                                            <label for="">Fullday</label>
+                                            <input type="checkbox" checked >
+
+                                        {% endif %}
                                         {% for time in times %}
-                                        {% if user.id == time.user_id %}
-                                        {% if (item['year'] == time.current_date) %}
-                                        <div class="time-start-finaly">
+
+                                        {#{% if (time.getUser().toArray['id'] == user.id) %}
+
+                                        {% else %}
+
+                                            <div></div>
+                                        {% endif %}#}
+
+                                            {% if user.id == time.user_id %}
+                                                 {% if (item['year'] == time.current_date) %}
+                                            <div class="time-start-finaly">
 
                                             <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
 
-                                            {% else %}
+                                                    {% else %}
                                                 <div></div>
-                                            {% endif %}
+                                                 {% endif %}
                                             {% endif %}
 
-                                            {% endfor %}
+                                        {% endfor %}
 
                                             {#{% if (time.user_id == auth['id']) %}
 
@@ -223,7 +238,7 @@
                                              <span><button name="active" value="0">End</button></span>#}
                                         </div>
 
-                                        <div class="total">total: 07:53</div>
+                                       {# <div class="total">total: 07:53</div>#}
                                     </div>
                                 </td>
                             {% endfor %}

@@ -173,12 +173,25 @@
                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
                            </th>
 
+
+
                            <?php foreach ($users as $user) { ?>
+
                                <td>
                                    <div>
-                                       <label for="" disabled>Fullday</label>
-                                       <input type="checkbox" checked disabled>
+                                       <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                                           <label for="">Fullday</label>
+                                           <input type="checkbox" >
+                                            <?php } else { ?>
+
+                                                <label for="">Fullday</label>
+                                                <input type="checkbox" checked >
+
+                                       <?php } ?>
+
+
                                        <?php foreach ($times as $time) { ?>
+
                                            <?php if ($user->id == $time->user_id) { ?>
                                                <?php if (($item['year'] == $time->current_date)) { ?>
                                                <div class="time-start-finaly">
@@ -193,13 +206,19 @@
                                        <?php } ?>
 
                                            
-                                           <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
-                                           <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+
+                                           <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
+                                               <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
+                                               <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+                                           <?php } else { ?>
+                                               <div></div>
+                                           <?php } ?>
+
 
                                            
                                        </div>
 
-                                       <div class="total">total: 07:53</div>
+                                     
                                    </div>
                                </td>
                            <?php } ?>

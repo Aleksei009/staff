@@ -77,6 +77,10 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+        //$time = Times::findFirst(9);
+
+       // print_die($time->getUser()->id == $this->session->get('auth')['id']);
+
        // print_die($this->session->get('auth')['id']);
 
        // print_die(date('Y:m:d', strtotime('2019-12-1')));
@@ -96,6 +100,8 @@ class IndexController extends ControllerBase
                 'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
                 ];
         }
+
+        //print_die($weeks_current_month[2]['week'] == 'Sunday');
 
         //$time = Times::findFirst(1);
       //  $year = $weeks_current_month[5]['year'];

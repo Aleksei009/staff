@@ -240,12 +240,25 @@
                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
                            </th>
 
+
+
                            {% for user  in users %}
+
                                <td>
                                    <div>
-                                       <label for="" disabled>Fullday</label>
-                                       <input type="checkbox" checked disabled>
+                                       {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
+                                           <label for="">Fullday</label>
+                                           <input type="checkbox" >
+                                            {% else %}
+
+                                                <label for="">Fullday</label>
+                                                <input type="checkbox" checked >
+
+                                       {% endif %}
+
+
                                        {% for time in times %}
+
                                            {% if user.id == time.user_id %}
                                                {% if (item['year'] == time.current_date) %}
                                                <div class="time-start-finaly">
@@ -275,7 +288,7 @@
                                             <span><button name="active" value="0">End</button></span>#}
                                        </div>
 
-                                       <div class="total">total: 07:53</div>
+                                     {#  <div class="total">total: 07:53</div>#}
                                    </div>
                                </td>
                            {% endfor %}
