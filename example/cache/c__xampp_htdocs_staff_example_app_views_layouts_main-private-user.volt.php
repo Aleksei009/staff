@@ -6,7 +6,10 @@
             <div class="users-late-your-inform clearfix">
                 <div class="left" style="float: left;">
                     <div class="infom" style="width: 400px;">
-                        <h2>My Hours Log</h2>
+                        <h1>My Hours Log</h1>
+                        <h2>You are: <?= $auth['role'] ?></h2>
+                        <h3>Your name: <?= $auth['name'] ?></h3>
+
 
                         <p>You have: 32:05</p>
                         <p>You have/Assigned: 18.23%</p>
@@ -78,7 +81,21 @@
                 </form>
             </div>
         </div>
+</div>
 
+
+<div class="float-right-need" style="float: right;width: 300px">
+    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
+        <?= $this->tag->linkTo(['users/removeAuth', 'Logout']) ?>
+    </div>
+
+    <h5>Register new User</h5>
+    <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
+
+    
+</div>
+
+    <div class="main-table-content">
         <div class="content">
             <div class="table">
                 <table class="table table-bordered">
@@ -98,73 +115,59 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">
-                            <div class="day-week" style="text-align: center">
-                                <div class="day-now">1</div>
-                                <div class="week-now">Wednesday</div>
-                            </div>
-                        </th>
-                        <td>
-                            <div>
-                                <label for="" disabled>Fullday</label>
-                                <input type="checkbox" checked disabled>
-                                <div class="time-start-finaly">
-                                    <span class="time-start">8:45 -</span>
-                                    <span><button name="active" value="1">Start</button></span>
-                                    <span><button name="active" value="0">End</button></span>
-                                </div>
-                                <div class="total">total:07:53</div>
+                    
 
-                            </div>
-                        </td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    <?php foreach ($currentWeks as $item) { ?>
+                        <tr>
+                            <th scope="row">
+
+                                <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
+                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
+                            </th>
+
+                            <?php foreach ($users as $user) { ?>
+                                <td>
+                                    <div>
+                                        <label for="" disabled>Fullday</label>
+                                        <input type="checkbox" checked disabled>
+                                        <?php foreach ($times as $time) { ?>
+                                        <?php if ($user->id == $time->user_id) { ?>
+                                        <?php if (($item['year'] == $time->current_date)) { ?>
+                                        <div class="time-start-finaly">
+
+                                            <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+
+                                            <?php } else { ?>
+                                                <div></div>
+                                            <?php } ?>
+                                            <?php } ?>
+
+                                            <?php } ?>
+
+                                            
+
+                                            <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
+                                                <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
+                                                <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+                                            <?php } else { ?>
+                                                <div></div>
+                                            <?php } ?>
+
+                                            
+                                        </div>
+
+                                        <div class="total">total: 07:53</div>
+                                    </div>
+                                </td>
+                            <?php } ?>
+
+                        </tr>
+                    <?php } ?>
+                    
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-
-
-    <div class="float-right-need" style="float: right;width: 300px">
-        <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
-            <?= $this->tag->linkTo(['users/removeAuth', 'Logout']) ?>
-        </div>
-
-        <h5>Register new User</h5>
-        <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
-
-        <div class="form-group" style=" display: flex; flex-direction: column; ">
-            <?php if (($form)) { ?>
-
-                <?= $form->render('name') ?>
-
-                <?= $form->render('email') ?>
-
-                <?= $form->render('password') ?>
-
-                <div>
-                    <label for="">запомнить меня <?= $form->render('terms') ?></label>
-                </div>
-                <?= $form->render('Sign Up') ?>
-
-            <?php } ?>
-        </div>
-
-        <?= $this->tag->endForm() ?>
     </div>
 
 

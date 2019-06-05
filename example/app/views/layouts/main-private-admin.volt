@@ -262,8 +262,14 @@
                                            {#{% if (time.user_id == auth['id']) %}
 
                                            {% endif %}#}
-                                           {{ link_to('index/setstart','Start') }}
-                                           {{ link_to('index/setend','End') }}
+
+                                           {% if (user.id === auth['id'] and item['year'] == time.current_date) %}
+                                               {{ link_to('index/setstart','Start') }}
+                                               {{ link_to('index/setend','End') }}
+                                           {% else %}
+                                               <div></div>
+                                           {% endif %}
+
 
                                            {# <span><button name="active" value="1">Start</button></span>
                                             <span><button name="active" value="0">End</button></span>#}

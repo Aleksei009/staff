@@ -6,7 +6,10 @@
             <div class="users-late-your-inform clearfix">
                 <div class="left" style="float: left;">
                     <div class="infom" style="width: 400px;">
-                        <h2>My Hours Log</h2>
+                        <h1>My Hours Log</h1>
+                        <h2>You are: {{ auth['role'] }}</h2>
+                        <h3>Your name: {{ auth['name'] }}</h3>
+
 
                         <p>You have: 32:05</p>
                         <p>You have/Assigned: 18.23%</p>
@@ -78,69 +81,6 @@
                 </form>
             </div>
         </div>
-
-        <div class="content">
-            <div class="table">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">
-                            <a href="#">Hide/Show</a>
-                        </th>
-
-                        {% for user in users %}
-
-                            <th scope="col">{{ user.name }}</th>
-
-                        {% endfor %}
-
-                        {# <?php foreach($users as $user){?>
-
-                         <th scope="col"> <?php echo $user->name ?></th>
-
-
-                         <?php }?>#}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">
-                            <div class="day-week" style="text-align: center">
-                                <div class="day-now">1</div>
-                                <div class="week-now">Wednesday</div>
-                            </div>
-                        </th>
-                        <td>
-                            <div>
-                                <label for="" disabled>Fullday</label>
-                                <input type="checkbox" checked disabled>
-                                <div class="time-start-finaly">
-                                    <span class="time-start">8:45 -</span>
-                                    <span><button name="active" value="1">Start</button></span>
-                                    <span><button name="active" value="0">End</button></span>
-                                </div>
-                                <div class="total">total:07:53</div>
-
-                            </div>
-                        </td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
-</table>
-</div>
-</div>
 </div>
 
 
@@ -168,6 +108,168 @@
 
     {{ end_form() }}#}
 </div>
+
+    <div class="main-table-content">
+        <div class="content">
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <a href="#">Hide/Show</a>
+                        </th>
+
+                        {% for user in users %}
+
+                            <th scope="col">{{ user.name }}</th>
+
+                        {% endfor %}
+
+                        {# <?php foreach($users as $user){?>
+
+                         <th scope="col"> <?php echo $user->name ?></th>
+
+
+                         <?php }?>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {# <tr>
+
+                        #}{# {% for user in users %}
+
+                             #}{##}{#<th scope="col">{{ user.name }}</th>#}{##}{#
+
+                             <th scope="row">
+
+
+
+                                 <div class="day-now"></div>
+                                 <div class="week-now">
+
+                                     {{ urrent_week }}
+                                 </div>
+                             </th>
+
+                         {% endfor %}#}{#
+
+                         <th scope="row">
+
+                              <div class="day-now">1</div>
+                                <div class="week-now">Wednesday</div>
+                         </th>
+                         <td>
+                             <div>
+
+
+
+                                 <label for="" disabled>Fullday</label>
+                                 <input type="checkbox" checked disabled>
+                                 <div class="time-start-finaly">
+                                     <span class="time-start">8:45 -</span>
+
+                                     {{ link_to('index/setstart','Start') }}
+                                     {{ link_to('index/setend','End') }}
+                                    #}{# <span><button name="active" value="1">Start</button></span>
+                                     <span><button name="active" value="0">End</button></span>#}{#
+                                 </div>
+                                 <div class="total">total:07:53</div>
+
+                             </div>
+                         </td>
+                         <td>Otto</td>
+                         <td>@mdo</td>
+                     </tr>#}
+
+                    {% for item  in currentWeks %}
+                        <tr>
+                            <th scope="row">
+
+                                <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
+                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
+                            </th>
+
+                            {% for user  in users %}
+                                <td>
+                                    <div>
+                                        <label for="" disabled>Fullday</label>
+                                        <input type="checkbox" checked disabled>
+                                        {% for time in times %}
+                                        {% if user.id == time.user_id %}
+                                        {% if (item['year'] == time.current_date) %}
+                                        <div class="time-start-finaly">
+
+                                            <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+
+                                            {% else %}
+                                                <div></div>
+                                            {% endif %}
+                                            {% endif %}
+
+                                            {% endfor %}
+
+                                            {#{% if (time.user_id == auth['id']) %}
+
+                                            {% endif %}#}
+
+                                            {% if (user.id === auth['id'] and item['year'] == time.current_date) %}
+                                                {{ link_to('index/setstart','Start') }}
+                                                {{ link_to('index/setend','End') }}
+                                            {% else %}
+                                                <div></div>
+                                            {% endif %}
+
+                                            {# <span><button name="active" value="1">Start</button></span>
+                                             <span><button name="active" value="0">End</button></span>#}
+                                        </div>
+
+                                        <div class="total">total: 07:53</div>
+                                    </div>
+                                </td>
+                            {% endfor %}
+
+                        </tr>
+                    {% endfor %}
+                    {#{% for item  in currentWeks %}
+
+                    <tr>
+                        <th scope="row">
+
+                            <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
+                            <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
+                        </th>
+
+
+                        <td>
+                            <div>
+                                <label for="" disabled>Fullday</label>
+                                <input type="checkbox" checked disabled>
+                                <div class="time-start-finaly">
+                                    <span class="time-start">8:45 -</span>
+
+                                    {{ link_to('index/setstart','Start') }}
+                                    {{ link_to('index/setend','End') }}
+                                    #}{# <span><button name="active" value="1">Start</button></span>
+                                     <span><button name="active" value="0">End</button></span>#}{#
+                                </div>
+                                <div class="total">total:07:53</div>
+                            </div>
+                        </td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    #}{#<tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                    </tr>#}{#
+                    {% endfor %}#}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
 

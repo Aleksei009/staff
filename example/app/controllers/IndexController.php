@@ -77,6 +77,8 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+       // print_die($this->session->get('auth')['id']);
+
        // print_die(date('Y:m:d', strtotime('2019-12-1')));
 
        // print_die();
