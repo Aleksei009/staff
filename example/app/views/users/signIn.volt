@@ -1,7 +1,8 @@
-{{ content() }}
+<div class="container">
+    {{ content() }}
 
 
-{{ form('users/auth', 'method': 'post')}}
+    {{ form('users/auth', 'method': 'post')}}
 
     <div class="form-grope" style=" display: flex; flex-direction: column; ">
         {% if (form) %}
@@ -16,6 +17,9 @@
         {% endif %}
     </div>
 
-{{ end_form() }}
+    {{ end_form() }}
+</div>
+
+
 
 

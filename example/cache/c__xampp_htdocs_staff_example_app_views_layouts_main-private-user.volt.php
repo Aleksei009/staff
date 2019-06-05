@@ -118,65 +118,68 @@
                     
 
                     <?php foreach ($currentWeks as $item) { ?>
-                        <tr>
-                            <th scope="row">
+                        <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                            <tr style="background: #ffdf38;">
+                        <?php } else { ?>
 
-                                <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
-                                <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
-                            </th>
+                            <tr style="background: #fbffef;">
 
-                            <?php foreach ($users as $user) { ?>
-                                <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
-                                    <td style="background: red;">
-                                <?php } else { ?>
+                        <?php } ?>
+                        <th scope="row">
 
-                                    <td>
+                            <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
+                            <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
+                        </th>
 
-                                <?php } ?>
-                                <td>
-                                    <div>
-                                        <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
-                                            <label for="">Fullday</label>
-                                            <input type="checkbox" >
+
+
+                        <?php foreach ($users as $user) { ?>
+
+                            <td>
+                                <div>
+                                    <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
+                                        <label for="">Fullday</label>
+                                        <input type="checkbox" >
+                                    <?php } else { ?>
+
+                                        <label for="">Fullday</label>
+                                        <input type="checkbox" checked >
+
+                                    <?php } ?>
+
+
+                                    <?php foreach ($times as $time) { ?>
+
+                                    <?php if ($user->id == $time->user_id) { ?>
+                                    <?php if (($item['year'] == $time->current_date)) { ?>
+                                    <div class="time-start-finaly">
+
+                                        <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+
                                         <?php } else { ?>
-
-                                            <label for="">Fullday</label>
-                                            <input type="checkbox" checked >
+                                            <div></div>
+                                        <?php } ?>
+                                        <?php } ?>
 
                                         <?php } ?>
-                                        <?php foreach ($times as $time) { ?>
 
                                         
 
-                                            <?php if ($user->id == $time->user_id) { ?>
-                                                 <?php if (($item['year'] == $time->current_date)) { ?>
-                                            <div class="time-start-finaly">
-
-                                            <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
-
-                                                    <?php } else { ?>
-                                                <div></div>
-                                                 <?php } ?>
-                                            <?php } ?>
-
+                                        <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
+                                            <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
+                                            <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+                                        <?php } else { ?>
+                                            <div></div>
                                         <?php } ?>
 
-                                            
 
-                                            <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
-                                                <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
-                                                <?= $this->tag->linkTo(['index/setend', 'End']) ?>
-                                            <?php } else { ?>
-                                                <div></div>
-                                            <?php } ?>
-
-                                            
-                                        </div>
-
-                                       
+                                        
                                     </div>
-                                </td>
-                            <?php } ?>
+
+                                    
+                                </div>
+                            </td>
+                        <?php } ?>
 
                         </tr>
                     <?php } ?>

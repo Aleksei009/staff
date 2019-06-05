@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <nav class="navbar navbar-expand-lg navbar navbar-light bg-light">
 
         {{ link_to('index/index','saff_all_users') }}
