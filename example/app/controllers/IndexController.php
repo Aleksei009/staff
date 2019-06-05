@@ -76,11 +76,65 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        //$t=date('d-m-Y');
+        //print_die($t);
+        //print_die(date("D"));
+
+        $dayofmonth = date('t');
+        $current_year = date("Y");
+        $current_mouth = date("m");
+
+
+       // print_die($dayofmonth);
+        $weeks_current_month = [];
+
+        for ($i = 1; $i <= $dayofmonth; $i++){
+
+            $weeks_current_month[$i]= [
+                'day' => $i,
+                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+                ];
+
+           // $weeks_current_month[$i] = date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i));
+        }
+
+        //print_die($weeks_current_month);
+
+        $this->view->currentWeks = $weeks_current_month;
+
+
+        $t = date('d-m-Y');
+        //print_die($t);
+        $urrent_week =  date("D", $t);
+
+        $this->view->urrent_week = $urrent_week;
+
+
+        // print_die(date('w'));
+
+
+
+        //$dayofweek = date('w', strtotime($date));
+        // $result    = date('Y-m-d', strtotime(($day - $dayofweek).' day', strtotime($date)));
+
+
+
+
+       // print_die($weeks_current_month);
+
+
+     //  print_die(date('l', strtotime('2019-10-14')));
+
+      //  print_die(date('l',3));
+
         $dayNowMouth = date('t');
 
         $day = '25';
         $month = date('m', time());
         $year = date('Y', time());
+
+
+      // print_die($dayNowMouth);
 
 
 

@@ -186,16 +186,28 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <th scope="row">
-                            <div class="day-week" style="text-align: center">
 
-                               {# {% for  in  %}
-                                    
-                                {% endfor %}#}
-                                
-                                <div class="day-now">1</div>
-                                <div class="week-now">Wednesday</div>
-                            </div>
+                       {# {% for user in users %}
+
+                            #}{#<th scope="col">{{ user.name }}</th>#}{#
+
+                            <th scope="row">
+
+
+
+                                <div class="day-now"></div>
+                                <div class="week-now">
+
+                                    {{ urrent_week }}
+                                </div>
+                            </th>
+
+                        {% endfor %}#}
+
+                        <th scope="row">
+
+                             <div class="day-now">1</div>
+                               <div class="week-now">Wednesday</div>
                         </th>
                         <td>
                             <div>
@@ -219,17 +231,26 @@
                         <td>Otto</td>
                         <td>@mdo</td>
                     </tr>
+                    {% for item  in currentWeks %}
                     <tr>
+
+                        <th scope="row">
+
+                            <div class="day-now">{{ item['day'] }}</div>
+                            <div class="week-now">{{ item['week'] }}</div>
+                        </th>
+
                         <th scope="row">2</th>
                         <td>Jacob</td>
                         <td>Thornton</td>
                         <td>@fat</td>
                     </tr>
-                    <tr>
+                    {#<tr>
                         <th scope="row">3</th>
                         <td colspan="2">Larry the Bird</td>
                         <td>@twitter</td>
-                    </tr>
+                    </tr>#}
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

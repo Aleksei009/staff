@@ -138,36 +138,36 @@
                         <td>@twitter</td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
-        </div>
+</table>
+</div>
+</div>
+</div>
+
+
+<div class="float-right-need" style="float: right;width: 300px">
+    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
+        {{ link_to('users/removeAuth', 'Logout') }}
     </div>
 
+    <h5>Register new User</h5>
+    {{ form('users/create', 'method': 'post') }}
 
-    <div class="float-right-need" style="float: right;width: 300px">
-        <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
-            {{ link_to('users/removeAuth', 'Logout') }}
-        </div>
+    {#<div class="form-group" style=" display: flex; flex-direction: column; ">
+        {% if (form) %}
 
-        <h5>Register new User</h5>
-        {{ form('users/create', 'method': 'post') }}
+            {{  form.render("name") }}
 
-        {#<div class="form-group" style=" display: flex; flex-direction: column; ">
-            {% if (form) %}
+            {{  form.render("email") }}
 
-                {{  form.render("name") }}
+            {{  form.render("password") }}
 
-                {{  form.render("email") }}
+            {{ form.render('Sign Up') }}
 
-                {{  form.render("password") }}
-
-                {{ form.render('Sign Up') }}
-
-            {% endif %}
-        </div>
-
-        {{ end_form() }}#}
+        {% endif %}
     </div>
+
+    {{ end_form() }}#}
+</div>
 
 
 
