@@ -76,69 +76,58 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        //$t=date('d-m-Y');
-        //print_die($t);
-        //print_die(date("D"));
 
+       // print_die(date('Y:m:d', strtotime('2019-12-1')));
+
+       // print_die();
         $dayofmonth = date('t');
         $current_year = date("Y");
         $current_mouth = date("m");
 
-
-       // print_die($dayofmonth);
         $weeks_current_month = [];
 
         for ($i = 1; $i <= $dayofmonth; $i++){
 
             $weeks_current_month[$i]= [
                 'day' => $i,
-                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
+                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
                 ];
-
-           // $weeks_current_month[$i] = date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i));
         }
 
-        //print_die($weeks_current_month);
+        //$time = Times::findFirst(1);
+      //  $year = $weeks_current_month[5]['year'];
+
+      // print_die($time->current_date);
+      // print_die($year);
+
+        //print_die($time->current_date == $year);
+
+
 
         $this->view->currentWeks = $weeks_current_month;
 
 
-        $t = date('d-m-Y');
-        //print_die($t);
-        $urrent_week =  date("D", $t);
+        $times = Times::find();
 
-        $this->view->urrent_week = $urrent_week;
-
-
-        // print_die(date('w'));
+        $this->view->times = $times;
 
 
 
-        //$dayofweek = date('w', strtotime($date));
-        // $result    = date('Y-m-d', strtotime(($day - $dayofweek).' day', strtotime($date)));
+       // $t = date('d-m-Y');
 
+       // $urrent_week =  date("D", $t);
+       //
+       // $this->view->urrent_week = $urrent_week;
 
-
-
-       // print_die($weeks_current_month);
-
-
-     //  print_die(date('l', strtotime('2019-10-14')));
-
-      //  print_die(date('l',3));
-
-        $dayNowMouth = date('t');
-
-        $day = '25';
-        $month = date('m', time());
-        $year = date('Y', time());
+        //$day = '25';
+        //$month = date('m', time());
+       // $year = date('Y', time());
 
 
       // print_die($dayNowMouth);
 
-
-
-        $day_of_week = strtotime($month.'/'.$day.'/'.$year);
+       // $day_of_week = strtotime($month.'/'.$day.'/'.$year);
 
        // print_die($day_of_week);
 
@@ -308,7 +297,7 @@ class IndexController extends ControllerBase
 
        // print_die($this->session->get('auth'));
 
-        $user = Users::findFirst($this->session->get('auth')['id']);
+       // $user = Users::findFirst($this->session->get('auth')['id']);
 
 
 
@@ -321,6 +310,8 @@ class IndexController extends ControllerBase
 
        ]);
 
+      // print_die($time);
+
       // $time->id = 1;
        /*$time->time_start = $today;
        $time->time_end = $today;
@@ -332,6 +323,8 @@ class IndexController extends ControllerBase
         //print_die($time->save());
 
        // $time->save());
+
+       // print_die($time->save());
        if($time->save()){
            return $this->response->redirect('index/index');
        }

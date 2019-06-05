@@ -165,38 +165,40 @@
                     <tbody>
                    
 
-                   <?php foreach ($users as $user) { ?>
+                   <?php foreach ($currentWeks as $item) { ?>
+                       <tr>
+                           <th scope="row">
+
+                               <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
+                               <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
+                           </th>
 
 
+                           <td>
+                               <div>
+                                   <label for="" disabled>Fullday</label>
+                                   <input type="checkbox" checked disabled>
+                                   <div class="time-start-finaly">
+                                       <?php foreach ($times as $time) { ?>
+                                           <?php if (($item['year'] == $time->current_date)) { ?>
+                                               <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+                                           <?php } ?>
+
+                                       <?php } ?>
+
+                                       <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
+                                       <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+                                       
+                                   </div>
+                                   <div class="total">total: 07:53</div>
+                               </div>
+                           </td>
+                           <td>Jacob</td>
+                           <td>Thornton</td>
+                           <td>@fat</td>
+                       </tr>
                    <?php } ?>
-                    <?php foreach ($currentWeks as $item) { ?>
-                    <tr>
-                        <th scope="row">
-
-                            <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
-                            <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
-                        </th>
-
-
-                        <td>
-                            <div>
-                                <label for="" disabled>Fullday</label>
-                                <input type="checkbox" checked disabled>
-                                <div class="time-start-finaly">
-                                    <span class="time-start">8:45 -</span>
-
-                                   
-                                    
-                                </div>
-                                <div class="total">total:07:53</div>
-                            </div>
-                        </td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
                     
-                    <?php } ?>
                     </tbody>
                 </table>
             </div>

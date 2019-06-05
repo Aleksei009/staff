@@ -232,7 +232,42 @@
                         <td>@mdo</td>
                     </tr>#}
 
-                    {% for item  in currentWeks %}
+                   {% for item  in currentWeks %}
+                       <tr>
+                           <th scope="row">
+
+                               <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
+                               <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
+                           </th>
+
+
+                           <td>
+                               <div>
+                                   <label for="" disabled>Fullday</label>
+                                   <input type="checkbox" checked disabled>
+                                   <div class="time-start-finaly">
+                                       {% for time in times %}
+                                           {% if (item['year'] == time.current_date) %}
+                                               <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+                                           {% endif %}
+
+                                       {% endfor %}
+
+                                       {{ link_to('index/setstart','Start') }}
+                                       {{ link_to('index/setend','End') }}
+                                       {# <span><button name="active" value="1">Start</button></span>
+                                        <span><button name="active" value="0">End</button></span>#}
+                                   </div>
+                                   <div class="total">total: 07:53</div>
+                               </div>
+                           </td>
+                           <td>Jacob</td>
+                           <td>Thornton</td>
+                           <td>@fat</td>
+                       </tr>
+                   {% endfor %}
+                    {#{% for item  in currentWeks %}
+
                     <tr>
                         <th scope="row">
 
@@ -248,10 +283,10 @@
                                 <div class="time-start-finaly">
                                     <span class="time-start">8:45 -</span>
 
-                                   {# {{ link_to('index/setstart','Start') }}
-                                    {{ link_to('index/setend','End') }}#}
-                                    {# <span><button name="active" value="1">Start</button></span>
-                                     <span><button name="active" value="0">End</button></span>#}
+                                    {{ link_to('index/setstart','Start') }}
+                                    {{ link_to('index/setend','End') }}
+                                    #}{# <span><button name="active" value="1">Start</button></span>
+                                     <span><button name="active" value="0">End</button></span>#}{#
                                 </div>
                                 <div class="total">total:07:53</div>
                             </div>
@@ -260,12 +295,12 @@
                         <td>Thornton</td>
                         <td>@fat</td>
                     </tr>
-                    {#<tr>
+                    #}{#<tr>
                         <th scope="row">3</th>
                         <td colspan="2">Larry the Bird</td>
                         <td>@twitter</td>
-                    </tr>#}
-                    {% endfor %}
+                    </tr>#}{#
+                    {% endfor %}#}
                     </tbody>
                 </table>
             </div>
