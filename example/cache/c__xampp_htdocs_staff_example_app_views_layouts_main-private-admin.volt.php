@@ -214,16 +214,22 @@
 
                                         <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
                                            <div class="my-start-stop">
-                                               <span class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></span>
-                                               <span class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></span>
+                                               <?php if ($time->time_end != null) { ?>
+                                                   <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
+                                                   <?php } else { ?>
+                                                       <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
+                                               <?php } ?>
+
                                            </div>
+                                            <?php if (($time->time_end != null)) { ?>
+                                                <div class="total">total: <?= $totalResultTime ?></div>
+                                            <?php } ?>
+
                                         <?php } else { ?>
                                             <div></div>
                                         <?php } ?>
 
                                     </div>
-
-                                    
                                 </div>
                             </td>
                         <?php } ?>

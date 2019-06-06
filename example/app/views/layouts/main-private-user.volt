@@ -151,6 +151,8 @@
                                 {% if user.id == time.user_id %}
                                 {% if (item['year'] == time.current_date) %}
 
+                                <div class="time-start-finaly">
+
                                     <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
 
                                     {% else %}
@@ -161,15 +163,25 @@
                                     {% endfor %}
 
                                     {% if (user.id === auth['id'] and item['year'] == time.current_date) %}
-                                        {{ link_to('index/setstart','Start') }}
-                                        {{ link_to('index/setend','End') }}
+                                        <div class="my-start-stop">
+                                            {% if time.time_end != null %}
+                                                <button class="str active">{{ link_to('index/setstart','Start') }}</button>
+                                            {% else %}
+                                                <button class="end">{{ link_to('index/setend','End') }}</button>
+                                            {% endif %}
+
+                                        </div>
+                                        {% if (time.time_end != null) %}
+                                            <div class="total">total: {{ totalResultTime }}</div>
+                                        {% endif %}
+
                                     {% else %}
                                         <div></div>
                                     {% endif %}
 
                                 </div>
 
-                                {#  <div class="total">total: 07:53</div>#}
+                                  {#<div class="total">total: {{ totalResultTime }}</div>#}
                             </div>
                         </td>
                     {% endfor %}

@@ -55,6 +55,32 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        $user = Users::findFirst($this->session->get('auth')['id']);
+        $times = $user->getTimes();
+        $resulTime = strtotime("03:00:00");
+        $result = null;
+        foreach ($times as $time){
+
+            $result += strtotime($time->time_end) - strtotime($time->time_start);
+
+           /* if ($time->time_end == null){
+                return false;
+            }else{
+                $result += strtotime($time->time_end) - strtotime($time->time_start);
+            }*/
+        }
+
+        $this->view->totalResultTime = date('H:i:s',$result - $resulTime);
+
+       // print_die(date('H:i:s',$result - $resulTime));
+
+      //  print_die(date("H:i:s", $timeEnd-$timeStr));
+
+
+
+        /*$th2 = strtotime("22:42:00");
+        $th3 = strtotime("01:00:20");
+        print_die(date("H:i:s", $th2-$th3));*/
 
       /*  $time = Times::findFirst(83);
 
@@ -211,10 +237,10 @@ class IndexController extends ControllerBase
             foreach ($times as $time){
 
                 if($time->current_date == $current_date && $time->user_id == $user->id && $timeS < 9){
-                    $i_am_late = 0;
+                    $i_am_late = 1;
 
                 }else{
-                    $i_am_late = 1;
+                    $i_am_late = 0;
                 }
             }
         }else{
