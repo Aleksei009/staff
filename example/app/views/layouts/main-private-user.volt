@@ -86,28 +86,10 @@
 
 
         <div class="float-right-need" style="float: right;width: 300px">
+            <h5>You can only logOut</h5>
             <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
                 {{ link_to('users/removeAuth', 'Logout') }}
             </div>
-
-            <h5>Register new User</h5>
-            {{ form('users/create', 'method': 'post') }}
-
-            {#<div class="form-group" style=" display: flex; flex-direction: column; ">
-                {% if (form) %}
-
-                    {{  form.render("name") }}
-
-                    {{  form.render("email") }}
-
-                    {{  form.render("password") }}
-
-                    {{ form.render('Sign Up') }}
-
-                {% endif %}
-            </div>
-
-            {{ end_form() }}#}
         </div>
     </div>
 </div>
@@ -129,61 +111,9 @@
 
                     {% endfor %}
 
-                    {# <?php foreach($users as $user){?>
-
-                     <th scope="col"> <?php echo $user->name ?></th>
-
-
-                     <?php }?>#}
                 </tr>
                 </thead>
                 <tbody>
-                {# <tr>
-
-                    #}{# {% for user in users %}
-
-                         #}{##}{#<th scope="col">{{ user.name }}</th>#}{##}{#
-
-                         <th scope="row">
-
-
-
-                             <div class="day-now"></div>
-                             <div class="week-now">
-
-                                 {{ urrent_week }}
-                             </div>
-                         </th>
-
-                     {% endfor %}#}{#
-
-                     <th scope="row">
-
-                          <div class="day-now">1</div>
-                            <div class="week-now">Wednesday</div>
-                     </th>
-                     <td>
-                         <div>
-
-
-
-                             <label for="" disabled>Fullday</label>
-                             <input type="checkbox" checked disabled>
-                             <div class="time-start-finaly">
-                                 <span class="time-start">8:45 -</span>
-
-                                 {{ link_to('index/setstart','Start') }}
-                                 {{ link_to('index/setend','End') }}
-                                #}{# <span><button name="active" value="1">Start</button></span>
-                                 <span><button name="active" value="0">End</button></span>#}{#
-                             </div>
-                             <div class="total">total:07:53</div>
-
-                         </div>
-                     </td>
-                     <td>Otto</td>
-                     <td>@mdo</td>
-                 </tr>#}
 
                 {% for item  in currentWeks %}
                     {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
@@ -231,10 +161,6 @@
 
                                     {% endfor %}
 
-                                    {#{% if (time.user_id == auth['id']) %}
-
-                                    {% endif %}#}
-
                                     {% if (user.id === auth['id'] and item['year'] == time.current_date) %}
                                         {{ link_to('index/setstart','Start') }}
                                         {{ link_to('index/setend','End') }}
@@ -242,9 +168,6 @@
                                         <div></div>
                                     {% endif %}
 
-
-                                    {# <span><button name="active" value="1">Start</button></span>
-                                     <span><button name="active" value="0">End</button></span>#}
                                 </div>
 
                                 {#  <div class="total">total: 07:53</div>#}
@@ -254,41 +177,6 @@
 
                     </tr>
                 {% endfor %}
-                {#{% for item  in currentWeks %}
-
-                <tr>
-                    <th scope="row">
-
-                        <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
-                        <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
-                    </th>
-
-
-                    <td>
-                        <div>
-                            <label for="" disabled>Fullday</label>
-                            <input type="checkbox" checked disabled>
-                            <div class="time-start-finaly">
-                                <span class="time-start">8:45 -</span>
-
-                                {{ link_to('index/setstart','Start') }}
-                                {{ link_to('index/setend','End') }}
-                                #}{# <span><button name="active" value="1">Start</button></span>
-                                 <span><button name="active" value="0">End</button></span>#}{#
-                            </div>
-                            <div class="total">total:07:53</div>
-                        </div>
-                    </td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                #}{#<tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>#}{#
-                {% endfor %}#}
                 </tbody>
             </table>
         </div>

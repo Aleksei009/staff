@@ -28,11 +28,6 @@ class UsersController extends ControllerBase
     public function indexAction()
     {
 
-       // $this->view->setTemplateBefore('main-public');
-       // $this->persistent->parameters = null;
-
-        //$form = new SignUpForm();
-       // $this->view->form = $form;
     }
 
     /**
@@ -138,23 +133,10 @@ class UsersController extends ControllerBase
        /* $this->session->set('user-name', 'Michael');
         print_die($this->session->get('user-name'));*/
 
-        //$form = new SignUpForm();
+
         $form = new SignUpUserForm();
 
         if(!$form->isValid($_POST)){
-
-           // return "Эта форма не валидна";
-
-            /*$messages = $form->getMessages();
-
-            foreach ($messages as $message) {
-                $this->flash->error($message);
-            }*/
-
-            //print_die($this->session->get());
-
-
-           // return $this->response->redirect('users/signUp');
 
             return $this->dispatcher->forward(
                 [
@@ -163,13 +145,6 @@ class UsersController extends ControllerBase
             );
         }
 
-        /*if ($this->request->isPost()) {
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'index'
-            ]);
-
-        }*/
         $data = $this->request->get();
         $data['password'] = $this->security->hash( $data['password']);
 
@@ -183,42 +158,9 @@ class UsersController extends ControllerBase
 
             $this->response->redirect('users/signUp');
             return;
-          /*  $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'signUp'
-            ]);*/
 
         }
 
-        /*$userSave    = $userService->registerUser($data);
-
-        print_die($userSave);
-
-        if (!$userSave) {
-            $messages = $userSave->getMessages();
-            foreach($messages as $message){
-
-               $this->flashSession->error($message);
-                //return $this->response->redirect('index');
-                $this->dispatcher->forward([
-                   'controller' => 'index',
-                    'action' => 'index'
-                ]);
-            }
-        }else{
-            $this->flash->success("user is created");
-
-            $this->response->redirect('index');
-            return;
-
-            /*$this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'index'
-            ]);
-            return;
-        }*/
-
-       // $this->view->disable();
     }
 
     /**
@@ -286,11 +228,6 @@ class UsersController extends ControllerBase
     public function deleteAction($id)
     {
 
-        /*$users = Users::find();
-
-        foreach($users as $user){
-            $user->delete();
-        }*/
 
         $user = Users::findFirstByid($id);
         if (!$user) {
@@ -328,26 +265,14 @@ class UsersController extends ControllerBase
 
     public function signInAction()
     {
-        //$form = new SignInForm();
 
         $form = new SignInForm();
         $this->view->form = $form;
-
-       // $this->response->redirect('index');
-
-        /*if($this->request->isPost()){
-            $this->response->redirect('index');
-        }*/
 
     }
 
     public function signUpAction()
     {
-        /*$form = new SignUpForm();
-        $this->view->form = $form;*/
-/*
-        $form = new SignUpUserForm();
-        $this->view->form = $form;*/
 
         $form = new SignUpUserForm();
         if ($this->request->isPost()) {
@@ -373,41 +298,6 @@ class UsersController extends ControllerBase
     public function authAction()
     {
 
-       // print_die($this->request->get('auth'));
-       // print_die($this->request->get());
-           // print_die($this->request->get());
-
-        //$data = $this->request->get();
-       // $user = Users::query()->where('email = $data[email]')->execute();
-        /*if($this->request()->isPost()){
-
-            $email    = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
-
-            $user = Users::find([
-                'email' =>  $data['email']
-            ]);
-
-            $user = Users::findFirst(
-                [
-                    "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
-                    'bind' => [
-                        'email'    => $email,
-                        'password' => sha1($password),
-                    ]
-                ]
-            );
-
-
-
-
-            print_die($user);
-        }*/
-       // $user = Users::findFirst($data['email']);
-
-
-
-      // print_die($this->request->get());
 
         if ($this->request->isPost()) {
 
@@ -434,8 +324,6 @@ class UsersController extends ControllerBase
 
                         ]);
 
-                        // $this->session->set('role','admin');
-                       // $this->response->redirect('admin');
                     }
 
                     if($user->role == 'user'){
@@ -481,19 +369,6 @@ class UsersController extends ControllerBase
             }
             return $this->response->redirect('index');
         }
-
-        /*if($this->session->remove('auth')){
-
-            $this->dispatcher->forward([
-                'controller' => 'index',
-                'action' => 'index'
-            ]);
-            return;
-        }else{
-
-            $this->response->redirect('index');
-            return;
-        }*/
     }
 
 }

@@ -91,7 +91,6 @@
                 </div>
             </div>
             <div class="float-right-need" style="float: right;width: 300px">
-                
 
                 <div class="form-group">
                     <h4>
@@ -163,12 +162,9 @@
 
                         <?php } ?>
 
-                        
                     </tr>
                     </thead>
                     <tbody>
-                    
-
                     <?php foreach ($currentWeks as $item) { ?>
                         <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
                             <tr style="background: #ffdf38;">
@@ -215,17 +211,16 @@
 
                                         <?php } ?>
 
-                                        
 
                                         <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
-                                            <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
-                                            <?= $this->tag->linkTo(['index/setend', 'End']) ?>
+                                           <div class="my-start-stop">
+                                               <span class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></span>
+                                               <span class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></span>
+                                           </div>
                                         <?php } else { ?>
                                             <div></div>
                                         <?php } ?>
 
-
-                                        
                                     </div>
 
                                     
@@ -235,7 +230,6 @@
 
                         </tr>
                     <?php } ?>
-                    
                     </tbody>
                 </table>
             </div>

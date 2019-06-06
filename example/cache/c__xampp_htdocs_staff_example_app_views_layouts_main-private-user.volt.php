@@ -86,14 +86,12 @@
 
 
         <div class="float-right-need" style="float: right;width: 300px">
+            <h5>You can only logOut</h5>
             <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
                 <?= $this->tag->linkTo(['users/removeAuth', 'Logout']) ?>
             </div>
 
-            <h5>Register new User</h5>
-            <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
-
-            
+           
         </div>
     </div>
 </div>

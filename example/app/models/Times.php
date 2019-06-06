@@ -34,11 +34,18 @@ class Times extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $user_id;
+
     /**
      *
      * @var integer
      */
     public $active;
+
+    /**
+     *
+     * @var integer
+     */
+    public $i_am_late;
 
     /**
      * Initialize method for model.

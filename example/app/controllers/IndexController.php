@@ -32,27 +32,6 @@ class IndexController extends ControllerBase
     public function initialize()
     {
 
-        /*if($this->session->get('auth')){
-
-            $this->view->setTemplateBefore('main-public');
-
-        }else{
-
-            if($this->session->get('role') == 'admin'){
-
-                $this->view->setTemplateBefore('main-private-admin');
-            }
-
-            if($this->session->get('role') == 'user'){
-
-                $this->view->setTemplateBefore('main-private-user');
-            }
-
-        }
-
-        $this->view->setTemplateBefore('index');*/
-
-
         if($this->session->has('auth')){
 
             if($this->session->get('auth')['role'] == 'admin'){
@@ -76,16 +55,8 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        //weeks_current_month
 
-        //$time = Times::findFirst(9);
-
-       // print_die($time->getUser()->id == $this->session->get('auth')['id']);
-
-       // print_die($this->session->get('auth')['id']);
-
-       // print_die(date('Y:m:d', strtotime('2019-12-1')));
-
-       // print_die();
         $dayofmonth = date('t');
         $current_year = date("Y");
         $current_mouth = date("m");
@@ -101,20 +72,7 @@ class IndexController extends ControllerBase
                 ];
         }
 
-        //print_die($weeks_current_month[2]['week'] == 'Sunday');
-
-        //$time = Times::findFirst(1);
-      //  $year = $weeks_current_month[5]['year'];
-
-      // print_die($time->current_date);
-      // print_die($year);
-
-        //print_die($time->current_date == $year);
-
-
-
-        $this->view->currentWeks = $weeks_current_month;
-
+        //times
 
         $times = Times::find();
 
@@ -123,81 +81,17 @@ class IndexController extends ControllerBase
         $users = Users::find();
 
         $this->view->users = $users;
-
-
-
-       // $t = date('d-m-Y');
-
-       // $urrent_week =  date("D", $t);
-       //
-       // $this->view->urrent_week = $urrent_week;
-
-        //$day = '25';
-        //$month = date('m', time());
-       // $year = date('Y', time());
-
-
-      // print_die($dayNowMouth);
-
-       // $day_of_week = strtotime($month.'/'.$day.'/'.$year);
-
-       // print_die($day_of_week);
-
-       // print_die($this->session->get('auth'));
-       // print_die(date("H:i:s"));
-
-        //$times = Times::findFirst(1);
-
-       // print_die($times->getUser());
-
-
-        //print_die($times);
-
-        /*$user = Users::findFirst(125);
-
-        print_die($user->getTimes()->toArray());*/
-
-        //print_die($user->initialize());
-
-        // print_die($user);
+        $this->view->currentWeks = $weeks_current_month;
 
 
         if($this->session->has('auth')){
 
             $auth = $this->session->get('auth');
             $this->view->auth = $auth;
-            //print_die($auth);
 
         }
 
-       // print_die($this->session->get('auth'));
 
-      //  print_die($this->session->get('auth')['role'] == 'user');
-
-        //print_die($this->session->get('auth')['role']);
-
-       /* if(!$this->session->get('auth')){
-
-            return $this->response->redirect('')
-        }*/
-
-       // $startSession = $session->set('name','Alseksei');
-
-
-        /*$this->session->set('auth',[
-            'role' => 'admin',
-            'name' => 'aleksei',
-            'email' => 'aleksei@mail.ru'
-        ]);
-
-        print_die($this->session->get('auth'));*/
-
-        /*$users = Users::find();
-
-        $data = null;*/
-
-
-        //print_die($data);
 
         /*$acl = new AclList();
         $acl->setDefaultAction(
@@ -232,11 +126,11 @@ class IndexController extends ControllerBase
 
         $result = $acl->isAllowed('Guests', 'Articlesss', 'update');
 
-        print_die($result);*/
+        print_die($result);
 
-       // print_die($result);
+        print_die($result);
 
-       /* $acl->addResource(
+        $acl->addResource(
             $customersResource,
             [
                 'create',
@@ -250,40 +144,18 @@ class IndexController extends ControllerBase
         ]);
         $this->view->users = $users;
 
-
         $form = new SignUpUserForm();
-        /*if ($this->request->isPost()) {
-            if ($form->isValid($this->request->getPost()) != false) {
-                $user = new Users([
-                    'name' => $this->request->getPost('name', 'striptags'),
-                    'email' => $this->request->getPost('email'),
-                    'password' => $this->security->hash($this->request->getPost('password'))
-                ]);
-                /*if ($user->save()) {
-                    return $this->dispatcher->forward([
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ]);
-                }
-                $this->flash->error($user->getMessages());
-            }
-        }*/
-
-       /* if($form->isValid($this->request->getPost()) != false){
-
-
-        }*/
 
         $this->view->form = $form;
 
     }
 
-    public function signInAction()
+   /* public function signInAction()
     {
         $form = new SignInForm();
         $this->view->form = $form;
 
-    }
+    }*/
 
     public function savedateAction()
     {
@@ -293,24 +165,41 @@ class IndexController extends ControllerBase
     public function setstartAction()
     {
 
-       /* $blog = new Blogs();
-
-        $blog->save(['title' => 'main-title']);*/
-
-
-
-        //print_die(date("Y-m-d"));
-
         $current_date = date("Y-m-d");
-        $today = date("H:i");
+        $user = Users::findFirst($this->session->get('auth')['id']);
+
+
+        $times = $user->getTimes();
+
+
+        $today = date("H:i",strtotime("+4 hour"));
+
+        $i_am_late = null;
+
+        if($user->getTimes()->toArray() != false){
+            $timeS = Times::findFirst([
+                'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
+                'bind' => [
+                    'date' => date('Y-m-d'),
+                    'user_id' => $user->id
+                ]
+            ]);
+
+            foreach ($times as $time){
+
+                if($time->current_date == $current_date && $time->user_id == $user->id && $timeS < 9){
+                    $i_am_late = 0;
+
+                }else{
+                    $i_am_late = 1;
+                }
+            }
+        }else{
+            $i_am_late = ($today < 9) ? 0 : 1;
+        }
+
+
         $dateNull = null;
-
-       // print_die($today);
-
-       // print_die($this->session->get('auth'));
-
-       // $user = Users::findFirst($this->session->get('auth')['id']);
-
 
 
        $time = new Times([
@@ -318,50 +207,73 @@ class IndexController extends ControllerBase
            'time_end' => $dateNull,
            'current_date' => $current_date,
            'user_id' => $this->session->get('auth')['id'],
-           'active' => 1
+           'active' => 1,
+           'i_am_late' => $i_am_late
 
        ]);
-
-      // print_die($time);
-
-      // $time->id = 1;
-       /*$time->time_start = $today;
-       $time->time_end = $today;
-       $time->current_date = $current_date;*/
-       //$time->setUser(1);
-
-      // print_die($time);
-
-        //print_die($time->save());
-
-       // $time->save());
-
-       // print_die($time->save());
        if($time->save()){
            return $this->response->redirect('index/index');
        }
-
-      // print_die($time);
-
-
-       // return $this->response->redirect('index/index');
     }
 
     public function setendAction()
     {
 
-        $user = $this->session->get('auth');
-        $today = date("H:i");
-        //print_die($user);
-       // $time = Times::findFirst(7);
+
+        /* $date = new DateTime();
+            $date->setTimezone(new DateTimeZone('UTC'));
+            $date->setTimestamp(1297869844);
+            $date->setTimezone(new DateTimeZone('Asia/Krasnoyarsk'));
+
+            echo $date->format('d-m-y h:i:s');*/
+
+        /*if($this->request->isGet()){
+
+            $date = date('Y-m-d');
+            $userAuth = $this->session->get('auth');
+            $user = Users::findFirst($userAuth['id']);
+
+            $result_time = '00:00:00';
+
+            $time_start = '00:00:00';
+            $time_end = '00:00:00';
+
+            foreach ($user->getTimes() as $time){
+
+               // print_die(date("H:i:s",$time->time_start));
+
+                $time_start = date("H:i:s",$time->time_start);
+
+                $time_end   = $time->time_end;
+
+                print_die($time_start);
+
+                if($time->current_date == $date){
+
+
+
+                   // print_die($time->time_start);
+                    $result_time += (date("H:i:s", $time->time_start) + date("H:i:s", $time->time_end));
+                }
+
+            }
+
+            $date = '00:00:00';
+            $currentDate = strtotime($date);
+            $futureDate = $currentDate+($result_time);
+
+            $formatDate = date("H:i:s", $futureDate);
+
+           print_die($formatDate);
+
+        }*/
+
+        /*$time = Times::findFirst(1);
+
+        print_die();*/
+
+        $today = date("H:i",strtotime("+4 hour"));
         $times = Times::find();
-
-        //$time->time_end = $today;
-
-      //  print_die($time->save());
-
-       // print_die($times->toArray());
-
 
         foreach ($times as $time){
 
@@ -375,23 +287,11 @@ class IndexController extends ControllerBase
 
            }
 
-           // print_die($time->user_id);
-            //print_die($user['id']);
-
-          //  print_die($time->user_id == $user['id']);
-
-           /* if($time->user_id == $user['id']){
-
-                if($time->time_end == null && $time->active == 1)
-
-                    $time->time_end = $today;
-                    print_die($time->update());
-
-            }
-
-
-           print_die($time->getUser());*/
         }
+
+       // print_die($formatDate);
+
+
 
     }
 
