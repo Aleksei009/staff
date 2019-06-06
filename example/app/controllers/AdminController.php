@@ -17,6 +17,5 @@ class AdminController extends  ControllerBase
     {
 
     }
-
 }
 

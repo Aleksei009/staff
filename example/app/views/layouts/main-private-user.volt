@@ -150,7 +150,6 @@
 
                                 {% if user.id == time.user_id %}
                                 {% if (item['year'] == time.current_date) %}
-                                <div class="time-start-finaly">
 
                                     <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
 

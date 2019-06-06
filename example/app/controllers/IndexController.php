@@ -55,7 +55,15 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        //weeks_current_month
+
+      /*  $time = Times::findFirst(83);
+
+        $timeEnd = strtotime($time->time_end);
+        $timeStr = strtotime($time->time_start);
+
+
+        print_die(date('H:i:s',strtotime($timeEnd - $timeStr)));*/
+
 
         $dayofmonth = date('t');
         $current_year = date("Y");
@@ -75,6 +83,31 @@ class IndexController extends ControllerBase
         //times
 
         $times = Times::find();
+
+      /* // print_die($times->toArray());
+        $totalTime = null;
+        $currentTime = null;
+        foreach ($times as $time){
+
+           // print_die($time->user_id  == $this->session->get('auth')['id']);
+
+            if($time->user_id == $this->session->get('auth')['id']){
+
+                $timeStr = strtotime(date($time->time_start));
+                $timeEnd = strtotime(date($time->time_end));
+
+                print_die(date('H:i:s',$timeStr-$timeEnd));
+
+                $currentTime += $timeStr + $timeEnd;
+
+            }
+        }
+
+       // print_die($currentTime);
+
+        $totalTime = date('H:i:s',$currentTime);
+        //print_die($totalTime);
+        $this->view->totalTimeAuthUser = $totalTime;*/
 
         $this->view->times = $times;
 
@@ -148,17 +181,7 @@ class IndexController extends ControllerBase
 
         $this->view->form = $form;
 
-    }
 
-   /* public function signInAction()
-    {
-        $form = new SignInForm();
-        $this->view->form = $form;
-
-    }*/
-
-    public function savedateAction()
-    {
 
     }
 
@@ -268,12 +291,24 @@ class IndexController extends ControllerBase
 
         }*/
 
-        /*$time = Times::findFirst(1);
 
-        print_die();*/
+     /* //  $th2 = strtotime(date('Y-m-d')."04:00");
+      //  $th3 = strtotime(date('Y-m-d')."04:00");
+
+       // print_die($th2);
+       // print_r(date("h-i", $th2+$th3));
+
+       $sesult = $tStart += 5;
+
+        print_die(date('H:i:s', strtotime('+5 minutes', strtotime('08:29:49'))));
+        print_die($tStart);
+
+        //print_die(date("H:i:s ",strtotime("+".$time->time_start)));
+     */
 
         $today = date("H:i",strtotime("+4 hour"));
-        $times = Times::find();
+        $user = Users::findFirst( $this->session->get('auth')['id']);
+        $times = $user->getTimes();
 
         foreach ($times as $time){
 
@@ -288,10 +323,6 @@ class IndexController extends ControllerBase
            }
 
         }
-
-       // print_die($formatDate);
-
-
 
     }
 

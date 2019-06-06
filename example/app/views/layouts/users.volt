@@ -1,5 +1,5 @@
-<div style="padding: 20px 0;" >
-    <div style="float: right; width: 320px;">
+<div style="padding: 20px 0; display: flex;justify-content: center;" >
+    <div style=" width: 320px;">
         {{ content() }}
     </div>
 

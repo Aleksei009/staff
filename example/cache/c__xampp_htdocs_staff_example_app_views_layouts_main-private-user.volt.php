@@ -90,8 +90,6 @@
             <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;">
                 <?= $this->tag->linkTo(['users/removeAuth', 'Logout']) ?>
             </div>
-
-           
         </div>
     </div>
 </div>
@@ -113,11 +111,9 @@
 
                     <?php } ?>
 
-                    
                 </tr>
                 </thead>
                 <tbody>
-                
 
                 <?php foreach ($currentWeks as $item) { ?>
                     <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
@@ -154,7 +150,8 @@
 
                                 <?php if ($user->id == $time->user_id) { ?>
                                 <?php if (($item['year'] == $time->current_date)) { ?>
-                                <div class="time-start-finaly">
+
+                                
 
                                     <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
 
@@ -165,8 +162,6 @@
 
                                     <?php } ?>
 
-                                    
-
                                     <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
                                         <?= $this->tag->linkTo(['index/setstart', 'Start']) ?>
                                         <?= $this->tag->linkTo(['index/setend', 'End']) ?>
@@ -174,8 +169,6 @@
                                         <div></div>
                                     <?php } ?>
 
-
-                                    
                                 </div>
 
                                 
@@ -185,7 +178,6 @@
 
                     </tr>
                 <?php } ?>
-                
                 </tbody>
             </table>
         </div>

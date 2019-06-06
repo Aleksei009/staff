@@ -130,9 +130,6 @@ class UsersController extends ControllerBase
      */
     public function createAction()
     {
-       /* $this->session->set('user-name', 'Michael');
-        print_die($this->session->get('user-name'));*/
-
 
         $form = new SignUpUserForm();
 
@@ -160,6 +157,8 @@ class UsersController extends ControllerBase
             return;
 
         }
+
+       return $this->response->redirect('users/signIn');
 
     }
 

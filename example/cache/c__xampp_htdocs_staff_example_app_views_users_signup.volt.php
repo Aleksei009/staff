@@ -1,44 +1,46 @@
 
+<div class="container">
+    <?= $this->getContent() ?>
 
-<?= $this->getContent() ?>
+    
 
+    <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
 
+    <h2>
+        Sign Up
+    </h2>
 
-<?= $this->tag->form(['users/create', 'method' => 'post']) ?>
-
-<h2>
-    Sign Up
-</h2>
-
-<?= $form->label('name') ?>
+    <?= $form->label('name') ?>
 
     <?= $form->render('name') ?>
     <?= $form->messages('name') ?>
 
 
-<?= $form->label('email') ?>
+    <?= $form->label('email') ?>
 
     <?= $form->render('email') ?>
     <?= $form->messages('email') ?>
 
 
-<?= $form->label('password') ?>
+    <?= $form->label('password') ?>
 
     <?= $form->render('password') ?>
     <?= $form->messages('password') ?>
 
 
-<?= $form->label('confirmPassword') ?>
+    <?= $form->label('confirmPassword') ?>
 
     <?= $form->render('confirmPassword') ?>
     <?= $form->messages('confirmPassword') ?>
 
 
-<p><?= $form->render('Sign Up') ?></p>
+    <p><?= $form->render('Sign Up') ?></p>
 
-<?= $form->render('csrf', ['value' => $this->security->getToken()]) ?>
+    <?= $form->render('csrf', ['value' => $this->security->getToken()]) ?>
     <?= $form->messages('csrf') ?>
 
-<hr>
+    <hr>
 
-<?= $this->tag->endform() ?>
+    <?= $this->tag->endform() ?>
+</div>
+
