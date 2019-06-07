@@ -110,9 +110,6 @@ class Day
                 $time->active = 0;
                 return $time->save();
                 break;
-                /*if($time->save()){
-                    return $this->response->redirect('index/index');
-                }*/
             }
 
         }

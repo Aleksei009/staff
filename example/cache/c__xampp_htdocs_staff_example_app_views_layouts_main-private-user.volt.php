@@ -114,7 +114,7 @@
 
                     <?php foreach ($users as $user) { ?>
 
-                        <th scope="col"><?= $user->name ?></th>
+                        <th scope="col"><?= $user['name'] ?></th>
 
                     <?php } ?>
 
@@ -155,7 +155,7 @@
 
                                 <?php foreach ($times as $time) { ?>
 
-                                <?php if ($user->id == $time->user_id) { ?>
+                                <?php if ($user['id'] == $time->user_id) { ?>
                                 <?php if (($item['year'] == $time->current_date)) { ?>
 
                                 <div class="time-start-finaly">
@@ -169,7 +169,7 @@
 
                                     <?php } ?>
 
-                                    <?php if (($user->id === $auth['id'] && $item['year'] == $time->current_date)) { ?>
+                                    <?php if (($user['id'] === $auth['id'] && $item['year'] == $time->current_date)) { ?>
                                         <div class="my-start-stop">
                                             <?php if ($time->time_end != null) { ?>
                                                 <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>

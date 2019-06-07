@@ -114,7 +114,7 @@
 
                     {% for user in users %}
 
-                        <th scope="col">{{ user.name }}</th>
+                        <th scope="col">{{ user['name'] }}</th>
 
                     {% endfor %}
 
@@ -155,7 +155,7 @@
 
                                 {% for time in times %}
 
-                                {% if user.id == time.user_id %}
+                                {% if user['id'] == time.user_id %}
                                 {% if (item['year'] == time.current_date) %}
 
                                 <div class="time-start-finaly">
@@ -169,7 +169,7 @@
 
                                     {% endfor %}
 
-                                    {% if (user.id === auth['id'] and item['year'] == time.current_date) %}
+                                    {% if (user['id'] === auth['id'] and item['year'] == time.current_date) %}
                                         <div class="my-start-stop">
                                             {% if time.time_end != null %}
                                                 <button class="str active">{{ link_to('index/setstart','Start') }}</button>
