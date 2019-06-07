@@ -2,7 +2,6 @@
 
 namespace Staff\Services;
 
-use http\Client\Curl\User;
 use Staff\Services\MainService;
 
 use Staff\Models\Users;
@@ -39,10 +38,10 @@ class UserService extends MainService
         return $users;
     }
 
-    public function getTimesForUser($id)
+    public function getTimesForUser($auth)
     {
-        $user = Users::findFirst($id);
-        $userTime = $user->getTimes();
+        $user = Users::findFirst($auth['id']);
+        $userTime = $user->getTimes()->toArray();
         return $userTime;
     }
 

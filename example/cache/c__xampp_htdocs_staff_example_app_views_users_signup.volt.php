@@ -2,12 +2,10 @@
 <div class="container">
     <?= $this->getContent() ?>
 
-    
-
     <?= $this->tag->form(['users/create', 'method' => 'post']) ?>
 
     <h2>
-        Sign Up
+        Форма регистрации
     </h2>
 
     <?= $form->label('name') ?>

@@ -48,10 +48,13 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+
+
         $form = new SignUpUserForm();
         $authUser = $this->auth;
 
         $timeUserAuth = $this->day->resultTime($authUser);
+        $userAuthTimes = $this->userService->getTimesForUser($authUser);
         $times = $this->timeService->allTimes();
         $currentWeek = $this->day->weeksCurrentMouth();
         $users = $this->userService->sortUsers($this->auth);
@@ -61,10 +64,10 @@ class IndexController extends ControllerBase
         $this->view->times = $times;
         $this->view->currentWeks = $currentWeek;
         $this->view->users = $users;
+        $this->view->userAuthTimes = $userAuthTimes;
 
 
         $this->view->form = $form;
-
     }
 
     public function setstartAction()
@@ -73,6 +76,8 @@ class IndexController extends ControllerBase
         $timeBool = $this->day->timeStart($this->auth);
 
         if($timeBool){
+            return $this->response->redirect('index/index');
+        }else{
             return $this->response->redirect('index/index');
         }
 
@@ -84,6 +89,8 @@ class IndexController extends ControllerBase
         $timeBool = $this->day->timeEnd($this->auth);
 
         if($timeBool){
+            return $this->response->redirect('index/index');
+        }else{
             return $this->response->redirect('index/index');
         }
 

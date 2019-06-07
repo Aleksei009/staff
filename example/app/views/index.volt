@@ -17,6 +17,13 @@
         .my-start-stop span{
             display: none;
         }*/
+
+        .styleA a{
+            padding: 5px 10px;
+            color: black;
+            text-decoration: none;
+        }
+
     </style>
     <body>
         <div class="main-first-content-live">
@@ -28,42 +35,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script>
 
-            /*$('.my-start-stop').on('click', function(e){
 
-
-
-                e.preventDefault();
-
-                $.ajax({
-                    url: "demo_test.txt",
-                    type: 'GET',
-                    success: function(result){
-
-                    }});
-
-                if($('span.str').hasClass("active")){
-                    $('span').removeClass('active');
-                    $('span.end').addClass('active');
-                }else{
-                    $('span.str').addClass('active');
-                    $('span.end').removeClass('active');
-                }
-
-            });
-
-            $("#search").click(function() {
-                $('span').addClass('active');
-            });
-
-
-            $(".my-buttom-active").click(function() {
-                $("span").removeClass('active');
-            });
-
-            $('#about-link').addClass('current');
-            $('#menu li').on('click', function() {
-                $(this).addClass('current').siblings().removeClass('current');
-            });*/
 
         </script>
     </body>

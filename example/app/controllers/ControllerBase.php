@@ -29,6 +29,4 @@ class ControllerBase extends Controller
         $this->timeService = new TimeService();
 
     }
-
-
 }

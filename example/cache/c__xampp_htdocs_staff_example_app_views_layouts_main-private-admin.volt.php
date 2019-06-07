@@ -123,20 +123,16 @@
                     <?= $form->render('password') ?>
                     <?= $form->messages('password') ?>
 
-
                     <?= $form->label('confirmPassword') ?>
 
                     <?= $form->render('confirmPassword') ?>
                     <?= $form->messages('confirmPassword') ?>
 
-
                     <p style="text-align: right; margin-top: 10px;"><?= $form->render('Sign Up') ?></p>
 
                     <?= $form->render('csrf', ['value' => $this->security->getToken()]) ?>
                     <?= $form->messages('csrf') ?>
-
                     <hr>
-
                     <?= $this->tag->endform() ?>
 
                 </div>
@@ -161,7 +157,6 @@
                             <th scope="col"><?= $user['name'] ?></th>
 
                         <?php } ?>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -179,8 +174,6 @@
                             <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
                         </th>
 
-
-
                         <?php foreach ($users as $user) { ?>
 
                             <td>
@@ -195,45 +188,67 @@
 
                                     <?php } ?>
 
-
-                                    <?php foreach ($times as $time) { ?>
-
-                                    <?php if ($user['id'] == $time->user_id) { ?>
-                                    <?php if (($item['year'] == $time->current_date)) { ?>
                                     <div class="time-start-finaly">
 
-                                        <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+                                        <?php if (empty($times)) { ?>
+                                            <div></div>
+                                        <?php } else { ?>
+
+                                            <?php foreach ($times as $time) { ?>
+
+                                                <?php if ($user['id'] == $time->user_id) { ?>
+                                                    <?php if (($item['year'] == $time->current_date)) { ?>
+
+
+                                                        <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+
+                                                    <?php } else { ?>
+                                                        <div></div>
+                                                    <?php } ?>
+                                                <?php } ?>
+
+                                            <?php } ?>
+                                        <?php } ?>
+
+                                        <?php if (empty($userAuthTimes) && $user['id'] === $auth['id'] && $item['year'] == date('Y-m-d')) { ?>
+                                            <div>
+                                                <div>Начать</div>
+                                                <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
+                                            </div>
 
                                         <?php } else { ?>
-                                            <div></div>
-                                        <?php } ?>
-                                        <?php } ?>
 
-                                        <?php } ?>
+                                            <?php if (empty($userAuthTimes) && $user['id'] === $auth['id']) { ?>
 
+                                            <?php } else { ?>
 
-                                        <?php if (($user['id'] === $auth['id'] && $item['year'] == $time->current_date)) { ?>
-                                           <div class="my-start-stop">
-                                               <?php if ($time->time_end != null) { ?>
-                                                   <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
-                                                   <?php } else { ?>
-                                                       <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
-                                               <?php } ?>
+                                                <?php foreach ($userAuthTimes as $timeUserAuth) { ?>
 
-                                           </div>
-                                            <?php if (($time->time_end != null)) { ?>
-                                                <div class="total">total: <?= $totalResultTime ?></div>
+                                                <?php } ?>
+
+                                                <?php if (($user['id'] === $auth['id'] && $item['year'] == $timeUserAuth['current_date'])) { ?>
+                                                    <div class="my-start-stop">
+                                                        <?php if ($timeUserAuth['time_end'] != null) { ?>
+                                                            <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
+                                                        <?php } else { ?>
+                                                            <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <?php if (($timeUserAuth['time_end'] != null)) { ?>
+                                                        <div class="total">total: <?= $totalResultTime ?></div>
+                                                    <?php } ?>
+
+                                                <?php } else { ?>
+                                                    <div></div>
+                                                <?php } ?>
+
                                             <?php } ?>
 
-                                        <?php } else { ?>
-                                            <div></div>
                                         <?php } ?>
-
                                     </div>
                                 </div>
                             </td>
                         <?php } ?>
-
                         </tr>
                     <?php } ?>
                     </tbody>

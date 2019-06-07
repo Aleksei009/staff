@@ -148,47 +148,70 @@
                                 <?php } else { ?>
 
                                     <label for="">Fullday</label>
-                                    <input type="checkbox" checked >
+                                    <input type="checkbox" checked disabled>
 
                                 <?php } ?>
 
-
-                                <?php foreach ($times as $time) { ?>
-
-                                <?php if ($user['id'] == $time->user_id) { ?>
-                                <?php if (($item['year'] == $time->current_date)) { ?>
-
                                 <div class="time-start-finaly">
 
-                                    <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
-
-                                    <?php } else { ?>
+                                    <?php if (empty($times)) { ?>
                                         <div></div>
-                                    <?php } ?>
-                                    <?php } ?>
+                                    <?php } else { ?>
 
-                                    <?php } ?>
+                                        <?php foreach ($times as $time) { ?>
 
-                                    <?php if (($user['id'] === $auth['id'] && $item['year'] == $time->current_date)) { ?>
-                                        <div class="my-start-stop">
-                                            <?php if ($time->time_end != null) { ?>
-                                                <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
-                                            <?php } else { ?>
-                                                <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
+                                            <?php if ($user['id'] == $time->user_id) { ?>
+                                                <?php if (($item['year'] == $time->current_date)) { ?>
+
+
+                                                    <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+
+                                                <?php } else { ?>
+                                                    <div></div>
+                                                <?php } ?>
                                             <?php } ?>
 
-                                        </div>
-                                        <?php if (($time->time_end != null)) { ?>
-                                            <div class="total">total: <?= $totalResultTime ?></div>
                                         <?php } ?>
+                                    <?php } ?>
+
+
+                                    <?php if (empty($userAuthTimes) && $user['id'] === $auth['id'] && $item['year'] == date('Y-m-d')) { ?>
+                                        <div>
+                                            <div>Начать</div>
+                                            <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
+                                        </div>
 
                                     <?php } else { ?>
-                                        <div></div>
+
+                                        <?php if (empty($userAuthTimes) && $user['id'] === $auth['id']) { ?>
+
+                                            <?php } else { ?>
+
+                                            <?php foreach ($userAuthTimes as $timeUserAuth) { ?>
+
+                                            <?php } ?>
+
+                                                <?php if (($user['id'] === $auth['id'] && $item['year'] == $timeUserAuth['current_date'])) { ?>
+                                                    <div class="my-start-stop">
+                                                        <?php if ($timeUserAuth['time_end'] != null) { ?>
+                                                            <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
+                                                        <?php } else { ?>
+                                                            <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <?php if (($timeUserAuth['time_end'] != null)) { ?>
+                                                        <div class="total">total: <?= $totalResultTime ?></div>
+                                                    <?php } ?>
+
+                                                <?php } else { ?>
+                                                    <div></div>
+                                                <?php } ?>
+
+                                        <?php } ?>
+
                                     <?php } ?>
 
                                 </div>
-
-                                  
                             </div>
                         </td>
                     <?php } ?>
@@ -200,4 +223,6 @@
         </div>
     </div>
 </div>
+
+
 

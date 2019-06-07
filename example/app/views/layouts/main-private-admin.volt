@@ -123,20 +123,16 @@
                     {{ form.render('password') }}
                     {{ form.messages('password') }}
 
-
                     {{ form.label('confirmPassword') }}
 
                     {{ form.render('confirmPassword') }}
                     {{ form.messages('confirmPassword') }}
 
-
                     <p style="text-align: right; margin-top: 10px;">{{ form.render('Sign Up') }}</p>
 
                     {{ form.render('csrf', ['value': security.getToken()]) }}
                     {{ form.messages('csrf') }}
-
                     <hr>
-
                     {{ endForm() }}
 
                 </div>
@@ -161,7 +157,6 @@
                             <th scope="col">{{ user['name'] }}</th>
 
                         {% endfor %}
-
                     </tr>
                     </thead>
                     <tbody>
@@ -179,8 +174,6 @@
                             <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
                         </th>
 
-
-
                         {% for user  in users %}
 
                             <td>
@@ -195,45 +188,67 @@
 
                                     {% endif %}
 
-
-                                    {% for time in times %}
-
-                                    {% if user['id'] == time.user_id %}
-                                    {% if (item['year'] == time.current_date) %}
                                     <div class="time-start-finaly">
 
-                                        <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+                                        {% if times is empty %}
+                                            <div></div>
+                                        {% else %}
+
+                                            {% for time in times %}
+
+                                                {% if user['id'] == time.user_id %}
+                                                    {% if (item['year'] == time.current_date) %}
+
+
+                                                        <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
+
+                                                    {% else %}
+                                                        <div></div>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if userAuthTimes is empty and user['id'] === auth['id'] and item['year'] == date('Y-m-d') %}
+                                            <div>
+                                                <div>Начать</div>
+                                                <button class="str active">{{ link_to('index/setstart','Start') }}</button>
+                                            </div>
 
                                         {% else %}
-                                            <div></div>
-                                        {% endif %}
-                                        {% endif %}
 
-                                        {% endfor %}
+                                            {% if userAuthTimes is empty and user['id'] === auth['id'] %}
 
+                                            {% else %}
 
-                                        {% if (user['id'] === auth['id'] and item['year'] == time.current_date) %}
-                                           <div class="my-start-stop">
-                                               {% if time.time_end != null %}
-                                                   <button class="str active">{{ link_to('index/setstart','Start') }}</button>
-                                                   {% else %}
-                                                       <button class="end">{{ link_to('index/setend','End') }}</button>
-                                               {% endif %}
+                                                {% for timeUserAuth  in  userAuthTimes  %}
 
-                                           </div>
-                                            {% if (time.time_end != null) %}
-                                                <div class="total">total: {{ totalResultTime }}</div>
+                                                {% endfor %}
+
+                                                {% if (user['id'] === auth['id'] and item['year'] == timeUserAuth['current_date']) %}
+                                                    <div class="my-start-stop">
+                                                        {% if timeUserAuth['time_end'] != null %}
+                                                            <button class="str active">{{ link_to('index/setstart','Start') }}</button>
+                                                        {% else %}
+                                                            <button class="end">{{ link_to('index/setend','End') }}</button>
+                                                        {% endif %}
+                                                    </div>
+                                                    {% if ( timeUserAuth['time_end'] != null) %}
+                                                        <div class="total">total: {{ totalResultTime }}</div>
+                                                    {% endif %}
+
+                                                {% else %}
+                                                    <div></div>
+                                                {% endif %}
+
                                             {% endif %}
 
-                                        {% else %}
-                                            <div></div>
                                         {% endif %}
-
                                     </div>
                                 </div>
                             </td>
                         {% endfor %}
-
                         </tr>
                     {% endfor %}
                     </tbody>

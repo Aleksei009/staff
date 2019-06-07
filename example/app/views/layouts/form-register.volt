@@ -1,22 +1,23 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar navbar-light bg-light">
 
-        {{ link_to('index/index','saff_all_users') }}
+        {#{{ link_to('index/index','saff_all_users') }}#}
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+
+                <h2>Регистрация и Авторизация</h2>
+               {# <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
-                </li>
-
+                </li>#}
             </ul>
 
             <ul class="nav pull-right">
-                <li  style="padding: 5px 10px;">{{ link_to('users/signIn', 'SignIn') }}</li>
-                <li  style="padding: 5px 10px;">{{ link_to('users/signUp', 'SignUp') }}</li>
+                <li class="styleA"  style=" font-size: 16px; border: 1px solid red;">{{ link_to('users/signIn', 'Войти') }}</li>
+                <li class="styleA"  style=" font-size: 16px; border: 1px solid red;">{{ link_to('users/signUp', 'Зарегистрироваться') }}</li>
 
             </ul>
             {#<form class="form-inline my-2 my-lg-0">

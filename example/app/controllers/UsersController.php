@@ -344,11 +344,17 @@ class UsersController extends ControllerBase
             }else {
                 //Пароль не верный или маил
                 $this->flash->error('Неверный логин или пароль!');
-                $this->dispatcher->forward([
+              return  $this->dispatcher->forward([
                     'controller' => 'users',
                     'action'  => 'signIn'
                 ]);
             }
+
+            $this->flash->error('Неверный логин или пароль!');
+            return  $this->dispatcher->forward([
+                'controller' => 'users',
+                'action'  => 'signIn'
+            ]);
 
         }
     }
@@ -360,11 +366,8 @@ class UsersController extends ControllerBase
 
         if($user->save()){
             if($this->session->remove('auth')){
-                $this->dispatcher->forward([
-                    'controller' => 'index',
-                    'action' => 'index'
-                ]);
-                return;
+                return $this->response->redirect('index');
+
             }
             return $this->response->redirect('index');
         }

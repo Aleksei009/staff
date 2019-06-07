@@ -4,6 +4,7 @@
 
     <?= $this->tag->form(['users/auth', 'method' => 'post']) ?>
 
+    <h2>Форма входа</h2>
     <div class="form-grope" style=" display: flex; flex-direction: column; ">
         <?php if (($form)) { ?>
 

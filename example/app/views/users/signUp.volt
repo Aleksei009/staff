@@ -2,27 +2,10 @@
 <div class="container">
     {{ content() }}
 
-    {#
-    {{ form('users/create','method': 'post') }}
-    <div class="form-grope" style=" display: flex; flex-direction: column; ">
-
-        {% if (form) %}
-
-            {{ form.render("name") }}
-            {{ form.render('email') }}
-            {{ form.render('password') }}
-            {{ form.render('Sign Up') }}
-
-        {% endif %}
-
-    </div>
-
-    {{ end_form() }}#}
-
     {{ form('users/create', 'method': 'post') }}
 
     <h2>
-        Sign Up
+        Форма регистрации
     </h2>
 
     {{ form.label('name') }}
