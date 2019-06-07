@@ -8,6 +8,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+use Staff\Library\Auth\Auth as Auth;
 
 /**
  * Shared configuration service
@@ -141,6 +142,14 @@ $di->setShared('session', function () {
 
     return $session;
 });
+
+/**
+ * Custom authentication component
+ */
+$di->set('auth', function () {
+    return new Auth();
+});
+
 
 $di->set('dispatcher', function (){
     $dispatcher = new Dispatcher();

@@ -23,6 +23,7 @@ return new \Phalcon\Config([
         'modelsDir'      => APP_PATH . '/models/',
         'servicesDir'    => APP_PATH . '/services/',
         'migrationsDir'  => APP_PATH . '/migrations/',
+        'helpersDir'     => APP_PATH . '/helpers/',
         'viewsDir'       => APP_PATH . '/views/',
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',

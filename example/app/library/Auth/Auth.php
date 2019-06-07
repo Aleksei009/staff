@@ -14,6 +14,12 @@ use Prepare\Models\FailedLogins;
  */
 class Auth extends Component
 {
+
+
+    /*public function dd()
+    {
+        return "Hello";
+    }*/
     /**
      * Checks the user credentials
      *

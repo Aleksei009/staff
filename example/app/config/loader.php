@@ -21,6 +21,7 @@ $loader->registerNamespaces([
     'Staff\Forms'       => $config->application->formsDir,
     'Staff\Roles'       => $config->application->formsDir,
     'Staff\Services'    => $config->application->servicesDir,
+    'Staff\Helpers'    => $config->application->helpersDir,
     'Staff\Library'     => $config->application->libraryDir
 ]);
 $loader->register();
