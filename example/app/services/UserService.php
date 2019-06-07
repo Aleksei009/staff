@@ -55,5 +55,20 @@ class UserService extends MainService
         return $users;
     }
 
+    public function sortUsers($userAuth)
+    {
+        $user = Users::findFirst($userAuth['id'])->toArray();
+        $users = Users::find()->toArray();
+        foreach ($users as $k=>$item) {
+
+            if($user['id'] == $item['id'])
+                unset($users[$k]);
+        }
+
+        array_unshift($users, $user);
+
+        return $users;
+    }
+
 
 }

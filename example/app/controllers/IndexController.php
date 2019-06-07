@@ -47,22 +47,6 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-      //  $user = Users::findFirst($this->auth['id'])->toArray();
-       // $users = $this->userService->allUsers()->toArray();
-       // array_unshift($users, $user);
-
-        $user = Users::findFirst($this->auth['id'])->toArray();
-        $users = $this->userService->allUsers()->toArray();
-        foreach ($users as $k=>$item) {
-
-            if($user['id'] == $item['id'])
-                unset($users[$k]);
-        }
-       // print_die($user);
-       // print_die($users);
-
-        array_unshift($users, $user);
-
 
         $form = new SignUpUserForm();
         $authUser = $this->auth;
@@ -70,7 +54,7 @@ class IndexController extends ControllerBase
         $timeUserAuth = $this->day->resultTime($authUser);
         $times = $this->timeService->allTimes();
         $currentWeek = $this->day->weeksCurrentMouth();
-        $users = $this->userService->getAllUsersByIdDesc();
+        $users = $this->userService->sortUsers($this->auth);
 
         $this->view->auth = $this->auth;
         $this->view->totalResultTime = $timeUserAuth;
