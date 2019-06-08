@@ -143,11 +143,9 @@
                         <td>
                             <div>
                                 <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
-                                    <label for="">Fullday</label>
                                     <input type="checkbox" disabled>
                                 <?php } else { ?>
 
-                                    <label for="">Fullday</label>
                                     <input type="checkbox" checked disabled>
 
                                 <?php } ?>
@@ -172,6 +170,7 @@
                                             <?php } ?>
 
                                         <?php } ?>
+
                                     <?php } ?>
 
 
@@ -191,7 +190,7 @@
 
                                             <?php } ?>
 
-                                                <?php if (($user['id'] === $auth['id'] && $item['year'] == $timeUserAuth['current_date'])) { ?>
+                                                <?php if (($user['id'] === $auth['id'] && $item['year'] == date('Y-m-d'))) { ?>
                                                     <div class="my-start-stop">
                                                         <?php if ($timeUserAuth['time_end'] != null) { ?>
                                                             <button class="str active"><?= $this->tag->linkTo(['index/setstart', 'Start']) ?></button>
@@ -199,10 +198,6 @@
                                                             <button class="end"><?= $this->tag->linkTo(['index/setend', 'End']) ?></button>
                                                         <?php } ?>
                                                     </div>
-                                                    <?php if (($timeUserAuth['time_end'] != null)) { ?>
-                                                        <div class="total">total: <?= $totalResultTime ?></div>
-                                                    <?php } ?>
-
                                                 <?php } else { ?>
                                                     <div></div>
                                                 <?php } ?>
@@ -210,7 +205,15 @@
                                         <?php } ?>
 
                                     <?php } ?>
+                                    
+                                    <?php foreach ($results as $result) { ?>
 
+                                        <?php if ($result['user_id'] == $user['id'] && $item['year'] == $result['date']) { ?>
+                                            <div class="total">total: <?= $result['result_time'] ?></div>
+                                        <?php } ?>
+
+                                    <?php } ?>
+                                    
                                 </div>
                             </div>
                         </td>

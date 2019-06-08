@@ -60,8 +60,10 @@ class UserService extends MainService
         $users = Users::find()->toArray();
         foreach ($users as $k=>$item) {
 
-            if($user['id'] == $item['id'])
+            if($user['id'] == $item['id']){
                 unset($users[$k]);
+            }
+
         }
 
         array_unshift($users, $user);

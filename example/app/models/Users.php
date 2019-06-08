@@ -4,9 +4,9 @@ namespace Staff\Models;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
-//use Staff\Models\Times;
+use Phalcon\Mvc\Model;
 
-class Users extends \Phalcon\Mvc\Model
+class Users extends Model
 {
 
     const ROLE_USER_ADMIN = 'admin';
@@ -86,11 +86,13 @@ class Users extends \Phalcon\Mvc\Model
             ]
         ]);
 
-        /*$this->hasMany(
-            'id',
-            'Times',
-            'user_id'
-        );*/
+        $this->hasMany('id','Staff\Models\Results','user_id',[
+            'alias' => 'results',
+            'foreignKey' => [
+                'message'=> 'User cannot be deleted because he/she has activity in the system'
+            ]
+        ]);
+
     }
 
     /**
@@ -149,43 +151,6 @@ class Users extends \Phalcon\Mvc\Model
         ]);
         return $this;
     }
-
-    /*static public function registerUser($data)
-    {
-        // $role = null;
-
-        if(self::TableHasUsers()){
-
-            $save = self::save([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password'  => $data['password'],
-                'role' => self::ROLE_USER_ADMIN
-            ]);
-
-
-        }else{
-            $save = self::save([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password'  => $data['password'],
-                'role' => self::ROLE_USER_GUEST
-            ]);
-        }
-
-        return $save;
-    }*/
-
-    /*static public function TableHasUsers()
-    {
-        $users = self::find();
-
-        if(count($users) == 0){
-            return true;
-        }else{
-            return false;
-        }
-    }*/
 
     public function checkArticles()
     {
