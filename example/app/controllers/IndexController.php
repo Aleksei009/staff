@@ -49,10 +49,15 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-       // $i_am_late = $this->timeService->amILateTime($this->auth);
-       // print_die($i_am_late);
+        /*$timeS = Times::findFirst([
+            'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
+            'bind' => [
+                'date' => date('Y-m-d'),
+                'user_id' => 1
+            ]
+        ]);
+        print_die($timeS);*/
 
-       // print_die($results);
 
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
@@ -66,7 +71,6 @@ class IndexController extends ControllerBase
         $results       = $this->resultService->getAllResults();
         $i_am_late     = $this->timeService->amILateTime($this->auth);
 
-       // print_die($results);
 
         $this->view->auth            = $this->auth;
         $this->view->totalResultTime = $timeUserAuth;
@@ -80,7 +84,6 @@ class IndexController extends ControllerBase
 
         $this->view->form = $form;
 
-        //print_die($i_am_late);
     }
 
     public function setstartAction()

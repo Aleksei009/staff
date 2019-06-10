@@ -57,13 +57,14 @@ class Day
         $current_date = date("Y-m-d");
         $user = Users::findFirst($authUser['id']);
 
-        $times = $user->getTimes();
+        //$times = $user->getTimes();
 
         $today = date("H:i",strtotime("+4 hour"));
 
         $i_am_late = null;
 
         if($user->getTimes()->toArray() != false){
+
             $timeS = Times::findFirst([
                 'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
                 'bind' => [
@@ -72,7 +73,17 @@ class Day
                 ]
             ]);
 
-            foreach ($times as $time){
+            if($timeS){
+                if($timeS->i_am_late == 0){
+                    $i_am_late = 0;
+                }else{
+                    $i_am_late = 1;
+                }
+            }
+
+
+
+            /*foreach ($times as $time){
 
                 if($time->current_date == $current_date && $time->user_id == $user->id && $timeS < 9){
                     $i_am_late = 1;
@@ -80,7 +91,7 @@ class Day
                 }else{
                     $i_am_late = 0;
                 }
-            }
+            }*/
         }else{
             $i_am_late = ($today < 9) ? 0 : 1;
         }

@@ -188,14 +188,13 @@
                                     <div class="time-start-finaly" style="text-align: center;">
                                         {% else %}
                                         {% if i_am_late  is empty %}
-
                                         {% for time in times %}
-                                        {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
-                                        <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                            {% else %}
-                                            <div class="time-start-finaly" style="text-align: center;">
-                                                {% endif %}
-                                                {% endfor %}
+                                            {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
+                                            <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                                {% else %}
+                                                <div class="time-start-finaly" style="text-align: center;">
+                                            {% endif %}
+                                        {% endfor %}
 
                                                 {% else %}
                                                 {% if i_am_late['user_id'] == user['id']%}
@@ -203,6 +202,13 @@
 
                                                 {% else %}
 
+                                                {% for time in times %}
+                                                    {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
+                                                        <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                                        {% else %}
+                                                        <div class="time-start-finaly" style="text-align: center;">
+                                                    {% endif %}
+                                                {% endfor %}
                                             {% endif %}
                                         {% endif %}
 
