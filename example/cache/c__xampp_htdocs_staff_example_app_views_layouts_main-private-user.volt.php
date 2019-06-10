@@ -150,7 +150,33 @@
 
                                 <?php } ?>
 
-                                <div class="time-start-finaly">
+                              
+                                                    <?php if (empty($times)) { ?>
+                                                        <div class="time-start-finaly" style="text-align: center;">
+                                                        <?php } else { ?>
+                                                     <?php if (empty($i_am_late)) { ?>
+
+                                                            <?php foreach ($times as $time) { ?>
+                                                                <?php if ($user['id'] == $time['user_id'] && $time['i_am_late'] == 1) { ?>
+                                                                <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                                                <?php } else { ?>
+                                                                <div class="time-start-finaly" style="text-align: center;">
+                                                                <?php } ?>
+                                                            <?php } ?>
+
+                                                            <?php } else { ?>
+                                                            <?php if ($i_am_late['user_id'] == $user['id']) { ?>
+                                                              <div class="time-start-finaly" style="background: pink; text-align: center;">
+
+                                                            <?php } else { ?>
+
+
+
+                                                            <?php } ?>
+                                                        <?php } ?>
+
+                                                    <?php } ?>
+
 
                                     <?php if (empty($times)) { ?>
                                         <div></div>
@@ -158,11 +184,10 @@
 
                                         <?php foreach ($times as $time) { ?>
 
-                                            <?php if ($user['id'] == $time->user_id) { ?>
-                                                <?php if (($item['year'] == $time->current_date)) { ?>
+                                            <?php if ($user['id'] == $time['user_id']) { ?>
+                                                <?php if (($item['year'] == $time['current_date'])) { ?>
 
-
-                                                    <div><span class="time-start"><?= $time->time_start ?> - <?= $time->time_end ?></span></div>
+                                                    <div><span class="time-start"><?= $time['time_start'] ?> - <?= $time['time_end'] ?></span></div>
 
                                                 <?php } else { ?>
                                                     <div></div>
@@ -172,6 +197,8 @@
                                         <?php } ?>
 
                                     <?php } ?>
+
+
 
 
                                     <?php if (empty($userAuthTimes) && $user['id'] === $auth['id'] && $item['year'] == date('Y-m-d')) { ?>
@@ -209,7 +236,15 @@
                                     <?php foreach ($results as $result) { ?>
 
                                         <?php if ($result['user_id'] == $user['id'] && $item['year'] == $result['date']) { ?>
-                                            <div class="total">total: <?= $result['result_time'] ?></div>
+
+                                            <?php if ($result['result_time'] < 9) { ?>
+
+                                                <div class="total" style="color: red; font-weight: bold;">total: <?= $result['result_time'] ?></div>
+                                            <?php } else { ?>
+                                                <div class="total" style="color: green; font-weight: bold;">total: <?= $result['result_time'] ?></div>
+
+                                            <?php } ?>
+
                                         <?php } ?>
 
                                     <?php } ?>

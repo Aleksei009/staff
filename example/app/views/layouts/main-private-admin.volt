@@ -184,7 +184,30 @@
                                         <input type="checkbox" checked >
                                     {% endif %}
 
-                                    <div class="time-start-finaly">
+                                    {% if  times is empty %}
+                                    <div class="time-start-finaly" style="text-align: center;">
+                                        {% else %}
+                                        {% if i_am_late  is empty %}
+
+                                        {% for time in times %}
+                                        {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
+                                        <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                            {% else %}
+                                            <div class="time-start-finaly" style="text-align: center;">
+                                                {% endif %}
+                                                {% endfor %}
+
+                                                {% else %}
+                                                {% if i_am_late['user_id'] == user['id']%}
+                                                <div class="time-start-finaly" style="background: pink; text-align: center;">
+
+                                                {% else %}
+
+                                            {% endif %}
+                                        {% endif %}
+
+                                    {% endif %}
+
 
                                         {% if times is empty %}
                                             <div></div>
@@ -192,13 +215,9 @@
 
                                             {% for time in times %}
 
-                                                {% if user['id'] == time.user_id %}
-                                                    {% if (item['year'] == time.current_date) %}
-
-
-                                                        <div><span class="time-start">{{ time.time_start }} - {{ time.time_end }}</span></div>
-
-
+                                                {% if user['id'] == time['user_id'] %}
+                                                    {% if (item['year'] == time['current_date']) %}
+                                                        <div><span class="time-start">{{ time['time_start'] }} - {{ time['time_end'] }}</span></div>
                                                     {% else %}
                                                         <div></div>
                                                     {% endif %}
@@ -246,7 +265,15 @@
                                         {% for result in results %}
 
                                             {% if result['user_id'] == user['id'] and item['year'] == result['date'] %}
-                                                <div class="total">total: {{ result['result_time'] }}</div>
+
+                                                {% if result['result_time'] < 9 %}
+
+                                                    <div class="total" style="color: red; font-weight: bold;">total: {{ result['result_time'] }}</div>
+                                                    {% else %}
+                                                    <div class="total" style="color: green; font-weight: bold;">total: {{ result['result_time'] }}</div>
+
+                                                {% endif %}
+
                                             {% endif %}
 
                                         {% endfor %}

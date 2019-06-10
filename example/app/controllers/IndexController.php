@@ -10,6 +10,7 @@ use Phalcon\Acl\Resource;
 
 use Staff\Controllers\ControllerBase;
 use Staff\Models\Results;
+use Staff\Models\Times;
 use Staff\Roles\UserRole;
 use Staff\Roles\ModelResource;
 
@@ -48,6 +49,9 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+       // $i_am_late = $this->timeService->amILateTime($this->auth);
+       // print_die($i_am_late);
+
        // print_die($results);
 
         $form     = new SignUpUserForm();
@@ -60,6 +64,9 @@ class IndexController extends ControllerBase
         $users         = $this->userService->sortUsers($authUser);
         $userAuthTimes = $this->userService->getTimesForUser($authUser);
         $results       = $this->resultService->getAllResults();
+        $i_am_late     = $this->timeService->amILateTime($this->auth);
+
+       // print_die($results);
 
         $this->view->auth            = $this->auth;
         $this->view->totalResultTime = $timeUserAuth;
@@ -68,9 +75,12 @@ class IndexController extends ControllerBase
         $this->view->users           = $users;
         $this->view->userAuthTimes   = $userAuthTimes;
         $this->view->results         = $results;
+        $this->view->i_am_late       = $i_am_late;
 
 
         $this->view->form = $form;
+
+        //print_die($i_am_late);
     }
 
     public function setstartAction()
