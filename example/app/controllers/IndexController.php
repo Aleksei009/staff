@@ -9,12 +9,12 @@ use Phalcon\Acl\Resource;
 
 
 use Staff\Controllers\ControllerBase;
-use Staff\Models\Users;
+use Staff\Models\Results;
 use Staff\Roles\UserRole;
 use Staff\Roles\ModelResource;
 
 use Staff\Forms\SignUpUserForm;
-
+use Staff\Services\ResultService;
 
 
 class IndexController extends ControllerBase
@@ -48,23 +48,26 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+       // print_die($results);
 
-
-        $form = new SignUpUserForm();
+        $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
-        $timeUserAuth = $this->day->resultTime($authUser);
-        $userAuthTimes = $this->userService->getTimesForUser($authUser);
-        $times = $this->timeService->allTimes();
-        $currentWeek = $this->day->weeksCurrentMouth();
-        $users = $this->userService->sortUsers($this->auth);
 
-        $this->view->auth = $this->auth;
+        $timeUserAuth  = $this->day->resultTime($authUser);
+        $times         = $this->timeService->allTimes();
+        $currentWeek   = $this->day->weeksCurrentMouth();
+        $users         = $this->userService->sortUsers($authUser);
+        $userAuthTimes = $this->userService->getTimesForUser($authUser);
+        $results       = $this->resultService->getAllResults();
+
+        $this->view->auth            = $this->auth;
         $this->view->totalResultTime = $timeUserAuth;
-        $this->view->times = $times;
-        $this->view->currentWeks = $currentWeek;
-        $this->view->users = $users;
-        $this->view->userAuthTimes = $userAuthTimes;
+        $this->view->times           = $times;
+        $this->view->currentWeks     = $currentWeek;
+        $this->view->users           = $users;
+        $this->view->userAuthTimes   = $userAuthTimes;
+        $this->view->results         = $results;
 
 
         $this->view->form = $form;
@@ -87,6 +90,19 @@ class IndexController extends ControllerBase
     {
 
         $timeBool = $this->day->timeEnd($this->auth);
+
+        if($timeBool){
+            $resultTimeUser = $this->day->resultTime($this->auth);
+
+            $current_date = date('Y-m-d');
+
+             $this->resultService->saveAndUpdateCurrentResultTime([
+                 'date' => $current_date,
+                 'result_time' => $resultTimeUser,
+                 'user_id' => $this->auth['id']
+             ],$this->auth);
+        }
+
 
         if($timeBool){
             return $this->response->redirect('index/index');

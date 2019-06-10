@@ -1,10 +1,9 @@
 <?php
 
 namespace Staff\Models;
-
 use Phalcon\Mvc\Model;
 
-class Times extends Model
+class Results extends Model
 {
 
     /**
@@ -17,19 +16,13 @@ class Times extends Model
      *
      * @var string
      */
-    public $time_start;
+    public $date;
 
     /**
      *
      * @var string
      */
-    public $time_end;
-
-    /**
-     *
-     * @var integer
-     */
-    public $current_date;
+    public $result_time;
 
     /**
      *
@@ -38,27 +31,16 @@ class Times extends Model
     public $user_id;
 
     /**
-     *
-     * @var integer
-     */
-    public $active;
-
-    /**
-     *
-     * @var integer
-     */
-    public $i_am_late;
-
-    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("staff");
-        $this->setSource("times");
+        $this->setSource("results");
 
-        $this->belongsTo('user_id', 'Staff\Models\Users', 'id', [
-            'alias' => 'user',
+
+        $this->belongsTo('user_id','Staff\Models\Users','id',[
+           'alias' =>'user',
             'foreignKey' => array(
                 'action' => \Phalcon\Mvc\Model\Relation::ACTION_CASCADE
             )
@@ -72,14 +54,14 @@ class Times extends Model
      */
     public function getSource()
     {
-        return 'times';
+        return 'results';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Times[]|Times|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Results[]|Results|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -90,7 +72,7 @@ class Times extends Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Times|\Phalcon\Mvc\Model\ResultInterface
+     * @return Results|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

@@ -18,7 +18,11 @@ class Day
 
         foreach ($times as $time){
 
-            $result += strtotime($time->time_end) - strtotime($time->time_start);
+            if($time->current_date == date('Y-m-d')){
+                $result += strtotime($time->time_end) - strtotime($time->time_start);
+            }
+
+
         }
 
         $result = date('H:i:s',$result - $resulTime);

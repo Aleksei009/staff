@@ -143,11 +143,9 @@
                         <td>
                             <div>
                                 {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
-                                    <label for="">Fullday</label>
                                     <input type="checkbox" disabled>
                                 {% else %}
 
-                                    <label for="">Fullday</label>
                                     <input type="checkbox" checked disabled>
 
                                 {% endif %}
@@ -172,6 +170,7 @@
                                             {% endif %}
 
                                         {% endfor %}
+
                                     {% endif %}
 
 
@@ -191,18 +190,14 @@
 
                                             {% endfor %}
 
-                                                {% if (user['id'] === auth['id'] and item['year'] == timeUserAuth['current_date']) %}
+                                                {% if (user['id'] === auth['id'] and item['year'] == date('Y-m-d')) %}
                                                     <div class="my-start-stop">
-                                                        {% if timeUserAuth['time_end'] != null %}
+                                                        {% if timeUserAuth['time_end'] != null  %}
                                                             <button class="str active">{{ link_to('index/setstart','Start') }}</button>
                                                         {% else %}
                                                             <button class="end">{{ link_to('index/setend','End') }}</button>
                                                         {% endif %}
                                                     </div>
-                                                    {% if ( timeUserAuth['time_end'] != null) %}
-                                                        <div class="total">total: {{ totalResultTime }}</div>
-                                                    {% endif %}
-
                                                 {% else %}
                                                     <div></div>
                                                 {% endif %}
@@ -210,7 +205,15 @@
                                         {% endif %}
 
                                     {% endif %}
+                                    {#Result block#}
+                                    {% for result in results %}
 
+                                        {% if result['user_id'] == user['id'] and item['year'] == result['date'] %}
+                                            <div class="total">total: {{ result['result_time'] }}</div>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    {#/Result block#}
                                 </div>
                             </div>
                         </td>
