@@ -11,8 +11,10 @@ use Phalcon\Acl\Resource;
 use Staff\Controllers\ControllerBase;
 use Staff\Models\Results;
 use Staff\Models\Times;
+use Staff\Models\Users;
 use Staff\Roles\UserRole;
 use Staff\Roles\ModelResource;
+use Staff\Models\Lates;
 
 use Staff\Forms\SignUpUserForm;
 use Staff\Services\ResultService;
@@ -44,46 +46,35 @@ class IndexController extends ControllerBase
 
         }
 
+
     }
 
     public function indexAction()
     {
 
-        /*$timeS = Times::findFirst([
-            'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
-            'bind' => [
-                'date' => date('Y-m-d'),
-                'user_id' => 1
-            ]
-        ]);
-        print_die($timeS);*/
+        //$lates = $this->latesService->getLates();
+
+       // print_die($lates);
+       // print_die(date('Y-m'));
+
+      //  $lates = Lates::find();
+      //  print_die($lates);
 
 
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
-
-        $timeUserAuth  = $this->day->resultTime($authUser);
-        $times         = $this->timeService->allTimes();
-        $currentWeek   = $this->day->weeksCurrentMouth();
-        $users         = $this->userService->sortUsers($authUser);
-        $userAuthTimes = $this->userService->getTimesForUser($authUser);
-        $results       = $this->resultService->getAllResults();
-        $i_am_late     = $this->timeService->amILateTime($this->auth);
-
-
-        $this->view->auth            = $this->auth;
-        $this->view->totalResultTime = $timeUserAuth;
-        $this->view->times           = $times;
-        $this->view->currentWeks     = $currentWeek;
-        $this->view->users           = $users;
-        $this->view->userAuthTimes   = $userAuthTimes;
-        $this->view->results         = $results;
-        $this->view->i_am_late       = $i_am_late;
-
+        $this->view->auth            = $authUser;
+        $this->view->totalResultTime = $this->day->resultTime($authUser);
+        $this->view->times           = $this->timeService->allTimes();
+        $this->view->currentWeks     = $this->day->weeksCurrentMouth();
+        $this->view->users           = $this->userService->sortUsers($authUser);
+        $this->view->userAuthTimes   = $this->userService->getTimesForUser($authUser);
+        $this->view->results         = $this->resultService->getAllResults();
+        $this->view->i_am_late       = $this->timeService->amILateTime($this->auth);
 
         $this->view->form = $form;
-
+       // $lates = $this->latesService->getLates();
     }
 
     public function setstartAction()

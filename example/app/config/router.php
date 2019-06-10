@@ -2,7 +2,7 @@
 
 $router = new Phalcon\Mvc\Router();
 
-$router->add('/example/users/signUp}', [
+$router->add('/example/users/signUp', [
     'controller' => 'users',
     'action' => 'signUp'
 ]);

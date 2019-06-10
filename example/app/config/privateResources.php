@@ -3,23 +3,18 @@ use Phalcon\Config;
 use Phalcon\Logger;
 return new Config([
     'privateResources' => [
-        'users' => [
+        'Users' => [
             'index',
-            'search',
-            'edit',
-            'create',
-            'delete',
-            'changePassword'
+            'search'
         ],
-        'profiles' => [
+        'Index' => [
             'index',
-            'search',
-            'edit',
-            'create',
-            'delete'
+            'setstart',
+            'setend'
         ],
-        'permissions' => [
-            'index'
+        'Session' => [
+            'index',
+
         ]
     ]
 ]);

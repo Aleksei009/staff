@@ -8,12 +8,15 @@ use Phalcon\Acl\Role as AclRole;
 use Phalcon\Acl\Resource as AclResource;
 
 
+use Staff\Models\Users;
 use Vokuro\Models\Profiles;
 /**
  * Vokuro\Acl\Acl
  */
 class Acl extends Component
 {
+
+
     /**
      * The ACL Object
      *
@@ -146,18 +149,21 @@ class Acl extends Component
      */
     public function rebuild()
     {
+        $roleUSers = Users::getRoles();
+
         $acl = new AclMemory();
         $acl->setDefaultAction(\Phalcon\Acl::DENY);
         // Register roles
-        $profiles = Profiles::find([
+        $profiles = Users::find([
             'active = :active:',
             'bind' => [
-                'active' => 'Y'
+                'active' => 1
             ]
         ]);
-        foreach ($profiles as $profile) {
-            $acl->addRole(new AclRole($profile->name));
+        foreach ($roleUSers as $role) {
+            $acl->addRole(new AclRole($role));
         }
+
         foreach ($this->privateResources as $resource => $actions) {
             $acl->addResource(new AclResource($resource), $actions);
         }

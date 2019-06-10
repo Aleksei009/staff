@@ -189,13 +189,6 @@ class SessionController extends ControllerBase
      */
     public function logoutAction()
     {
-       /* $user = Users::findFirst($this->session->get('auth')['id']);
-        $user->status = 0;
-
-        if($user->save()){
-            $this->auth->remove();
-            return $this->response->redirect('index');
-        }*/
         $this->auth->remove();
         return $this->response->redirect('index');
     }

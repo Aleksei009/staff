@@ -93,6 +93,7 @@ class Users extends Model
             ]
         ]);
 
+
     }
 
     /**
@@ -162,8 +163,8 @@ class Users extends Model
     {
         return [
 
-            self::ROLE_USER_ADMIN => "Администратор",
-            self::ROLE_USER_GUEST => "Гость"
+          1 => self::ROLE_USER_ADMIN,
+          2 => self::ROLE_USER_GUEST
 
         ];
     }
