@@ -52,6 +52,10 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+        echo  $this->view->render('index/several');
+
+        //print_die($ee);
+
         //$lates = $this->latesService->getLates();
 
        // print_die($lates);
