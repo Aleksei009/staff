@@ -29,6 +29,10 @@
         .hide-show-block.active{
             display: table-row;
         }
+
+        .active-important{
+            display: table-row !important;
+        }
     </style>
     <body>
         <div class="main-first-content-live">

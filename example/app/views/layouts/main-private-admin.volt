@@ -28,8 +28,14 @@
 
                     {% else %}
 
+                        {% if item['day'] == (date('d')) %}
+                            <tr style="background: #fbffef;" class="hide-show-block active-important">
 
-                        <tr style="background: #fbffef;" class="hide-show-block">
+                            {% else %}
+                            <tr style="background: #fbffef;" class="hide-show-block">
+                        {% endif %}
+
+
 
 
                     {% endif %}
