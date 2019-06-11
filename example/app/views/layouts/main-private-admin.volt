@@ -35,9 +35,6 @@
                             <tr style="background: #fbffef;" class="hide-show-block">
                         {% endif %}
 
-
-
-
                     {% endif %}
                     <th scope="row">
 

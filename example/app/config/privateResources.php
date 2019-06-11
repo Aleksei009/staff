@@ -4,6 +4,7 @@ use Phalcon\Logger;
 
 return new Config([
     'privateResources' => [
+
         'session' => [
             'signup',
             'login',
@@ -13,13 +14,16 @@ return new Config([
         ],
 
         'admin' => [
-
+            'signup',
         ],
         'users' => [
-            'signUp',
+            'signup',
+            'delete',
             'changePassword',
-            'auth'
+            'auth',
+            'table',
+            'login',
+            'logout',
         ],
-
     ]
 ]);

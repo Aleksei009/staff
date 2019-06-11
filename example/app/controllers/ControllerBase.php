@@ -60,7 +60,9 @@ class ControllerBase extends Controller
        // $actionName = $dispatcher->getActionName();
 
        // print_die($this->acl->getPermissions(Profiles::findFirst()));
-        // print_die($this->acl->isAllowed('admin', 'users', 'changePassword'));
+         //print_die($this->acl->isAllowed('admin', 'users', 'changePassword'));
+       // $this->acl->rebuild();
+        //print_die($this->acl->rebuild());
 
         $controllerName = $dispatcher->getControllerName();
         // Only check permissions on private controllers
