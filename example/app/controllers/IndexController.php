@@ -54,11 +54,20 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+        $getData = $this->request->get();
+
+       // print_die($getData);
+
+       // print_die(date("m"));
+
         //Cюда добавить нормальное отображение дат а то она приходить только из параметров,
         //Далее Alc не работает потому что он невидет auth вообще а так впринцыпе он работает
         //Наладь это и добавь таблички новые
         //И проверь почему пользователей невозможно добвить
 
+       // print_die($this->day->months);
+
+        //print_die(Profiles::findFirst(1)->getPermissions());
 
       //  print_die($this->aauth->getIdentity());
 
@@ -99,6 +108,9 @@ class IndexController extends ControllerBase
         $this->view->userAuthTimes   = $this->userService->getTimesForUser($authUser);
         $this->view->results         = $this->resultService->getAllResults();
         $this->view->i_am_late       = $this->timeService->amILateTime($this->auth);
+        $this->view->months          = $this->day->months;
+        $this->view->years           = $this->day->years;
+       $this->view->getData         =  $getData;
 
         $this->view->form = $form;
     }

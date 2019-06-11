@@ -161,7 +161,7 @@ class Acl extends Component
                 $acl->allow($profile->name, $permission->resource, $permission->action);
             }
             // Always grant these permissions
-            $acl->allow($profile->name, 'users', 'changePassword');
+            $acl->allow($profile->name, 'users', 'table');
         }
         $filePath = $this->getFilePath();
         if (touch($filePath) && is_writable($filePath)) {

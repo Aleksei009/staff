@@ -9,6 +9,23 @@ use Staff\Models\Users;
 class Day
 {
 
+    public  $months = [
+        0 => [ 'month' => "January",'num' => 1, "date"=>'01'],
+        1 => ['month' =>"February",'num' => 2, "date"=>'02'],
+        2 => ['month' =>"March",'num' => 3, "date"=>'03'],
+        3 => ['month' =>"April",'num' => 4, "date"=>'04'],
+        4 =>  ['month' =>"May",'num' => 5, "date"=>'05'],
+        5  => ['month' =>"June",'num' => 6, "date"=>'06'],
+        6  => ['month' =>"July",'num' => 7, "date"=>'07'],
+        7  => ['month' =>"August",'num' => 8, "date"=>'08'],
+        8 => ['month' =>"September",'num' => 9, "date"=>'09'],
+        9 =>  ['month' =>"October",'num' => 10, "date"=>'10'],
+        10 =>  ['month' =>"November",'num' => 11, "date"=>'11'],
+        11 => ['month' =>"December",'num' => 12, "date"=>'12']
+    ];
+
+    public  $years = [0 => ['year' => 2018,'num' => 1],1 => ['year'=>'2019','num' => 2]];
+
     public function resultTime($authUser)
     {
         $user = Users::findFirst($authUser['id']);

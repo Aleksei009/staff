@@ -5,12 +5,21 @@ use Phalcon\Logger;
 return new Config([
     'privateResources' => [
         'session' => [
-            'signup'
+            'signup',
+            'login',
+            'logout',
+            'index',
+            'register',
+        ],
+
+        'admin' => [
+
         ],
         'users' => [
-            'signIn',
-            'changePassword'
-        ]
+            'signUp',
+            'changePassword',
+            'auth'
+        ],
 
     ]
 ]);

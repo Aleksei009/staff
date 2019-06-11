@@ -43,7 +43,6 @@ class ControllerBase extends Controller
         $this->timeService = new TimeService();
         $this->resultService = new ResultService();
         $this->latesService = new LatesService();
-
     }
 
     /**
@@ -55,19 +54,19 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-
-        //print_die($this->auth['role']);
-       // $controllerName = $dispatcher->getControllerName();
+      // print_die($this->auth['role']);
+       // print_die($this->auth['role']);
+        //$controllerName = $dispatcher->getControllerName();
        // $actionName = $dispatcher->getActionName();
 
        // print_die($this->acl->getPermissions(Profiles::findFirst()));
-         //print_die($this->acl->isAllowed($this->auth['role'], 'users', 'changePassword'));
+        // print_die($this->acl->isAllowed('admin', 'users', 'changePassword'));
 
-        /*$controllerName = $dispatcher->getControllerName();
+        $controllerName = $dispatcher->getControllerName();
         // Only check permissions on private controllers
         if ($this->acl->isPrivate($controllerName)) {
             // Get the current identity
-            $identity = $this->auth;
+            $identity = $this->session->get('auth');
             // If there is no identity available the user is redirected to index/index
             if (!is_array($identity)) {
                 $this->flash->notice('You don\'t have access to this module: private');
@@ -79,9 +78,9 @@ class ControllerBase extends Controller
             }
             // Check if the user have permission to the current option
             $actionName = $dispatcher->getActionName();
-            if (!$this->acl->isAllowed($this->auth['role'], $controllerName, $actionName)) {
+            if (!$this->acl->isAllowed($identity['role'], $controllerName, $actionName)) {
                 $this->flash->notice('You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
-                if ($this->acl->isAllowed($this->auth['role'], $controllerName, 'index')) {
+                if ($this->acl->isAllowed($identity['role'], $controllerName, 'index')) {
                     $dispatcher->forward([
                         'controller' => $controllerName,
                         'action' => 'index'
@@ -94,6 +93,6 @@ class ControllerBase extends Controller
                 }
                 return false;
             }
-        }*/
+        }
     }
 }
