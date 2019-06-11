@@ -1,20 +1,16 @@
 <?php
 use Phalcon\Config;
 use Phalcon\Logger;
+
 return new Config([
     'privateResources' => [
-        'Users' => [
-            'index',
-            'search'
+        'session' => [
+            'signup'
         ],
-        'Index' => [
-            'index',
-            'setstart',
-            'setend'
-        ],
-        'Session' => [
-            'index',
-
+        'users' => [
+            'signIn',
+            'changePassword'
         ]
+
     ]
 ]);

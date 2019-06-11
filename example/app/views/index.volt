@@ -23,7 +23,12 @@
             color: black;
             text-decoration: none;
         }
-
+        .hide-show-block{
+            display: none;
+        }
+        .hide-show-block.active{
+            display: table-row;
+        }
     </style>
     <body>
         <div class="main-first-content-live">
@@ -35,8 +40,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script>
 
+            $(".hide-show").on('click',function () {
 
-
+                $(".hide-show-block").toggleClass('active')
+            })
         </script>
     </body>
 </html>

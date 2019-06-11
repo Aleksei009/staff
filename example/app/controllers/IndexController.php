@@ -9,6 +9,8 @@ use Phalcon\Acl\Resource;
 
 
 use Staff\Controllers\ControllerBase;
+use Staff\Models\Permissions;
+use Staff\Models\Profiles;
 use Staff\Models\Results;
 use Staff\Models\Times;
 use Staff\Models\Users;
@@ -52,7 +54,20 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-        echo  $this->view->render('index/several');
+        //print_die($this->auth);
+
+        //$user = Profiles::find();
+
+       // print_die($user);
+
+       // $user = Users::findFirst(1);
+
+       // print_die($user->getPermissions());
+        //$permission = Permissions::find();
+
+        //print_die($permission);
+
+       // echo  $this->view->render('index/several');
 
         //print_die($ee);
 

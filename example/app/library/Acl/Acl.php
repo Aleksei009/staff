@@ -1,22 +1,16 @@
 <?php
-
-
 namespace Staff\Library\Acl;
 use Phalcon\Mvc\User\Component;
 use Phalcon\Acl\Adapter\Memory as AclMemory;
 use Phalcon\Acl\Role as AclRole;
 use Phalcon\Acl\Resource as AclResource;
-
-
+use Staff\Models\Profiles;
 use Staff\Models\Users;
-use Vokuro\Models\Profiles;
 /**
  * Vokuro\Acl\Acl
  */
 class Acl extends Component
 {
-
-
     /**
      * The ACL Object
      *
@@ -108,10 +102,10 @@ class Acl extends Component
     /**
      * Returns the permissions assigned to a profile
      *
-     * @param Profiles $profile
+     * @param Users $profile
      * @return array
      */
-    public function getPermissions(Profiles $profile)
+    public function getPermissions(Users $profile)
     {
         $permissions = [];
         foreach ($profile->getPermissions() as $permission) {
@@ -149,21 +143,14 @@ class Acl extends Component
      */
     public function rebuild()
     {
-        $roleUSers = Users::getRoles();
-
         $acl = new AclMemory();
         $acl->setDefaultAction(\Phalcon\Acl::DENY);
         // Register roles
-        $profiles = Users::find([
-            'active = :active:',
-            'bind' => [
-                'active' => 1
-            ]
-        ]);
-        foreach ($roleUSers as $role) {
-            $acl->addRole(new AclRole($role));
-        }
+        $profiles = Profiles::find();
 
+        foreach ($profiles as $profile) {
+            $acl->addRole(new AclRole($profile->name));
+        }
         foreach ($this->privateResources as $resource => $actions) {
             $acl->addResource(new AclResource($resource), $actions);
         }

@@ -5,6 +5,8 @@ namespace Staff\Controllers;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+use Staff\Forms\ChangePassword;
+use Staff\Forms\ChangePasswordForm;
 use Staff\Forms\SignUpForm;
 use Staff\Forms\SignInForm;
 use Staff\Forms\SignUpUserForm;
@@ -372,5 +374,33 @@ class UsersController extends ControllerBase
             return $this->response->redirect('index');
         }
     }
+
+    public function changePasswordAction()
+    {
+        $form = new ChangePasswordForm();
+
+        if ($this->request->isPost()) {
+            if (!$form->isValid($this->request->getPost())) {
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+            } else {
+                //$user = $this->auth;
+                $user = Users::findFirst($this->auth['id']);
+                $user->password = $this->security->hash($this->request->getPost('password'));
+
+                if (!$user->save()) {
+                    $this->flash->error('Данный пароль не был сохранен');
+                } else {
+                    $this->flash->success('Your password was successfully changed');
+                }
+            }
+        }
+
+        $this->view->form = $form;
+
+    }
+
+
 
 }

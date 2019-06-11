@@ -93,6 +93,13 @@ class Users extends Model
             ]
         ]);
 
+        $this->hasMany('id','Staff\Models\Permissions','user_id',[
+            'alias' => 'permissions',
+            'foreignKey' => [
+                'message'=> 'User cannot be deleted because he/she has activity in the system'
+            ]
+        ]);
+
 
     }
 

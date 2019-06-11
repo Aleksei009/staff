@@ -10,7 +10,6 @@ use Phalcon\Acl as Acl;
 use Phalcon\Acl\Role;
 use Phalcon\Acl\Resource;
 
-use  Staff\Library\Acl\MyAcl;
 
 use Staff\Helpers\Day;
 use Staff\Services\LatesService;
@@ -41,7 +40,6 @@ class ControllerBase extends Controller
         $this->userService = new UserService();
         $this->timeService = new TimeService();
         $this->resultService = new ResultService();
-        $this->aclPrivate = new MyAcl();
         $this->latesService = new LatesService();
 
     }
@@ -53,110 +51,43 @@ class ControllerBase extends Controller
      * @param Dispatcher $dispatcher
      * @return boolean
      */
-   /* public function beforeExecuteRoute(Dispatcher $dispatcher)
+    public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $controllerName = $dispatcher->getControllerName();
+       // $controllerName = $dispatcher->getControllerName();
+       // $actionName = $dispatcher->getActionName();
+       // print_die($this->acl->isAllowed($this->auth['role'], 'index', 'index'));
+
+        /*$controllerName = $dispatcher->getControllerName();
         // Only check permissions on private controllers
         if ($this->acl->isPrivate($controllerName)) {
             // Get the current identity
             $identity = $this->auth;
             // If there is no identity available the user is redirected to index/index
             if (!is_array($identity)) {
-               // $this->flash->notice('You don\'t have access to this module: private');
+                $this->flash->notice('You don\'t have access to this module: private');
                 $dispatcher->forward([
-                    'controller' => 'users',
-                    'action' => 'signIn'
+                    'controller' => 'index',
+                    'action' => 'index'
                 ]);
                 return false;
             }
-
             // Check if the user have permission to the current option
             $actionName = $dispatcher->getActionName();
-            if (!$this->acl->isAllowed($identity['role'], $controllerName, $actionName)) {
+            if (!$this->acl->isAllowed($this->auth['role'], $controllerName, $actionName)) {
                 $this->flash->notice('You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
-                if ($this->acl->isAllowed($identity['role'], $controllerName, 'index')) {
+                if ($this->acl->isAllowed($this->auth['role'], $controllerName, 'index')) {
                     $dispatcher->forward([
                         'controller' => $controllerName,
                         'action' => 'index'
                     ]);
                 } else {
                     $dispatcher->forward([
-                        'controller' => 'index',
+                        'controller' => 'user_control',
                         'action' => 'index'
                     ]);
                 }
                 return false;
             }
-        }
-    }*/
-
-    public function beforeExecuteRoute(Dispatcher $dispatcher)
-    {
-
-
-
-      /* $aclPrivate = $this->aclPrivate;
-
-       //print_die($this->resultService);
-
-        $aclPrivateRole = $this->AclResources;
-
-        $acl = new AclList();
-
-        $acl->setDefaultAction(
-            Acl::DENY
-        );
-
-        $roleAdmins = new Role('admin');
-        $roleUser = new Role('user');
-
-        $acl->addRole($roleAdmins);
-        $acl->addRole($roleUser);
-
-        $usersResource      = new Resource('Users');
-        $indexResource      = new Resource('Index');
-        $sessionResource    = new Resource('Session');
-
-        $acl->addResource(
-            $usersResource,[
-                'index',
-                'create',
-                'search'
-            ]
-        );
-        $acl->addResource(
-            $indexResource,[
-                'index',
-                'setstart',
-                'setend'
-            ]
-        );
-        $acl->addResource(
-            $sessionResource,[
-                'index',
-            ]
-        );
-
-        foreach ($aclPrivateRole as $privateControllers){
-
-            foreach ($privateControllers as $K=>$controller){
-                foreach ($controller as $action){
-                    $acl->allow('admin', $K, $action);
-                   // print_die($acl);
-                }
-            }
-
-        }
-
-
-
-      // print_die($acl);
-
-        $acl->allow('admin', 'Users', 'create');
-
-        //print_die($acl->isAllowed('admin', 'Index', 'setstart'));*/
-
-
-       // print_die($acl);
+        }*/
     }
 }

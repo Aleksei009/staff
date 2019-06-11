@@ -12,7 +12,7 @@ $router->add('/example/users/signUp', [
     'action' => 'resetPassword'
 ]);*/
 //$router->handle();
-return $router;
+ return $router;
 
 /*$router = $di->getRouter();
 
