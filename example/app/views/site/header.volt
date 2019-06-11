@@ -101,6 +101,11 @@
                 <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
                     {{ link_to('users/changePassword', 'Chanch Password') }}
                 </div>
+                {% if auth['role'] == 'admin' %}
+                    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
+                        {{ link_to('users/table', 'look users') }}
+                    </div>
+                {% endif %}
 
                 {{ form('session/signup', 'method': 'post') }}
 

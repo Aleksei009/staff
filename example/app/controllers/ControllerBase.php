@@ -55,11 +55,13 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
+
+        //print_die($this->auth['role']);
        // $controllerName = $dispatcher->getControllerName();
        // $actionName = $dispatcher->getActionName();
 
        // print_die($this->acl->getPermissions(Profiles::findFirst()));
-        //print_die($this->acl->isAllowed($this->auth['role'], 'Session', 'signup'));
+         //print_die($this->acl->isAllowed($this->auth['role'], 'users', 'changePassword'));
 
         /*$controllerName = $dispatcher->getControllerName();
         // Only check permissions on private controllers

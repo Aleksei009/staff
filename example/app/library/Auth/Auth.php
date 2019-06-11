@@ -4,10 +4,10 @@ namespace Staff\Library\Auth;
 
 
 use Phalcon\Mvc\User\Component;
-use Prepare\Models\Users;
+/*use Prepare\Models\Users;
 use Prepare\Models\RememberTokens;
 use Prepare\Models\SuccessLogins;
-use Prepare\Models\FailedLogins;
+use Prepare\Models\FailedLogins;*/
 /**
  * Vokuro\Auth\Auth
  * Manages Authentication/Identity Management in Vokuro
@@ -201,7 +201,7 @@ class Auth extends Component
      */
     public function getIdentity()
     {
-        return $this->session->get('auth-identity');
+        return $this->session->get('auth');
     }
     /**
      * Returns the current identity
@@ -210,7 +210,7 @@ class Auth extends Component
      */
     public function getName()
     {
-        $identity = $this->session->get('auth-identity');
+        $identity = $this->session->get('auth');
         return $identity['name'];
     }
     /**

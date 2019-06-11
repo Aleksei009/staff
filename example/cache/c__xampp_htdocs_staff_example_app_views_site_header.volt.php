@@ -101,6 +101,11 @@
                 <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
                     <?= $this->tag->linkTo(['users/changePassword', 'Chanch Password']) ?>
                 </div>
+                <?php if ($auth['role'] == 'admin') { ?>
+                    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
+                        <?= $this->tag->linkTo(['users/table', 'look users']) ?>
+                    </div>
+                <?php } ?>
 
                 <?= $this->tag->form(['session/signup', 'method' => 'post']) ?>
 

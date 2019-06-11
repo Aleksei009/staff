@@ -54,6 +54,14 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+        //Cюда добавить нормальное отображение дат а то она приходить только из параметров,
+        //Далее Alc не работает потому что он невидет auth вообще а так впринцыпе он работает
+        //Наладь это и добавь таблички новые
+        //И проверь почему пользователей невозможно добвить
+
+
+      //  print_die($this->aauth->getIdentity());
+
         if($this->request->isGet()){
             $data = $this->request->get();
             $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
@@ -73,8 +81,10 @@ class IndexController extends ControllerBase
                     'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
                 ];
             }
-
+          //  print_die($weeks_current_month);
         }
+
+
 
 
         $form     = new SignUpUserForm();

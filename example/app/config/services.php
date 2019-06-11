@@ -122,6 +122,15 @@ $di->setShared('AclResources', function() {
     }
     return $pr;
 });
+
+/**
+ * Custom authentication component
+ */
+$di->set('aauth', function () {
+    return new Auth();
+});
+
+
 /**
  * Access Control List
  * Reads privateResource as an array from the config object.
@@ -144,12 +153,6 @@ $di->setShared('session', function () {
     return $session;
 });
 
-/**
- * Custom authentication component
- */
-$di->set('auth', function () {
-    return new Auth();
-});
 
 
 $di->set('dispatcher', function (){
