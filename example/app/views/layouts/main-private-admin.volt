@@ -24,7 +24,13 @@
 
                 {% for item  in currentWeks %}
                     {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
-                        <tr style="background: #ffdf38;" class="hide-show-block">
+
+                        {% if item['day'] == (date('d')) %}
+                            <tr style="background: #ffdf38;" class="hide-show-block active-important">
+
+                        {% else %}
+                            <tr style="background: #ffdf38;" class="hide-show-block">
+                        {% endif %}
 
                     {% else %}
 

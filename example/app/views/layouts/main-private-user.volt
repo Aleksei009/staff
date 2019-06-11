@@ -24,13 +24,22 @@
 
                 {% for item  in currentWeks %}
                     {% if (item['week'] == 'Saturday' or item['week'] == 'Sunday')  %}
+
+                        {% if item['day'] == (date('d')) %}
+                            <tr style="background: #ffdf38;" class="hide-show-block active-important">
+
+                        {% else %}
                             <tr style="background: #ffdf38;" class="hide-show-block">
+                        {% endif %}
 
                     {% else %}
 
+                        {% if item['day'] == (date('d')) %}
+                            <tr style="background: #fbffef;" class="hide-show-block active-important">
 
+                        {% else %}
                             <tr style="background: #fbffef;" class="hide-show-block">
-
+                        {% endif %}
 
                     {% endif %}
                     <th scope="row">
@@ -53,24 +62,6 @@
 
                                 {% endif %}
 
-                              {#  {% if  times is empty %}
-                                <div class="time-start-finaly" style="text-align: center;">
-                                {% else %}
-                                    {% if i_am_late['user_id'] == user['id']%}
-                                    <div class="time-start-finaly" style="background: pink; text-align: center;">
-
-                                        {% else %}
-
-                                        {% for time in times %}
-                                            {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
-                                            <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                                {% else %}
-                                                <div class="time-start-finaly" style="text-align: center;">
-                                            {% endif %}
-                                        {% endfor %}
-
-                                    {% endif %}
-                                {% endif %}#}
 
                                 {% if  times is empty %}
                                 <div class="time-start-finaly" style="text-align: center;">

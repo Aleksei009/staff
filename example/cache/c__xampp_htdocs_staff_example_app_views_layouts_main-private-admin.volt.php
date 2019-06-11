@@ -24,7 +24,13 @@
 
                 <?php foreach ($currentWeks as $item) { ?>
                     <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
-                        <tr style="background: #ffdf38;" class="hide-show-block">
+
+                        <?php if ($item['day'] == (date('d'))) { ?>
+                            <tr style="background: #ffdf38;" class="hide-show-block active-important">
+
+                        <?php } else { ?>
+                            <tr style="background: #ffdf38;" class="hide-show-block">
+                        <?php } ?>
 
                     <?php } else { ?>
 
