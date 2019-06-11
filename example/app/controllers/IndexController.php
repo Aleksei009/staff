@@ -54,31 +54,30 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-        //print_die($this->auth);
+        $year = [
+            0 => 2018,
+            1 => 2019
+        ];
+        $month = [
+            0 => 'Январь',
+            1 => 'Февраль',
+            2 => 'Март',
+            3 => 'Апрель',
+            4 => 'Май',
+            5 => 'Июнь',
+            6 => 'Июль',
+            7 => 'Август',
+            8 => 'Сентябрь',
+            9 => 'Октябрь',
+            10 => 'Ноябрь',
+            11 => 'Декабрь',
+        ];
 
-        //$user = Profiles::find();
+       /* $now = getdate();
+        $cal = $this->makeCal($now['year'], $now['mon']);
+        print_die($cal);*/
 
-       // print_die($user);
-
-       // $user = Users::findFirst(1);
-
-       // print_die($user->getPermissions());
-        //$permission = Permissions::find();
-
-        //print_die($permission);
-
-       // echo  $this->view->render('index/several');
-
-        //print_die($ee);
-
-        //$lates = $this->latesService->getLates();
-
-       // print_die($lates);
-       // print_die(date('Y-m'));
-
-      //  $lates = Lates::find();
-      //  print_die($lates);
-
+        //print_die($this->day->weeksCurrentMouth());
 
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
@@ -93,7 +92,6 @@ class IndexController extends ControllerBase
         $this->view->i_am_late       = $this->timeService->amILateTime($this->auth);
 
         $this->view->form = $form;
-       // $lates = $this->latesService->getLates();
     }
 
     public function setstartAction()
@@ -132,6 +130,11 @@ class IndexController extends ControllerBase
         }else{
             return $this->response->redirect('index/index');
         }
+
+    }
+
+    public function tableAction()
+    {
 
     }
 

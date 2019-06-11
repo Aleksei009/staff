@@ -49,6 +49,12 @@ class Users extends Model
     public $role;
 
     /**
+     *
+     * @var integer
+     */
+    public $deleted;
+
+    /**
      * Validations and business logic
      *
      * @return boolean

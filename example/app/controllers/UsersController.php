@@ -133,6 +133,7 @@ class UsersController extends ControllerBase
     public function createAction()
     {
 
+
         $form = new SignUpUserForm();
 
         if(!$form->isValid($_POST)){
@@ -228,9 +229,22 @@ class UsersController extends ControllerBase
      */
     public function deleteAction($id)
     {
+        $user = Users::findFirst($id);
+        $user->deleted = 1;
+
+        if($user->save()){
+
+            $this->flash->success('все ок');
+            $this->response->redirect('users/table');
+        }else{
+
+            $this->flash->error('все плохо');
+
+           $this->response->redirect('users/table');
+        }
 
 
-        $user = Users::findFirstByid($id);
+        /*$user = Users::findFirstByid($id);
         if (!$user) {
             $this->flash->error("user was not found");
 
@@ -256,7 +270,7 @@ class UsersController extends ControllerBase
             return;
         }
 
-        $this->flash->success("user was deleted successfully");
+        $this->flash->success("user was deleted successfully");*/
 
         $this->dispatcher->forward([
             'controller' => "users",
@@ -400,7 +414,11 @@ class UsersController extends ControllerBase
         $this->view->form = $form;
 
     }
-
+    public function tableAction()
+    {
+        $users = Users::find();
+        $this->view->users = $users;
+    }
 
 
 }

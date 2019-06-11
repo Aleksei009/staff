@@ -24,10 +24,14 @@
 
                 <?php foreach ($currentWeks as $item) { ?>
                     <?php if (($item['week'] == 'Saturday' || $item['week'] == 'Sunday')) { ?>
-                        <tr style="background: #ffdf38;" class="hide-show-block">
+                            <tr style="background: #ffdf38;" class="hide-show-block">
+
                     <?php } else { ?>
 
-                        <tr style="background: #fbffef;" class="hide-show-block">
+
+                            <tr style="background: #fbffef;" class="hide-show-block">
+
+
                     <?php } ?>
                     <th scope="row">
 

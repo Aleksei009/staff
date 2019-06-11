@@ -12,6 +12,8 @@ use Phalcon\Acl\Resource;
 
 
 use Staff\Helpers\Day;
+use Staff\Models\Permissions;
+use Staff\Models\Profiles;
 use Staff\Services\LatesService;
 use Staff\Services\ResultService;
 use Staff\Services\UserService;
@@ -55,7 +57,9 @@ class ControllerBase extends Controller
     {
        // $controllerName = $dispatcher->getControllerName();
        // $actionName = $dispatcher->getActionName();
-       // print_die($this->acl->isAllowed($this->auth['role'], 'index', 'index'));
+
+       // print_die($this->acl->getPermissions(Profiles::findFirst()));
+        //print_die($this->acl->isAllowed($this->auth['role'], 'Session', 'signup'));
 
         /*$controllerName = $dispatcher->getControllerName();
         // Only check permissions on private controllers

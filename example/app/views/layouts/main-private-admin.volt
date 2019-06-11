@@ -26,7 +26,16 @@
                             <tr style="background: #ffdf38;" class="hide-show-block">
                         {% else %}
 
-                            <tr style="background: #fbffef;" class="hide-show-block">
+                                {% if item['day'] == (date('d')) %}
+                                     <tr style="background: #fbffef;" class="hide-show-block active">
+                                         {% else %}
+                                    <tr style="background: #fbffef;" class="hide-show-block">
+                                {% endif %}
+
+
+
+                        {% endif %}
+
 
                         {% endif %}
                         <th scope="row">

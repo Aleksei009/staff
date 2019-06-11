@@ -102,10 +102,10 @@ class Acl extends Component
     /**
      * Returns the permissions assigned to a profile
      *
-     * @param Users $profile
+     * @param Profiles $profile
      * @return array
      */
-    public function getPermissions(Users $profile)
+    public function getPermissions(Profiles $profile)
     {
         $permissions = [];
         foreach ($profile->getPermissions() as $permission) {
