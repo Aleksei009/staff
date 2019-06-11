@@ -54,7 +54,60 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-        $year = [
+        if($this->request->isGet()){
+            $data = $this->request->get();
+            $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
+           // print_die($curMount);
+
+            $current_year = date("Y",$curMount);
+            $current_mouth = date("m",$curMount);
+            $dayofmonth = date('t',$curMount);
+
+            $weeks_current_month = [];
+
+            for ($i = 1; $i <= $dayofmonth; $i++){
+
+                $weeks_current_month[$i]= [
+                    'day' => $i,
+                    'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
+                    'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+                ];
+            }
+
+        }
+
+
+        //$curMount = strtotime('01-2-2011');
+
+
+
+       /* $current_year = date("Y");
+        $current_mouth = date("m");
+        $dayofmonth = date('t',$curMount);
+
+        $weeks_current_month = [];
+
+        for ($i = 1; $i <= $dayofmonth; $i++){
+
+            $weeks_current_month[$i]= [
+                'day' => $i,
+                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
+                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+            ];
+        }*/
+
+
+
+
+
+
+      //  $date = date('l');
+       // $day = date('l',);
+        //print_die($this->day->weeksCurrentMouth());
+
+
+
+        /*$year = [
             0 => 2018,
             1 => 2019
         ];
@@ -71,7 +124,7 @@ class IndexController extends ControllerBase
             9 => 'Октябрь',
             10 => 'Ноябрь',
             11 => 'Декабрь',
-        ];
+        ];*/
 
        /* $now = getdate();
         $cal = $this->makeCal($now['year'], $now['mon']);
