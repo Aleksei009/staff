@@ -77,68 +77,14 @@ class IndexController extends ControllerBase
         }
 
 
-        //$curMount = strtotime('01-2-2011');
-
-
-
-       /* $current_year = date("Y");
-        $current_mouth = date("m");
-        $dayofmonth = date('t',$curMount);
-
-        $weeks_current_month = [];
-
-        for ($i = 1; $i <= $dayofmonth; $i++){
-
-            $weeks_current_month[$i]= [
-                'day' => $i,
-                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
-                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
-            ];
-        }*/
-
-
-
-
-
-
-      //  $date = date('l');
-       // $day = date('l',);
-        //print_die($this->day->weeksCurrentMouth());
-
-
-
-        /*$year = [
-            0 => 2018,
-            1 => 2019
-        ];
-        $month = [
-            0 => 'Январь',
-            1 => 'Февраль',
-            2 => 'Март',
-            3 => 'Апрель',
-            4 => 'Май',
-            5 => 'Июнь',
-            6 => 'Июль',
-            7 => 'Август',
-            8 => 'Сентябрь',
-            9 => 'Октябрь',
-            10 => 'Ноябрь',
-            11 => 'Декабрь',
-        ];*/
-
-       /* $now = getdate();
-        $cal = $this->makeCal($now['year'], $now['mon']);
-        print_die($cal);*/
-
-        //print_die($this->day->weeksCurrentMouth());
-
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
         $this->view->times           = $this->timeService->allTimes();
-        $this->view->currentWeks     = $this->day->weeksCurrentMouth();
+        //$this->view->currentWeks     = $this->day->weeksCurrentMouth();
+        $this->view->currentWeks     = $weeks_current_month;
         $this->view->users           = $this->userService->sortUsers($authUser);
         $this->view->userAuthTimes   = $this->userService->getTimesForUser($authUser);
         $this->view->results         = $this->resultService->getAllResults();
