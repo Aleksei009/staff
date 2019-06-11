@@ -61,7 +61,7 @@
                         <select name="month" onchange="this.form.submit();">
                             <?php foreach ($months as $item) { ?>
                                 <?php if (empty($getData)) { ?>
-                                    <?php if ($item['date'] == date('m')) { ?>
+                                    <?php if ($item['date'] == (date('m'))) { ?>
                                         <option value="<?= $item['num'] ?>" selected="selected" ><?= $item['month'] ?></option>
                                         <?php } else { ?>
                                             <option value="<?= $item['num'] ?>"><?= $item['month'] ?></option>
@@ -69,6 +69,7 @@
                                     <?php } else { ?>
 
                                         <?php if ($getData['month'] == $item['num']) { ?>
+
                                             <option value="<?= $item['num'] ?>" selected="selected"><?= $item['month'] ?></option>
                                             <?php } else { ?>
                                                 <option value="<?= $item['num'] ?>"><?= $item['month'] ?></option>
@@ -82,14 +83,14 @@
                             <?php foreach ($years as $item) { ?>
 
                                 <?php if (empty($getData)) { ?>
-                                    <?php if ($item['date'] == date('m')) { ?>
-                                        <option value="<?= $item['num'] ?>" selected="selected" ><?= $item['year'] ?></option>
+                                    <?php if ($item['year'] == (date('Y'))) { ?>
+                                        <option value="<?= $item['year'] ?>" selected="selected" ><?= $item['year'] ?></option>
                                     <?php } else { ?>
-                                        <option value="<?= $item['num'] ?>"><?= $item['year'] ?></option>
+                                        <option value="<?= $item['year'] ?>"><?= $item['year'] ?></option>
                                     <?php } ?>
                                 <?php } else { ?>
 
-                                    <?php if ($getData['year'] == $item['num']) { ?>
+                                    <?php if ($getData['year'] == $item['year']) { ?>
                                         <option value="<?= $item['year'] ?>" selected="selected"><?= $item['year'] ?></option>
                                         <?php } else { ?>
                                             <option value="<?= $item['year'] ?>"><?= $item['year'] ?></option>

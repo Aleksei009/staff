@@ -61,7 +61,7 @@
                         <select name="month" onchange="this.form.submit();">
                             {% for item in months %}
                                 {% if getData is empty %}
-                                    {% if item['date'] == date('m') %}
+                                    {% if item['date'] == (date('m')) %}
                                         <option value="{{ item['num'] }}" selected="selected" >{{ item['month'] }}</option>
                                         {% else %}
                                             <option value="{{ item['num'] }}">{{ item['month'] }}</option>
@@ -69,6 +69,7 @@
                                     {% else %}
 
                                         {% if getData['month'] == item['num']  %}
+
                                             <option value="{{ item['num'] }}" selected="selected">{{ item['month'] }}</option>
                                             {% else %}
                                                 <option value="{{ item['num'] }}">{{ item['month'] }}</option>
@@ -82,14 +83,14 @@
                             {% for item in years %}
 
                                 {% if getData is empty %}
-                                    {% if item['date'] == date('m') %}
-                                        <option value="{{ item['num'] }}" selected="selected" >{{ item['year'] }}</option>
+                                    {% if item['year'] == (date('Y')) %}
+                                        <option value="{{ item['year'] }}" selected="selected" >{{ item['year'] }}</option>
                                     {% else %}
-                                        <option value="{{ item['num'] }}">{{ item['year'] }}</option>
+                                        <option value="{{ item['year'] }}">{{ item['year'] }}</option>
                                     {% endif %}
                                 {% else %}
 
-                                    {% if getData['year'] == item['num']  %}
+                                    {% if getData['year'] == item['year']  %}
                                         <option value="{{ item['year'] }}" selected="selected">{{ item['year'] }}</option>
                                         {% else %}
                                             <option value="{{ item['year'] }}">{{ item['year'] }}</option>

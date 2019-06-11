@@ -56,44 +56,28 @@ class IndexController extends ControllerBase
 
         $getData = $this->request->get();
 
-       // print_die($getData);
-
-       // print_die(date("m"));
-
-        //Cюда добавить нормальное отображение дат а то она приходить только из параметров,
-        //Далее Alc не работает потому что он невидет auth вообще а так впринцыпе он работает
-        //Наладь это и добавь таблички новые
-        //И проверь почему пользователей невозможно добвить
-
-       // print_die($this->day->months);
-
-        //print_die(Profiles::findFirst(1)->getPermissions());
-
-      //  print_die($this->aauth->getIdentity());
-
-        if($this->request->isGet()){
+        if($this->request->isGet() && $this->request->get()){
             $data = $this->request->get();
-            $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
-           // print_die($curMount);
-
-            $current_year = date("Y",$curMount);
-            $current_mouth = date("m",$curMount);
-            $dayofmonth = date('t',$curMount);
-
-            $weeks_current_month = [];
-
-            for ($i = 1; $i <= $dayofmonth; $i++){
-
-                $weeks_current_month[$i]= [
-                    'day' => $i,
-                    'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
-                    'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
-                ];
-            }
-          //  print_die($weeks_current_month);
+        }else{
+            $data = ["month" => (date('m')),"year" => (date('Y'))];
         }
 
+        $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
 
+        $current_year = date("Y",$curMount);
+        $current_mouth = date("m",$curMount);
+        $dayofmonth = date('t',$curMount);
+
+        $weeks_current_month = [];
+
+        for ($i = 1; $i <= $dayofmonth; $i++){
+
+            $weeks_current_month[$i]= [
+                'day' => $i,
+                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
+                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+            ];
+        }
 
 
         $form     = new SignUpUserForm();
