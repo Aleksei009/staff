@@ -53,8 +53,6 @@
 
                                 <?php } ?>
 
-                                
-
                                 <?php if (empty($times)) { ?>
                                 <div class="time-start-finaly" style="text-align: center;">
                                     <?php } else { ?>

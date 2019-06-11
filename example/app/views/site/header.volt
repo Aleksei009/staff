@@ -60,7 +60,7 @@
                     <form action="" method="GET">
                         <select name="month" onchange="this.form.submit();">
                             {% for item in months %}
-                                {% if getData is empty %}
+                                {% if getData['month'] is empty %}
                                     {% if item['date'] == (date('m')) %}
                                         <option value="{{ item['num'] }}" selected="selected" >{{ item['month'] }}</option>
                                         {% else %}
@@ -82,7 +82,7 @@
                         <select name="year" onchange="this.form.submit();">
                             {% for item in years %}
 
-                                {% if getData is empty %}
+                                {% if getData['year'] is empty %}
                                     {% if item['year'] == (date('Y')) %}
                                         <option value="{{ item['year'] }}" selected="selected" >{{ item['year'] }}</option>
                                     {% else %}

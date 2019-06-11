@@ -53,10 +53,12 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-
+        //print_die($this->request->get());
         $getData = $this->request->get();
 
-        if($this->request->isGet() && $this->request->get()){
+        //print_die($getData);
+
+        if($this->request->isGet() && $this->request->get()['month'] && $this->request->get()['year']){
             $data = $this->request->get();
         }else{
             $data = ["month" => (date('m')),"year" => (date('Y'))];
@@ -105,9 +107,9 @@ class IndexController extends ControllerBase
         $timeBool = $this->day->timeStart($this->auth);
 
         if($timeBool){
-            return $this->response->redirect('index/index');
+            return $this->response->redirect('index');
         }else{
-            return $this->response->redirect('index/index');
+            return $this->response->redirect('index');
         }
 
     }
@@ -131,9 +133,10 @@ class IndexController extends ControllerBase
 
 
         if($timeBool){
-            return $this->response->redirect('index/index');
+           // return $this->response->redirect('index/index');
+            return $this->response->redirect('index');
         }else{
-            return $this->response->redirect('index/index');
+            return $this->response->redirect('index');
         }
 
     }

@@ -60,7 +60,7 @@
                     <form action="" method="GET">
                         <select name="month" onchange="this.form.submit();">
                             <?php foreach ($months as $item) { ?>
-                                <?php if (empty($getData)) { ?>
+                                <?php if (empty($getData['month'])) { ?>
                                     <?php if ($item['date'] == (date('m'))) { ?>
                                         <option value="<?= $item['num'] ?>" selected="selected" ><?= $item['month'] ?></option>
                                         <?php } else { ?>
@@ -82,7 +82,7 @@
                         <select name="year" onchange="this.form.submit();">
                             <?php foreach ($years as $item) { ?>
 
-                                <?php if (empty($getData)) { ?>
+                                <?php if (empty($getData['year'])) { ?>
                                     <?php if ($item['year'] == (date('Y'))) { ?>
                                         <option value="<?= $item['year'] ?>" selected="selected" ><?= $item['year'] ?></option>
                                     <?php } else { ?>
