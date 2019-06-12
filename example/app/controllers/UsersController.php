@@ -7,11 +7,13 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 use Staff\Forms\ChangePassword;
 use Staff\Forms\ChangePasswordForm;
+use Staff\Forms\HolidayForm;
 use Staff\Forms\SignUpForm;
 use Staff\Forms\SignInForm;
 use Staff\Forms\SignUpUserForm;
 
 use Staff\Forms\TimeForm;
+use Staff\Models\Holidays;
 use Staff\Models\Times;
 use Staff\Services\UserService;
 use Staff\Models\Users;
@@ -433,7 +435,44 @@ class UsersController extends ControllerBase
             $this->view->time = [];
         }
 
+    }
 
+    public function holidayAction()
+    {
+       //print_die($this->request->get());
+
+        $form = new HolidayForm();
+
+        if ($this->request->isPost()) {
+
+            if (!$form->isValid($this->request->getPost())) {
+
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+            } else{
+
+                $data = $this->request->getPost();
+
+                $holiday = new Holidays($data);
+
+                if (!$holiday->save()) {
+                    $this->flash->error('Данные не сохранены');
+
+                } else {
+                    $this->flash->success('Your password was successfully changed');
+
+                    return  $this->dispatcher->forward([
+                        'controller' => 'index',
+                        'action'  => 'index'
+                    ]);
+                }
+             }
+
+        }
+
+        $this->view->form = $form;
 
     }
 

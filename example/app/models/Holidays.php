@@ -1,5 +1,7 @@
 <?php
 
+namespace Staff\Models;
+
 class Holidays extends \Phalcon\Mvc\Model
 {
 
@@ -20,6 +22,12 @@ class Holidays extends \Phalcon\Mvc\Model
      * @var string
      */
     public $date;
+
+    /**
+     *
+     * @var integer
+     */
+    public $everyYear;
 
     /**
      * Initialize method for model.

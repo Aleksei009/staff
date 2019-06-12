@@ -23,7 +23,8 @@ return new Config([
             'edit',
             'correct',
             'return',
-            'time'
+            'time',
+            'holiday'
 
         ],
     ]
