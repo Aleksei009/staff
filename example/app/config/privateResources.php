@@ -22,7 +22,8 @@ return new Config([
             'register',
             'edit',
             'correct',
-            'return'
+            'return',
+            'time'
 
         ],
     ]

@@ -1,6 +1,6 @@
-{{ content() }}
+{#{{ content() }}#}
 
-<?php echo Phalcon\Tag::form(array('users/correct/'. $user->id, 'method' => 'post')); ?>
+{#<?php echo Phalcon\Tag::form(array('users/correct/'. $user->id, 'method' => 'post')); ?>
 
 <div class="container">
     <div class="row">
@@ -36,6 +36,39 @@
 
 
 
-{{ end_form() }}
+{{ end_form() }}#}
 
-<div>asdasdasdasd</div>
+<div class="container">
+    <div class="row">
+        <h2 style="text-align: center">{{ user.name }}</h2>
+    </div>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">time_start</th>
+        <th scope="col">time_end</th>
+        <th scope="col">current_date</th>
+        <th scope="col">Понель</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if times is empty %}
+
+        <div>Данных нет</div>
+
+        {% else %}
+        {% for time in times  %}
+            <tr>
+                <th scope="row">{{ time.id }}</th>
+                <td>{{ time.time_start }}</td>
+                <td>{{ time.time_end }}</td>
+                <td>{{ time.current_date }}</td>
+                <td><?php echo $this->tag->linkTo(["users/time/" . $time->id, "Редактировать" ]); ?></td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+
+    </tbody>
+</table>

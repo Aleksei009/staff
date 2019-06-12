@@ -1,6 +1,8 @@
 <div style="padding: 20px 0; display: flex;justify-content: center;" >
-    <div style=" width: 320px;">
+    <div class="container">
         <?= $this->getContent() ?>
     </div>
+
+
 
 </div>

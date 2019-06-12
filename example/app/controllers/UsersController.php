@@ -12,6 +12,7 @@ use Staff\Forms\SignInForm;
 use Staff\Forms\SignUpUserForm;
 
 use Staff\Forms\TimeForm;
+use Staff\Models\Times;
 use Staff\Services\UserService;
 use Staff\Models\Users;
 
@@ -338,7 +339,7 @@ class UsersController extends ControllerBase
         }
 
         $this->view->user = $user;
-        $this->view->curTimeForUser = $curTimeForUser;
+        $this->view->times = $curTimeForUser;
 
        // print_die($this->request->get());
 
@@ -376,6 +377,11 @@ class UsersController extends ControllerBase
 
         }
 
+    }
+
+    public function timeAction($id)
+    {
+       $time = Times::findFirst($id);
     }
 
 
