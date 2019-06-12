@@ -340,5 +340,32 @@ class UsersController extends ControllerBase
         $this->view->users = $users;
     }
 
+    public function correctAction()
+    {
+
+       // print_die($this->request->get());
+
+        if($this->request->isPost()){
+
+            $bool = $this->day->correctDay($this->auth);
+
+            if($bool){
+                $this->flash->success('Данные изменены');
+                return  $this->dispatcher->forward([
+                    'controller' => 'index',
+                    'action'  => 'correct'
+                ]);
+            }else{
+
+                $this->flash->error('Данные изменены');
+                return  $this->dispatcher->forward([
+                    'controller' => 'index',
+                    'action'  => 'correct'
+                ]);
+            }
+        }
+
+    }
+
 
 }

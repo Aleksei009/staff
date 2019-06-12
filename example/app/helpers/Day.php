@@ -89,11 +89,8 @@ class Day
             if($timeS){
                 if($timeS->i_am_late == 0){
                     $i_am_late = 0;
-                }else{
-                    $i_am_late = 1;
                 }
             }
-
 
 
         }else{
@@ -131,6 +128,21 @@ class Day
                 break;
             }
 
+        }
+
+    }
+    public function correctDay($auth)
+    {
+        $time = Times::findFirst([
+            'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
+            'bind' => [
+                'date' => date('Y-m-d'),
+                'user_id' => $auth['id']
+            ]
+        ]);
+        if($time){
+            $time->i_am_late = 0;
+            return $time->save();
         }
 
     }

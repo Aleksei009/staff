@@ -20,7 +20,9 @@ return new Config([
             'new',
             'search',
             'register',
-            'edit'
+            'edit',
+            'correct'
+
         ],
     ]
 ]);
