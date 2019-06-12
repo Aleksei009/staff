@@ -381,7 +381,16 @@ class UsersController extends ControllerBase
 
     public function timeAction($id)
     {
-       $time = Times::findFirst($id);
+        $time = Times::findFirst($id);
+        $form =  new TimeForm($time);
+
+        $this->view->form = $form;
+
+     //   print_die($form);
+
+
+
+      // print_die($time);
     }
 
 
