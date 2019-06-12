@@ -11,7 +11,7 @@ use Staff\Forms\SignUpForm;
 use Staff\Forms\SignInForm;
 use Staff\Forms\SignUpUserForm;
 
-use Staff\Controllers\ControllerBase;
+use Staff\Forms\TimeForm;
 use Staff\Services\UserService;
 use Staff\Models\Users;
 
@@ -21,7 +21,7 @@ class UsersController extends ControllerBase
 
     public function initialize()
     {
-
+        parent::initialize();
     }
 
     /**
@@ -241,40 +241,25 @@ class UsersController extends ControllerBase
            $this->response->redirect('users/table');
         }
 
-
-        /*$user = Users::findFirstByid($id);
-        if (!$user) {
-            $this->flash->error("user was not found");
-
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'index'
-            ]);
-
-            return;
-        }
-
-        if (!$user->delete()) {
-
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'search'
-            ]);
-
-            return;
-        }
-
-        $this->flash->success("user was deleted successfully");*/
-
-        $this->dispatcher->forward([
-            'controller' => "users",
-            'action' => "index"
-        ]);
     }
+    public function returnAction($id)
+    {
+        $user = Users::findFirst($id);
+        $user->deleted = 0;
+
+        if($user->save()){
+
+            $this->flash->success('все ок');
+            $this->response->redirect('users/table');
+        }else{
+
+            $this->flash->error('все плохо');
+
+            $this->response->redirect('users/table');
+        }
+
+    }
+
 
     public function signInAction()
     {
@@ -340,32 +325,59 @@ class UsersController extends ControllerBase
         $this->view->users = $users;
     }
 
-    public function correctAction()
+    public function correctAction($id)
     {
+
+
+        $user = Users::findFirst($id);
+        $curTimeForUser = $user->getTimes();
+
+
+        if($curTimeForUser->toArray() == []){
+            $curTimeForUser = [];
+        }
+
+        $this->view->user = $user;
+        $this->view->curTimeForUser = $curTimeForUser;
 
        // print_die($this->request->get());
 
         if($this->request->isPost()){
 
-            $bool = $this->day->correctDay($this->auth);
+            $data = $this->request->get();
 
-            if($bool){
-                $this->flash->success('Данные изменены');
-                return  $this->dispatcher->forward([
-                    'controller' => 'index',
-                    'action'  => 'correct'
-                ]);
+            if ($data['corDay'] == 'on'){
+                $bool = $this->day->correctDay($data['userId']);
+                //print_die($bool);
+                if($bool){
+                    $this->flash->success('Данные изменены');
+                    return  $this->dispatcher->forward([
+                        'controller' => 'users',
+                        'action'  => 'table'
+                    ]);
+                }else{
+
+                    $this->flash->error('Данные не изменены или Данных нет');
+                    return  $this->dispatcher->forward([
+                        'controller' => 'users',
+                        'action'  => 'table',
+                        'id' => $user->id
+                    ]);
+                }
             }else{
 
-                $this->flash->error('Данные изменены');
+
+                $this->flash->success('Данные изменены');
                 return  $this->dispatcher->forward([
-                    'controller' => 'index',
-                    'action'  => 'correct'
+                    'controller' => 'users',
+                    'action'  => 'table'
                 ]);
             }
+
         }
 
     }
+
 
 
 }

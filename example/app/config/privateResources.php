@@ -21,7 +21,8 @@ return new Config([
             'search',
             'register',
             'edit',
-            'correct'
+            'correct',
+            'return'
 
         ],
     ]

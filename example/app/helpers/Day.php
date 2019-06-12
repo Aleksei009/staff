@@ -131,13 +131,13 @@ class Day
         }
 
     }
-    public function correctDay($auth)
+    public function correctDay($id)
     {
         $time = Times::findFirst([
             'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
             'bind' => [
                 'date' => date('Y-m-d'),
-                'user_id' => $auth['id']
+                'user_id' => $id
             ]
         ]);
         if($time){

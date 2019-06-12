@@ -127,9 +127,6 @@
                     <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
                         <?= $this->tag->linkTo(['users/signUp', 'Registration']) ?>
                     </div>
-                    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
-                        <?= $this->tag->linkTo(['users/correct', 'Correction users']) ?>
-                    </div>
                 <?php } ?>
 
             </div>

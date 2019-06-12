@@ -1,4 +1,4 @@
-{{ content() }}
+<?= $this->getContent() ?>
 
 <table class="table">
     <thead>
@@ -10,27 +10,27 @@
     </tr>
     </thead>
     <tbody>
-    {% for user in users %}
-        {% if user.deleted == 1 %}
+    <?php foreach ($users as $user) { ?>
+        <?php if ($user->deleted == 1) { ?>
             <tr style="background: pink">
-                <th scope="row">{{ user.id }}</th>
+                <th scope="row"><?= $user->id ?></th>
                 <td><?php echo $this->tag->linkTo(["users/correct/" . $user->id, $user->name]); ?></td>
-                <td>{{ user.email }}</td>
+                <td><?= $user->email ?></td>
                 <td><?php echo $this->tag->linkTo(["users/return/" . $user->id, "Return"]); ?></td>
             </tr>
-            {% else %}
+            <?php } else { ?>
                 <tr>
-                    <th scope="row">{{ user.id }}</th>
+                    <th scope="row"><?= $user->id ?></th>
                     <td><?php echo $this->tag->linkTo(["users/correct/" . $user->id, $user->name]); ?></td>
-                    <td>{{ user.email }}</td>
-                    {% if user.role == "admin" %}
+                    <td><?= $user->email ?></td>
+                    <?php if ($user->role == 'admin') { ?>
                         <td></td>
-                        {% else %}
+                        <?php } else { ?>
                             <td ><?php echo $this->tag->linkTo(["users/delete/" . $user->id, "Delete"]); ?></td>
-                    {% endif %}
+                    <?php } ?>
                 </tr>
-        {% endif %}
+        <?php } ?>
 
-    {% endfor %}
+    <?php } ?>
     </tbody>
 </table>
