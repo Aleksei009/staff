@@ -53,6 +53,9 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+       // $user = Users::findFirst(1);
+
+       // print_die($user);
         //Разобраться почему на текущей дате все красное
 
         //print_die($this->request->get());
