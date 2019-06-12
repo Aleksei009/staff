@@ -11,8 +11,6 @@ return new Config([
             'changePassword',
             'auth',
             'table',
-            'login',
-            'logout',
             'signUp',
             'delete',
             'save',

@@ -7,6 +7,8 @@ use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Date;
+use Phalcon\Forms\Element\Time;
 use Phalcon\Validation\Validator\PresenceOf;
 
 class TimeForm extends Form
@@ -14,6 +16,7 @@ class TimeForm extends Form
     public function initialize()
     {
         $timeStart = new Text('time_start', [
+            'type' => 'time',
             'placeholder' => '00:00:00',
         ]);
         $timeStart->addValidators([
@@ -34,7 +37,7 @@ class TimeForm extends Form
         ]);
         $this->add($timeEnd);
 
-        $timeCurrDate = new Text('current_date', [
+        $timeCurrDate = new Date('current_date', [
             'placeholder' => '00:00:00',
         ]);
 

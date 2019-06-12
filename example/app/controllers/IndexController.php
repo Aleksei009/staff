@@ -53,12 +53,36 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+
+        /*public function parse_timestamp($t = 0)
+        {
+            $month = floor($t / 2592000);
+            $day = ($t / 86400) % 30;
+            $hour = ($t / 3600) % 24;
+            $min = ($t / 60) % 60;
+            $sec = $t % 60;
+
+            return ['month' => $month, 'day' => $day, 'hour' => $hour, 'min' => $min, 'sec' => $sec];
+        }
+
+            public function getDate($time)
+        {
+            $hours = floor($time / 3600);
+            $minutes = ($time / 3600 - $hours) * 60;
+            $seconds = ceil(($minutes - floor($minutes)) * 60);
+
+            echo $hours . " : " . floor($minutes) . " : " . $seconds;
+        }*/
+
+
+
+
         //Задача узнать как можно складывать время как Это все сделать;
         //И просто протесть это
 
 
         ///////
-        /*$cutre = $this->day->countDayCurrentMonth();
+       /* $cutre = $this->day->countDayCurrentMonth();
 
         $resultHour = ($cutre * 9);
 
@@ -74,8 +98,36 @@ class IndexController extends ControllerBase
                 'user_id' => $this->auth['id']
             ]
         ]);*/
-        ///////
 
+       // $timeRR = strtotime('03:00:00');
+
+       // print_die($timeRR);
+       // $timeSS = strtotime('05:00:00');
+
+       // $ressult  =$timeRR+$timeSS;
+
+       // print_die(date('H:i:s',$ressult));
+
+       // print_die($timeRR);
+
+       // foreach ()
+
+       /* $timePP = strtotime('03:00:00');
+
+        foreach ($results as $result){
+
+        }
+
+        if ($result->result_time <= '0:60:60'){
+
+           $timePP += strtotime($result->result_time);
+
+            //print_die($result->result_time);
+        }*/
+
+
+
+       // print_die((int)$result->result_time);
 
 
 
