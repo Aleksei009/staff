@@ -148,7 +148,8 @@ class Users extends Model
             'name' => $data['name'],
             'email' => $data['email'],
             'password'  => $data['password'],
-            'role' => self::ROLE_USER_ADMIN
+            'role' => self::ROLE_USER_ADMIN,
+            'deleted' => 0
         ]);
 
         return $this;
@@ -161,7 +162,8 @@ class Users extends Model
             'name' => $data['name'],
             'email' => $data['email'],
             'password'  => $data['password'],
-            'role' => self::ROLE_USER_GUEST
+            'role' => self::ROLE_USER_GUEST,
+            'deleted' => 0
         ]);
         return $this;
     }

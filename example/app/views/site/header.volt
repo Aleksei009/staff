@@ -115,7 +115,7 @@
                     <span style="color: red;">LogOut</span> from your account.
                 </h4>
                 <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
-                    {{ link_to('users/removeAuth', 'Logout') }}
+                    {{ link_to('session/removeAuth', 'Logout') }}
                 </div>
                 <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
                     {{ link_to('users/changePassword', 'Chanch Password') }}
@@ -124,42 +124,13 @@
                     <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
                         {{ link_to('users/table', 'look users') }}
                     </div>
+                    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
+                        {{ link_to('users/signUp', 'Registration') }}
+                    </div>
+                    <div class="button" style="text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;">
+                        {{ link_to('users/holiday', 'Holiday') }}
+                    </div>
                 {% endif %}
-
-                {{ form('session/signup', 'method': 'post') }}
-
-                <h2>
-                    Sign Up new User
-                </h2>
-
-                {{ form.label('name') }}
-
-                {{ form.render('name') }}
-                {{ form.messages('name') }}
-
-
-                {{ form.label('email') }}
-
-                {{ form.render('email') }}
-                {{ form.messages('email') }}
-
-
-                {{ form.label('password') }}
-
-                {{ form.render('password') }}
-                {{ form.messages('password') }}
-
-                {{ form.label('confirmPassword') }}
-
-                {{ form.render('confirmPassword') }}
-                {{ form.messages('confirmPassword') }}
-
-                <p style="text-align: right; margin-top: 10px;">{{ form.render('Sign Up') }}</p>
-
-                {{ form.render('csrf', ['value': security.getToken()]) }}
-                {{ form.messages('csrf') }}
-                <hr>
-                {{ endForm() }}
 
             </div>
         </div>

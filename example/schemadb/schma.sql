@@ -129,6 +129,13 @@ CREATE TABLE `profiles` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `holidays` (
+	`id` int(255) NOT NULL AUTO_INCREMENT UNIQUE,
+	`name` varchar(255) NOT NULL,
+	`date` DATE NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
 ALTER TABLE `times` ADD CONSTRAINT `times_fk0` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
 
 ALTER TABLE `results` ADD CONSTRAINT `results_fk0` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);

@@ -7,11 +7,14 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 use Staff\Forms\ChangePassword;
 use Staff\Forms\ChangePasswordForm;
+use Staff\Forms\HolidayForm;
 use Staff\Forms\SignUpForm;
 use Staff\Forms\SignInForm;
 use Staff\Forms\SignUpUserForm;
 
-use Staff\Controllers\ControllerBase;
+use Staff\Forms\TimeForm;
+use Staff\Models\Holidays;
+use Staff\Models\Times;
 use Staff\Services\UserService;
 use Staff\Models\Users;
 
@@ -21,7 +24,7 @@ class UsersController extends ControllerBase
 
     public function initialize()
     {
-
+        parent::initialize();
     }
 
     /**
@@ -133,7 +136,6 @@ class UsersController extends ControllerBase
     public function createAction()
     {
 
-
         $form = new SignUpUserForm();
 
         if(!$form->isValid($_POST)){
@@ -157,11 +159,10 @@ class UsersController extends ControllerBase
             $this->flashSession->error('Пользователь с такими данными уже существует!');
 
             $this->response->redirect('users/signUp');
-            return;
 
         }
 
-       return $this->response->redirect('users/signIn');
+       return $this->response->redirect('index/index');
 
     }
 
@@ -243,40 +244,25 @@ class UsersController extends ControllerBase
            $this->response->redirect('users/table');
         }
 
-
-        /*$user = Users::findFirstByid($id);
-        if (!$user) {
-            $this->flash->error("user was not found");
-
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'index'
-            ]);
-
-            return;
-        }
-
-        if (!$user->delete()) {
-
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'search'
-            ]);
-
-            return;
-        }
-
-        $this->flash->success("user was deleted successfully");*/
-
-        $this->dispatcher->forward([
-            'controller' => "users",
-            'action' => "index"
-        ]);
     }
+    public function returnAction($id)
+    {
+        $user = Users::findFirst($id);
+        $user->deleted = 0;
+
+        if($user->save()){
+
+            $this->flash->success('все ок');
+            $this->response->redirect('users/table');
+        }else{
+
+            $this->flash->error('все плохо');
+
+            $this->response->redirect('users/table');
+        }
+
+    }
+
 
     public function signInAction()
     {
@@ -310,84 +296,6 @@ class UsersController extends ControllerBase
 
     }
 
-    public function authAction()
-    {
-
-
-        if ($this->request->isPost()) {
-
-            $email    = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
-
-            $user = Users::findFirstByEmail($email);
-
-            if ($user) {
-
-                if ($this->security->checkHash($password, $user->password)) {
-
-                    // Пароль верный
-
-                    if($user->role == 'admin'){
-
-                        $this->session->set('auth',[
-                            'id'   => $user->id,
-                            'role' => $user->role,
-                            'name' => $user->name,
-                            'user' => $user->email,
-                            'csrf' => $this->request->get('csrf')
-
-
-                        ]);
-
-                    }
-
-                    if($user->role == 'user'){
-
-                        $this->session->set('auth',[
-                            'id' => $user->id,
-                            'role' =>  $user->role,
-                            'name' =>  $user->name,
-                            'email' => $user->email,
-                            'csrf' => $this->request->get('csrf')
-
-                        ]);
-                    }
-
-                    $user->status = 1;
-                    $user->save();
-                    $this->response->redirect('index');
-                }
-            }else {
-                //Пароль не верный или маил
-                $this->flash->error('Неверный логин или пароль!');
-              return  $this->dispatcher->forward([
-                    'controller' => 'users',
-                    'action'  => 'signIn'
-                ]);
-            }
-
-            $this->flash->error('Неверный логин или пароль!');
-            return  $this->dispatcher->forward([
-                'controller' => 'users',
-                'action'  => 'signIn'
-            ]);
-
-        }
-    }
-    public function removeAuthAction()
-    {
-
-        $user = Users::findFirst($this->session->get('auth')['id']);
-        $user->status = 0;
-
-        if($user->save()){
-            if($this->session->remove('auth')){
-                return $this->response->redirect('index');
-
-            }
-            return $this->response->redirect('index');
-        }
-    }
 
     public function changePasswordAction()
     {
@@ -419,6 +327,155 @@ class UsersController extends ControllerBase
         $users = Users::find();
         $this->view->users = $users;
     }
+
+    public function correctAction($id)
+    {
+
+        $user = Users::findFirst($id);
+        $curTimeForUser = $user->getTimes();
+
+
+        if($curTimeForUser->toArray() == []){
+            $curTimeForUser = [];
+        }
+
+        $this->view->user = $user;
+        $this->view->times = $curTimeForUser;
+
+
+
+        if($this->request->isPost()){
+
+            $data = $this->request->get();
+            $dataForm = $this->request->getPost();
+
+          //  print_die($data);
+
+            $timeUpdate = Times::findFirst([
+               'conditions' => 'id = :id:',
+                'bind' => [
+                    'id' => $dataForm['id'],
+                ]
+            ]);
+
+            $timeUpdate->time_start = $dataForm['time_start'];
+            $timeUpdate->time_end = $dataForm['time_end'];
+            $timeUpdate->current_date = $dataForm['current_date'];
+
+            if($timeUpdate->save()){
+
+                $this->flash->success('Данные изменены');
+                $this->dispatcher->forward([
+                    'controller' => 'users',
+                    'action'  => 'time'
+                ]);
+            }else{
+                $this->flash->error('Данные не изменены');
+                $this->dispatcher->forward([
+                    'controller' => 'users',
+                    'action'  => 'time'
+                ]);
+            }
+
+
+
+            if ($data['corDay']){
+                if ($data['corDay'] == 'on'){
+                    $bool = $this->day->correctDay($data['user_id']);
+                    //print_die($bool);
+                    if($bool){
+                        $this->flash->success('Пользователь пришел вовремя');
+                        return  $this->dispatcher->forward([
+                            'controller' => 'users',
+                            'action'  => 'table'
+                        ]);
+                    }else{
+
+                        $this->flash->error('Данные не изменены или Данных нет');
+                        return  $this->dispatcher->forward([
+                            'controller' => 'users',
+                            'action'  => 'table',
+                            'id' => $user->id
+                        ]);
+                    }
+
+                }else{
+
+                    return  $this->dispatcher->forward([
+                        'controller' => 'users',
+                        'action'  => 'table'
+                    ]);
+                }
+            }
+
+        }
+
+    }
+
+    public function timeAction($id)
+    {
+        $time = Times::findFirst($id);
+        $form =  new TimeForm($time);
+
+        $this->view->form = $form;
+        $this->view->id = $time->user_id;
+
+        $timeR = Times::findFirst([
+            'conditions' => 'current_date = :current_date: AND i_am_late = :i_am_late: AND user_id= :user_id:',
+            'bind' => [
+                'current_date' => (date('Y-m-d')),
+                'i_am_late' => 1,
+                'user_id' => $time->user_id
+            ]
+        ]);
+
+        if($timeR){
+            $this->view->time = $timeR->toArray();
+        }else{
+            $this->view->time = [];
+        }
+
+    }
+
+    public function holidayAction()
+    {
+       //print_die($this->request->get());
+
+        $form = new HolidayForm();
+
+        if ($this->request->isPost()) {
+
+            if (!$form->isValid($this->request->getPost())) {
+
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+
+            } else{
+
+                $data = $this->request->getPost();
+
+                $holiday = new Holidays($data);
+
+                if (!$holiday->save()) {
+                    $this->flash->error('Данные не сохранены');
+
+                } else {
+                    $this->flash->success('Your password was successfully changed');
+
+                    return  $this->dispatcher->forward([
+                        'controller' => 'index',
+                        'action'  => 'index'
+                    ]);
+                }
+             }
+
+        }
+
+        $this->view->form = $form;
+
+    }
+
 
 
 }

@@ -16,7 +16,7 @@
             </ul>
 
             <ul class="nav pull-right">
-                <li class="styleA"  style=" font-size: 16px; border: 1px solid red;">{{ link_to('users/signIn', 'Войти') }}</li>
+                <li class="styleA"  style=" font-size: 16px; border: 1px solid red;">{{ link_to('session/signIn', 'Войти') }}</li>
                 <li class="styleA"  style=" font-size: 16px; border: 1px solid red;">{{ link_to('users/signUp', 'Зарегистрироваться') }}</li>
 
             </ul>

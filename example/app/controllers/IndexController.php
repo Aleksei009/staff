@@ -53,9 +53,67 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        //Разобраться почему на текущей дате все красное
+        //Задача узнать как можно складывать время как Это все сделать;
+        //И просто протесть это
 
-        //print_die($this->request->get());
+
+        ///////
+        /*$cutre = $this->day->countDayCurrentMonth();
+
+        $resultHour = ($cutre * 9);
+
+        $result = Results::findFirst([
+            'conditions' => 'user_id = :user_id:',
+            'bind' => [
+                'user_id' => $this->auth['id']
+            ]
+        ]);
+        $results = Results::find([
+            'conditions' => 'user_id = :user_id:',
+            'bind' => [
+                'user_id' => $this->auth['id']
+            ]
+        ]);*/
+        ///////
+
+
+
+
+
+        /*$itmeR = strtotime(0);
+
+        $data = $itmeR;
+
+        foreach ($results as $result){
+
+            $data += strtotime(date('H:i',strtotime($result->result_time)));
+
+        }
+        $countTime = date('H:i',$data);
+        print_die($countTime);*/
+
+        //$itmeR = strtotime('00:00');
+
+       // print_die(date('Y-m-d H:i:s'));
+
+       /* $data = 0;
+
+        foreach ($results as $result){
+            $data += strtotime(date('H:i',strtotime($result->result_time)));
+        }
+
+        $countTime = date('H:i',$data);
+
+        print_die($countTime);*/
+
+       // $allTile = strtotime($result->result_time);
+       // $datess = strtotime(date('H:i',strtotime($result->result_time)));
+       // print_die($result)
+       // print_die($resultHour);
+        //print_die($this->day->countDayCurrentMonth())
+
+
+
         $getData = $this->request->get();
 
         //print_die($getData);
@@ -82,6 +140,8 @@ class IndexController extends ControllerBase
                 'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
             ];
         }
+
+       // print_die($weeks_current_month);
 
 
         $form     = new SignUpUserForm();
