@@ -328,7 +328,22 @@ class UsersController extends ControllerBase
 
     public function correctAction($id)
     {
+        /*$time = Times::findFirst([
+            'conditions' => 'current_date= :date: AND user_id = :user_id: AND i_am_late = :i_am_late: ORDER BY time_start',
+            'bind' => [
+                'date' => date('Y-m-d'),
+                'user_id' => $id,
+                'i_am_late' => 1
+            ]
+        ]);
+        if($time){
+            $time->i_am_late = 0;
+            return $time->save();
+        }*/
 
+      //  print_die($time);
+
+      //  print_die($this->request->get());
 
         $user = Users::findFirst($id);
         $curTimeForUser = $user->getTimes();
@@ -347,32 +362,35 @@ class UsersController extends ControllerBase
 
             $data = $this->request->get();
 
-            if ($data['corDay'] == 'on'){
-                $bool = $this->day->correctDay($data['userId']);
-                //print_die($bool);
-                if($bool){
-                    $this->flash->success('Данные изменены');
+            if ($data['corDay']){
+                if ($data['corDay'] == 'on'){
+                    $bool = $this->day->correctDay($data['user_id']);
+                    //print_die($bool);
+                    if($bool){
+                        $this->flash->success('Данные изменены');
+                        return  $this->dispatcher->forward([
+                            'controller' => 'users',
+                            'action'  => 'table'
+                        ]);
+                    }else{
+
+                        $this->flash->error('Данные не изменены или Данных нет');
+                        return  $this->dispatcher->forward([
+                            'controller' => 'users',
+                            'action'  => 'table',
+                            'id' => $user->id
+                        ]);
+                    }
+
+                }else{
+
+
+                    $this->flash->success('Данные Остались прежними');
                     return  $this->dispatcher->forward([
                         'controller' => 'users',
                         'action'  => 'table'
                     ]);
-                }else{
-
-                    $this->flash->error('Данные не изменены или Данных нет');
-                    return  $this->dispatcher->forward([
-                        'controller' => 'users',
-                        'action'  => 'table',
-                        'id' => $user->id
-                    ]);
                 }
-            }else{
-
-
-                $this->flash->success('Данные изменены');
-                return  $this->dispatcher->forward([
-                    'controller' => 'users',
-                    'action'  => 'table'
-                ]);
             }
 
         }
@@ -385,12 +403,25 @@ class UsersController extends ControllerBase
         $form =  new TimeForm($time);
 
         $this->view->form = $form;
+        $this->view->id = $time->user_id;
 
-     //   print_die($form);
+        $timeR = Times::findFirst([
+            'conditions' => 'current_date = :current_date: AND i_am_late = :i_am_late: AND user_id= :user_id:',
+            'bind' => [
+                'current_date' => (date('Y-m-d')),
+                'i_am_late' => 1,
+                'user_id' => $time->user_id
+            ]
+        ]);
+
+        if($timeR){
+            $this->view->time = $timeR->toArray();
+        }else{
+            $this->view->time = [];
+        }
 
 
 
-      // print_die($time);
     }
 
 

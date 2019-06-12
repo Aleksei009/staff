@@ -1,10 +1,26 @@
 {{ content() }}
 
 
- {{ form('users/correct', 'method': 'post') }}
+ {#{{ form('users/correct', 'method': 'post') }}#}
 
+<?php echo Phalcon\Tag::form(array('users/correct/'. $id, 'method' => 'post')); ?>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>Убрать опоздание</div>
+            {% if time is empty %}
+                <div style="color: green;">Пришел вовремя</div>
+                {% else %}
+                    {% if time['i_am_late'] == 1 %}
+                       <div style="color: pink;">Опоздавший</div>
+                        <span>Да</span> <input type="radio" name="corDay" checked value="on">
+                        <span>Нет</span> <input type="radio" name="corDay"  value="off">
+                    {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-2">
             Дата начала
@@ -38,10 +54,6 @@
 
 
 
-
-
 {{ end_form() }}
-
-<div class="hello"> Hello</div>
 
 

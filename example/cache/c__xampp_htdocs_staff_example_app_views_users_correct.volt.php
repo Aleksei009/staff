@@ -4,7 +4,11 @@
 
 <div class="container">
     <div class="row">
-        <h2 style="text-align: center"><?= $user->name ?></h2>
+        <div class="col-md-6"><h2 style="text-align: center"><?= $user->name ?></h2></div>
+        <div class="col-md-6">
+            <?= $this->tag->linkTo(['users/table', 'Назад в таблицу']) ?>
+        </div>
+
     </div>
 </div>
 <table class="table">

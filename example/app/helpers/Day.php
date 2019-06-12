@@ -134,10 +134,11 @@ class Day
     public function correctDay($id)
     {
         $time = Times::findFirst([
-            'conditions' => 'current_date= :date: AND user_id= :user_id: ORDER BY time_start',
+            'conditions' => 'current_date= :date: AND user_id = :user_id: AND i_am_late = :i_am_late: ORDER BY time_start',
             'bind' => [
                 'date' => date('Y-m-d'),
-                'user_id' => $id
+                'user_id' => $id,
+                'i_am_late' => 1
             ]
         ]);
         if($time){
