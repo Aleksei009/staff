@@ -46,8 +46,12 @@ class TimeForm extends Form
         $this->add($timeCurrDate);
 
         $userID = new Hidden('user_id');
-
         $this->add($userID);
+
+        $id = new Hidden('id');
+        $this->add($id);
+
+
 
         $this->add(new Submit('go',[
             'class' => 'btn btn-success',

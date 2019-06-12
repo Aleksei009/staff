@@ -1,5 +1,8 @@
 {{ content() }}
 
+
+<div> {{ link_to('index/index', 'To STAFF') }}</div>
+
 <table class="table">
     <thead>
     <tr>

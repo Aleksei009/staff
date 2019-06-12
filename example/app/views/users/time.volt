@@ -18,7 +18,7 @@
                         <span>Нет</span> <input type="radio" name="corDay"  value="off">
                     {% endif %}
             {% endif %}
-
+            <span>Нет</span> <input type="hidden" name="corDay"  value="none">
         </div>
     </div>
     <div class="row">
@@ -48,6 +48,9 @@
         </div>
         <div>
             {{ form.render('user_id') }}
+        </div>
+        <div>
+            {{ form.render('id') }}
         </div>
     </div>
 </div>

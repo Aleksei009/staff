@@ -1,5 +1,8 @@
 <?= $this->getContent() ?>
 
+
+<div> <?= $this->tag->linkTo(['index/index', 'To STAFF']) ?></div>
+
 <table class="table">
     <thead>
     <tr>

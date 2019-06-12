@@ -328,22 +328,6 @@ class UsersController extends ControllerBase
 
     public function correctAction($id)
     {
-        /*$time = Times::findFirst([
-            'conditions' => 'current_date= :date: AND user_id = :user_id: AND i_am_late = :i_am_late: ORDER BY time_start',
-            'bind' => [
-                'date' => date('Y-m-d'),
-                'user_id' => $id,
-                'i_am_late' => 1
-            ]
-        ]);
-        if($time){
-            $time->i_am_late = 0;
-            return $time->save();
-        }*/
-
-      //  print_die($time);
-
-      //  print_die($this->request->get());
 
         $user = Users::findFirst($id);
         $curTimeForUser = $user->getTimes();
@@ -356,18 +340,49 @@ class UsersController extends ControllerBase
         $this->view->user = $user;
         $this->view->times = $curTimeForUser;
 
-       // print_die($this->request->get());
+
 
         if($this->request->isPost()){
 
             $data = $this->request->get();
+            $dataForm = $this->request->getPost();
+
+          //  print_die($data);
+
+            $timeUpdate = Times::findFirst([
+               'conditions' => 'id = :id:',
+                'bind' => [
+                    'id' => $dataForm['id'],
+                ]
+            ]);
+
+            $timeUpdate->time_start = $dataForm['time_start'];
+            $timeUpdate->time_end = $dataForm['time_end'];
+            $timeUpdate->current_date = $dataForm['current_date'];
+
+            if($timeUpdate->save()){
+
+                $this->flash->success('Данные изменены');
+                $this->dispatcher->forward([
+                    'controller' => 'users',
+                    'action'  => 'time'
+                ]);
+            }else{
+                $this->flash->error('Данные не изменены');
+                $this->dispatcher->forward([
+                    'controller' => 'users',
+                    'action'  => 'time'
+                ]);
+            }
+
+
 
             if ($data['corDay']){
                 if ($data['corDay'] == 'on'){
                     $bool = $this->day->correctDay($data['user_id']);
                     //print_die($bool);
                     if($bool){
-                        $this->flash->success('Данные изменены');
+                        $this->flash->success('Пользователь пришел вовремя');
                         return  $this->dispatcher->forward([
                             'controller' => 'users',
                             'action'  => 'table'
@@ -384,8 +399,6 @@ class UsersController extends ControllerBase
 
                 }else{
 
-
-                    $this->flash->success('Данные Остались прежними');
                     return  $this->dispatcher->forward([
                         'controller' => 'users',
                         'action'  => 'table'
