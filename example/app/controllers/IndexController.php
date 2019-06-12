@@ -53,6 +53,8 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        //Разобраться почему на текущей дате все красное
+
         //print_die($this->request->get());
         $getData = $this->request->get();
 
