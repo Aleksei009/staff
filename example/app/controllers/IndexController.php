@@ -53,12 +53,25 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-       // $user = Users::findFirst(1);
 
-       // print_die($user);
-        //Разобраться почему на текущей дате все красное
+      /*  $cutre = $this->day->countDayCurrentMonth();
+        $resultHour = ($cutre * 9);
 
-        //print_die($this->request->get());
+        $result = Results::find([
+            'conditions' => 'user_id = :user_id:',
+            'bind' => [
+                'user_id' => $this->auth['id']
+            ]
+        ]);
+
+       // print_die($result);*/
+
+
+       // print_die($resultHour);
+
+        //print_die($this->day->countDayCurrentMonth());
+
+
         $getData = $this->request->get();
 
         //print_die($getData);
@@ -85,6 +98,8 @@ class IndexController extends ControllerBase
                 'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
             ];
         }
+
+       // print_die($weeks_current_month);
 
 
         $form     = new SignUpUserForm();

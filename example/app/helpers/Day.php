@@ -148,4 +148,21 @@ class Day
 
     }
 
+    public function countDayCurrentMonth()
+    {
+        $i = 0;
+       $currentMonth = $this->weeksCurrentMouth();
+
+       foreach ($currentMonth as $item){
+
+           if(!$item['week'] == 'Saturday' or $item['week'] == 'Sunday'){
+               $i--;
+           }else{
+               $i++;
+           }
+       }
+       return $i;
+
+    }
+
 }
