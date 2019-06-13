@@ -33,6 +33,43 @@
         .active-important{
             display: table-row !important;
         }
+
+        .left{
+            float: left;
+        }
+        .infom{
+            width: 400px;
+        }
+        .float-left-need{
+            float: left; width: 805px;
+        }
+        .users{
+            display: flex;
+        }
+        .users .user{
+            padding: 0 10px;
+        }
+        .users .user .img img{
+            height:50px;width: 50px;
+        }
+        .menu-option{
+            display: flex; justify-content: center; margin-bottom: 25px;
+        }
+        .float-right-need{
+            float: right;width: 300px;
+        }
+        .button{
+            text-align: center; font-weight: bold; border:1px solid #c1b5b5;font-size: 18px;
+        }
+        .week-now{
+            text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;
+        }
+        .total-fail{
+            color: red; font-weight: bold;
+        }
+        .total-success{
+            color: green; font-weight: bold;
+        }
     </style>
     <body>
         <div class="main-first-content-live">

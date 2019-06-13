@@ -6,8 +6,12 @@ $router->add('/example/users/signUp', [
     'controller' => 'users',
     'action' => 'signUp'
 ]);
+$router->add('/example/users/change-password', [
+    'controller' => 'users',
+    'action' => 'changePassword'
+]);
 
-$router->add('/example/session-{dsd}/signup', [
+$router->add('/example/session/signup-{id}', [
     'controller' => 'users',
     'action' => 'signUp'
 ]);

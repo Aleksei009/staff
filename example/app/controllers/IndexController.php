@@ -129,7 +129,8 @@ class IndexController extends ControllerBase
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
-        $resultTimeR = $this->day->getResultforDate($this->auth);
+        //$resultTimeR = $this->day->getResultforDate($this->auth);
+        $resultTimeR = $this->day-> getDateResult($this->auth,$this->request->get());;
         $allCount = $this->day->resultForCoutTime($resultTimeR);
         $latesForMe = Lates::findFirst([
             'conditions' => 'user_id = :user_id: and current_month = :current_month:',
@@ -140,6 +141,8 @@ class IndexController extends ControllerBase
             ]);
 
         $procent = number_format((($resultTimeR['hour'] * 100) / $allCount), 2, '.', '') ;
+
+        ////////////////////////////////////////////////////////
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
@@ -157,7 +160,11 @@ class IndexController extends ControllerBase
         $this->view->resultTimeR     =  $resultTimeR;
         $this->view->resultTimeUser  =  $allCount;
         $this->view->procent         =  $procent;
-        $this->view->lateI           = $latesForMe;
+        $this->view->latesForMe      = $latesForMe;
+
+       // $cuurCouning = $this->day-> getDateResult($this->auth,$this->request->get());
+       // print_die($cuurCouning);
+      //  print_die($this->request->get());
 
         $this->view->form = $form;
     }
@@ -193,7 +200,6 @@ class IndexController extends ControllerBase
 
 
         if($timeBool){
-           // return $this->response->redirect('index/index');
             return $this->response->redirect('index');
         }else{
             return $this->response->redirect('index');

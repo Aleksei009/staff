@@ -22,7 +22,7 @@ class SessionController extends ControllerBase
      */
     public function initialize()
     {
-       // $this->view->setTemplateBefore('public');
+
     }
     public function indexAction()
     {
@@ -84,33 +84,6 @@ class SessionController extends ControllerBase
     /**
      * Starts a session in the admin backend
      */
-    /*public function loginAction()
-    {
-        $form = new LoginForm();
-        try {
-            if (!$this->request->isPost()) {
-                if ($this->auth->hasRememberMe()) {
-                    return $this->auth->loginWithRememberMe();
-                }
-            } else {
-                if ($form->isValid($this->request->getPost()) == false) {
-                    foreach ($form->getMessages() as $message) {
-                        $this->flash->error($message);
-                    }
-                } else {
-                    $this->auth->check([
-                        'email' => $this->request->getPost('email'),
-                        'password' => $this->request->getPost('password'),
-                        'remember' => $this->request->getPost('remember')
-                    ]);
-                    return $this->response->redirect('users');
-                }
-            }
-        } catch (AuthException $e) {
-            $this->flash->error($e->getMessage());
-        }
-        $this->view->form = $form;
-    }*/
     public function loginAction()
     {
         $login    = $this->request->getPost('login');

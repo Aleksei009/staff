@@ -41,7 +41,7 @@
                     <th scope="row">
 
                         <div class="day-now" style="text-align: center;"><?= $item['day'] ?></div>
-                        <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;"><?= $item['week'] ?></div>
+                        <div class="week-now"><?= $item['week'] ?></div>
                     </th>
 
 
@@ -89,25 +89,25 @@
                                             <?php } ?>
 
 
-                                                        <?php if (empty($times)) { ?>
-                                                            <div></div>
-                                                        <?php } else { ?>
+                                                    <?php if (empty($times)) { ?>
+                                                    <div></div>
+                                                <?php } else { ?>
 
-                                                            <?php foreach ($times as $time) { ?>
+                                                    <?php foreach ($times as $time) { ?>
 
-                                                                <?php if ($user['id'] == $time['user_id']) { ?>
-                                                                    <?php if (($item['year'] == $time['current_date'])) { ?>
+                                                        <?php if ($user['id'] == $time['user_id']) { ?>
+                                                            <?php if (($item['year'] == $time['current_date'])) { ?>
 
-                                                                        <div><span class="time-start"><?= $time['time_start'] ?> - <?= $time['time_end'] ?></span></div>
+                                                                <div><span class="time-start"><?= $time['time_start'] ?> - <?= $time['time_end'] ?></span></div>
 
-                                                                    <?php } else { ?>
-                                                                        <div></div>
-                                                                    <?php } ?>
-                                                                <?php } ?>
-
+                                                            <?php } else { ?>
+                                                                <div></div>
                                                             <?php } ?>
-
                                                         <?php } ?>
+
+                                                    <?php } ?>
+
+                                                <?php } ?>
 
 
 
@@ -150,9 +150,9 @@
 
                                                                 <?php if ($result['result_time'] < 9) { ?>
 
-                                                                    <div class="total" style="color: red; font-weight: bold;">total: <?= $result['result_time'] ?></div>
+                                                                    <div class="total-fail">total: <?= $result['result_time'] ?></div>
                                                                 <?php } else { ?>
-                                                                    <div class="total" style="color: green; font-weight: bold;">total: <?= $result['result_time'] ?></div>
+                                                                    <div class="total-success">total: <?= $result['result_time'] ?></div>
 
                                                                 <?php } ?>
 

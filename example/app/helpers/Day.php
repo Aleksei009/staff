@@ -190,10 +190,6 @@ class Day
         $seconds = ceil(($minutes - floor($minutes)) * 60);
 
         return ['hour' => $hours,'minutes' => floor($minutes),'seconds' => $seconds];
-
-
-
-        //echo $hours . " : " . floor($minutes) . " : " . $seconds;
     }
 
     public function getResultforDate($auth)
@@ -236,6 +232,45 @@ class Day
 
     function getPercentOfNumber($number, $percent){
         return ($percent / 100) * $number;
+    }
+
+    public function getDateResult($auth,$request)
+    {
+        if ($request['year'] && $request['month']){
+
+            $times = Times::find([
+                'conditions' => 'current_date <= :current_date: AND current_date >= :minDate: and user_id = :user_id:',
+                'bind' => [
+                    'current_date' => $request['year'].'-'.$request['month'].'-30',
+                    'minDate' => $request['year'].'-'.$request['month'].'-01',
+                    'user_id' => $auth['id']
+                ]
+            ])->toArray();
+        }else{
+
+            $times = Times::find([
+                'conditions' => 'current_date <= :current_date: AND current_date >= :minDate: and user_id = :user_id:',
+                'bind' => [
+                    'current_date' => date('Y-d').'-30',
+                    'minDate' => date('Y-d').'-01',
+                    'user_id' => $auth['id']
+                ]
+            ])->toArray();
+        }
+
+
+        $miliSecond = 0;
+        foreach ($times as $time) {
+
+            if ($time['time_end'] != null){
+                $miliSecond += strtotime($time['current_date'].' '.$time['time_end']) - strtotime($time['current_date'].' '.$time['time_start']);
+            }
+        }
+
+        $resultTime = $this->getDate($miliSecond);
+
+        return $resultTime;
+
     }
 
 

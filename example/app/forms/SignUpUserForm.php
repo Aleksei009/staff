@@ -16,7 +16,7 @@ use Phalcon\Validation\Validator\Confirmation;
 
 class SignUpUserForm extends Form
 {
-    public function initialize($entity = null, $options = null)
+    public function initialize()
     {
         $name = new Text('name',
             [

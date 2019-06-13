@@ -41,7 +41,7 @@
                     <th scope="row">
 
                         <div class="day-now" style="text-align: center;">{{ item['day'] }}</div>
-                        <div class="week-now" style="text-align: center;font-size: 16px;font-weight: normal;border: 1px solid #a7a6a6;">{{ item['week'] }}</div>
+                        <div class="week-now">{{ item['week'] }}</div>
                     </th>
 
 
@@ -97,25 +97,25 @@
                                             {% endif %}
 
 
-                                                        {% if times is empty %}
-                                                            <div></div>
-                                                        {% else %}
+                                                    {% if times is empty %}
+                                                    <div></div>
+                                                {% else %}
 
-                                                            {% for time in times %}
+                                                    {% for time in times %}
 
-                                                                {% if user['id'] == time['user_id'] %}
-                                                                    {% if (item['year'] == time['current_date']) %}
+                                                        {% if user['id'] == time['user_id'] %}
+                                                            {% if (item['year'] == time['current_date']) %}
 
-                                                                        <div><span class="time-start">{{ time['time_start'] }} - {{ time['time_end'] }}</span></div>
+                                                                <div><span class="time-start">{{ time['time_start'] }} - {{ time['time_end'] }}</span></div>
 
-                                                                    {% else %}
-                                                                        <div></div>
-                                                                    {% endif %}
-                                                                {% endif %}
-
-                                                            {% endfor %}
-
+                                                            {% else %}
+                                                                <div></div>
+                                                            {% endif %}
                                                         {% endif %}
+
+                                                    {% endfor %}
+
+                                                {% endif %}
 
 
 
@@ -158,9 +158,9 @@
 
                                                                 {% if result['result_time'] < 9 %}
 
-                                                                    <div class="total" style="color: red; font-weight: bold;">total: {{ result['result_time'] }}</div>
+                                                                    <div class="total-fail">total: {{ result['result_time'] }}</div>
                                                                 {% else %}
-                                                                    <div class="total" style="color: green; font-weight: bold;">total: {{ result['result_time'] }}</div>
+                                                                    <div class="total-success">total: {{ result['result_time'] }}</div>
 
                                                                 {% endif %}
 
