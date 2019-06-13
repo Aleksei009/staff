@@ -27,7 +27,13 @@ class Lates extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $current_mounth;
+    public $current_month;
+
+    /**
+     *
+     * @var string
+     */
+    public $update_at;
 
     /**
      * Initialize method for model.

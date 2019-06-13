@@ -13,6 +13,7 @@
                             <p>Ваши рабочии часы за месяц: <?= $resultTimeR['hour'] ?>ч:<?= $resultTimeR['minutes'] ?>м</p>
                             <p>You have/Assigned: <?= $procent ?>%</p>
                             <p>Assigned: <?= $resultTimeUser ?></p>
+                            <p>Ты опоздал: <?= $lateI->count_lates ?> раз:</p>
                             
                             <div class="w3-container w3-red w3-center" title="Осталось -30" style="width:100%;border: 1px solid red;margin-bottom: 12px;border-radius: 30px;text-align: center;">110</div>
                         </div>

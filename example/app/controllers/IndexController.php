@@ -55,28 +55,51 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-       // $day = $this->day->countDayCurrentMonth();
 
-         //$hourWork = $day * 8;
+        $lateUser = Lates::findFirst([
+            'conditions' => 'user_id = :user_id: and current_month = :current_month:',
+            'bind' => [
+                'user_id' => $this->auth['id'],
+                'current_month' => (date('Y-m'))
+            ]
+        ]);
 
-        //print_die($hourWork);
+        $timeLate = Times::findFirst([
+            'conditions' => 'user_id = :user_id: and current_date = :current_date: and i_am_late = :i_am_late:',
+            'bind' => [
+                'user_id' => $this->auth['id'],
+                'current_date' => (date('Y-m-d')),
+                'i_am_late' => 1
+            ]
+        ]);
 
+        if ($lateUser){
 
-       // $myNumber = 928;
+            $late = Lates::findFirst($lateUser->id);
 
-        //I want to get 25% of 928.
-               // $percentToGet = 25;
+            if ($timeLate && $late->update_at != (date('Y-m-d'))){
+                $late->count_lates += 1;
+                $late->update_at = date('Y-m-d');
+            }else{
+                $late->count_lates += 0;
+            }
+            $late->save();
+        }else{
 
-        //Convert our percentage value into a decimal.
-               // $percentInDecimal = $percentToGet / 100;
+            $late = new Lates();
+            if ($timeLate){
+                $late->count_lates +=1;
+            }else{
+                $late->count_lates +=0;
+            }
 
-        //Get the result.
-               // $percent = $percentInDecimal * $myNumber;
+            $late->user_id = $this->auth['id'];
+            $late->current_month = date('Y-m');
+            $late->update_at = date('Y-m-d');
+            $late->save();
+        }
 
-        //Print it out - Result is 232.
-            //  print_die($percent);
-
-
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         $getData = $this->request->get();
 
@@ -108,6 +131,14 @@ class IndexController extends ControllerBase
 
         $resultTimeR = $this->day->getResultforDate($this->auth);
         $allCount = $this->day->resultForCoutTime($resultTimeR);
+        $latesForMe = Lates::findFirst([
+            'conditions' => 'user_id = :user_id: and current_month = :current_month:',
+                'bind' => [
+                    'user_id' => $this->auth['id'],
+                    'current_month' => date('Y-m')
+                ]
+            ]);
+
         $procent = number_format((($resultTimeR['hour'] * 100) / $allCount), 2, '.', '') ;
 
         $this->view->auth            = $authUser;
@@ -126,6 +157,7 @@ class IndexController extends ControllerBase
         $this->view->resultTimeR     =  $resultTimeR;
         $this->view->resultTimeUser  =  $allCount;
         $this->view->procent         =  $procent;
+        $this->view->lateI           = $latesForMe;
 
         $this->view->form = $form;
     }
@@ -133,6 +165,8 @@ class IndexController extends ControllerBase
     public function setstartAction()
     {
         $timeBool = $this->day->timeStart($this->auth);
+
+
 
         if($timeBool){
             return $this->response->redirect('index');
