@@ -191,6 +191,8 @@ class Day
 
         return ['hour' => $hours,'minutes' => floor($minutes),'seconds' => $seconds];
 
+
+
         //echo $hours . " : " . floor($minutes) . " : " . $seconds;
     }
 

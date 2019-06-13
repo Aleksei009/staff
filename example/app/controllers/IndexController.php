@@ -108,8 +108,7 @@ class IndexController extends ControllerBase
 
         $resultTimeR = $this->day->getResultforDate($this->auth);
         $allCount = $this->day->resultForCoutTime($resultTimeR);
-        $procent = ($resultTimeR['hour'] * 100) / $allCount;
-
+        $procent = number_format((($resultTimeR['hour'] * 100) / $allCount), 2, '.', '') ;
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
