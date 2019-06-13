@@ -332,7 +332,9 @@ class UsersController extends ControllerBase
     {
 
         $user = Users::findFirst($id);
-        $curTimeForUser = $user->getTimes();
+        $curTimeForUser = $user->getTimes([
+            'order' => 'current_date DESC',
+        ]);
 
 
         if($curTimeForUser->toArray() == []){

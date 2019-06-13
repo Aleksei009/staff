@@ -54,27 +54,6 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-
-       /* $holidays = Holidays::find();
-
-
-        $i = 0;
-        $currentMonth = $this->day->weeksCurrentMouth();
-
-        foreach ($currentMonth as $item){
-
-            foreach ($holidays as $day){
-                if ($day->date == $item['year']){
-                    $i--;
-                }
-            }
-            if(!$item['week'] == 'Saturday' or $item['week'] == 'Sunday'){
-                $i--;
-            }else{
-                $i++;
-            }
-        }*/
-
         $getData = $this->request->get();
 
         if($this->request->isGet() && $this->request->get()['month'] && $this->request->get()['year']){
@@ -116,6 +95,7 @@ class IndexController extends ControllerBase
         $this->view->userAuthTimes   = $this->userService->getTimesForUser($authUser);
         $this->view->results         = $this->resultService->getAllResults();
         $this->view->i_am_late       = $this->timeService->amILateTime($this->auth);
+        $this->view->latesUsers      = $this->latesService->getLates();
         $this->view->months          = $this->day->months;
         $this->view->years           = $this->day->years;
         $this->view->getData         =  $getData;

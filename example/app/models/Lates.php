@@ -36,6 +36,10 @@ class Lates extends \Phalcon\Mvc\Model
     {
         $this->setSchema("staff");
         $this->setSource("lates");
+
+        $this->belongsTo('user_id', 'Staff\Models\Users', 'id', [
+            'alias' => 'user',
+        ]);
     }
 
     /**

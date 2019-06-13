@@ -23,34 +23,17 @@
                         <div class="late-users">
                             <h5>Главные опоздуны</h5>
                             <div class="users" style="display: flex;">
-                                <div class="user" style="padding: 0 10px;">
-                                    <div class="img-user">
-                                        <div class="img">
-                                            <img style="height:50px;width: 50px;" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
+                                {% for lated in latesUsers %}
+                                    <div class="user" style="padding: 0 10px;">
+                                        <div class="img-user">
+                                            <div class="img">
+                                                <img style="height:50px;width: 50px;" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
+                                            </div>
+                                            <div class="name-user">{{ lated.getUser().name }}</div>
+                                            <div class="how-much-you-late">{{ lated.count_lates }}</div>
                                         </div>
-                                        <div class="name-user">Aidar</div>
-                                        <div class="how-much-you-late">12</div>
                                     </div>
-                                </div>
-                                <div class="user" style="padding: 0 10px;">
-                                    <div class="img-user">
-                                        <div class="img">
-                                            <img style="height:50px;width: 50px;" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
-                                        </div>
-                                        <div class="name-user">Aidar</div>
-                                        <div class="how-much-you-late">12</div>
-                                    </div>
-                                </div>
-                                <div class="user" style="padding: 0 10px;">
-                                    <div class="img-user">
-                                        <div class="img">
-                                            <img style="height:50px;width: 50px;" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
-                                        </div>
-
-                                        <div class="name-user">Aidar</div>
-                                        <div class="how-much-you-late">12</div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
