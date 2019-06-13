@@ -165,4 +165,64 @@ class Day
 
     }
 
+    public function parse_timestamp($t = 0)
+    {
+        $month = floor($t / 2592000);
+        $day = ($t / 86400) % 30;
+        $hour = ($t / 3600) % 24;
+        $min = ($t / 60) % 60;
+        $sec = $t % 60;
+
+        return ['month' => $month, 'day' => $day, 'hour' => $hour, 'min' => $min, 'sec' => $sec];
+    }
+
+    public function getDate($time)
+    {
+        $hours = floor($time / 3600);
+        $minutes = ($time / 3600 - $hours) * 60;
+        $seconds = ceil(($minutes - floor($minutes)) * 60);
+
+        return ['hour' => $hours,'minutes' => floor($minutes),'seconds' => $seconds];
+
+        //echo $hours . " : " . floor($minutes) . " : " . $seconds;
+    }
+
+    public function getResultforDate($auth)
+    {
+
+        $times = Times::find([
+            'conditions' => 'current_date <= :current_date: AND current_date >= :minDate: and user_id = :user_id:',
+            'bind' => [
+                'current_date' => '2019-06-30',
+                'minDate' => '2019-06-01',
+                'user_id' => $auth['id']
+            ]
+        ])->toArray();
+
+        $miliSecond = 0;
+        foreach ($times as $time) {
+
+            if ($time['time_end'] != null){
+                $miliSecond += strtotime($time['current_date'].' '.$time['time_end']) - strtotime($time['current_date'].' '.$time['time_start']);
+            }
+        }
+
+        $resultTime = $this->getDate($miliSecond);
+
+        return $resultTime;
+
+    }
+
+    public function resultForCoutTime($resultUser)
+    {
+        $day = $this->countDayCurrentMonth();
+
+        $hourWork = $day * 9;
+
+        $result = $hourWork - $resultUser['hour'];
+
+
+        return $result;
+    }
+
 }

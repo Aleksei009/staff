@@ -1,7 +1,4 @@
 
-
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-6"><h2 style="text-align: center"><?= $user->name ?></h2></div>
@@ -23,9 +20,9 @@
     </thead>
     <tbody>
     <?php if (empty($times)) { ?>
-
-        <div>Данных нет</div>
-
+        <tr>
+            <td>Данных нет</td>
+        </tr>
         <?php } else { ?>
         <?php foreach ($times as $time) { ?>
             <tr>

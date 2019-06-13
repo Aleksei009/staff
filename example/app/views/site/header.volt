@@ -11,12 +11,11 @@
                             <h3>Your name: {{ auth['name'] }}</h3>
 
 
-                            <p>You have: 32:05</p>
-                            <p>You have/Assigned: 18.23%</p>
-                            <p>Assigned: 176</p>
-                            <p>Ты опоздал: 0 раз
+                            <p>Ваши рабочии часы за месяц: {{ resultTimeR['hour'] }}:{{ resultTimeR['minutes'] }}</p>
+                            <p>Рабочих часов осталось: {{ resultTimeUser }}</p>
+                            {#<p>Ты опоздал: 0 раз
                                 Если общее кол-во опозданий превысит 80 в мае. В мае будут применятся штрафные санкции.
-                            </p>
+                            </p>#}
                             <div class="w3-container w3-red w3-center" title="Осталось -30" style="width:100%;border: 1px solid red;margin-bottom: 12px;border-radius: 30px;text-align: center;">110</div>
                         </div>
                     </div>

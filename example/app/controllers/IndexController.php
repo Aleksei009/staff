@@ -54,6 +54,16 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
+
+        $resultTimeR = $this->day->getResultforDate($this->auth);
+        //print_die($resultTime);
+        $resultTimeUser = $this->day->resultForCoutTime($resultTimeR);
+
+
+        //print_die($resultTimeR);
+
+
+
         /*public function parse_timestamp($t = 0)
         {
             $month = floor($t / 2592000);
@@ -76,99 +86,14 @@ class IndexController extends ControllerBase
 
 
 
-
         //Задача узнать как можно складывать время как Это все сделать;
         //И просто протесть это
 
-
-        ///////
-       /* $cutre = $this->day->countDayCurrentMonth();
-
-        $resultHour = ($cutre * 9);
-
-        $result = Results::findFirst([
-            'conditions' => 'user_id = :user_id:',
-            'bind' => [
-                'user_id' => $this->auth['id']
-            ]
-        ]);
-        $results = Results::find([
-            'conditions' => 'user_id = :user_id:',
-            'bind' => [
-                'user_id' => $this->auth['id']
-            ]
-        ]);*/
-
-       // $timeRR = strtotime('03:00:00');
-
-       // print_die($timeRR);
-       // $timeSS = strtotime('05:00:00');
-
-       // $ressult  =$timeRR+$timeSS;
-
-       // print_die(date('H:i:s',$ressult));
-
-       // print_die($timeRR);
-
-       // foreach ()
-
-       /* $timePP = strtotime('03:00:00');
-
-        foreach ($results as $result){
-
-        }
-
-        if ($result->result_time <= '0:60:60'){
-
-           $timePP += strtotime($result->result_time);
-
-            //print_die($result->result_time);
-        }*/
-
-
-
-       // print_die((int)$result->result_time);
-
-
-
-
-        /*$itmeR = strtotime(0);
-
-        $data = $itmeR;
-
-        foreach ($results as $result){
-
-            $data += strtotime(date('H:i',strtotime($result->result_time)));
-
-        }
-        $countTime = date('H:i',$data);
-        print_die($countTime);*/
-
-        //$itmeR = strtotime('00:00');
-
-       // print_die(date('Y-m-d H:i:s'));
-
-       /* $data = 0;
-
-        foreach ($results as $result){
-            $data += strtotime(date('H:i',strtotime($result->result_time)));
-        }
-
-        $countTime = date('H:i',$data);
-
-        print_die($countTime);*/
-
-       // $allTile = strtotime($result->result_time);
-       // $datess = strtotime(date('H:i',strtotime($result->result_time)));
-       // print_die($result)
-       // print_die($resultHour);
-        //print_die($this->day->countDayCurrentMonth())
 
 
 
         $getData = $this->request->get();
 
-        //print_die($getData);
 
         if($this->request->isGet() && $this->request->get()['month'] && $this->request->get()['year']){
             $data = $this->request->get();
@@ -210,7 +135,9 @@ class IndexController extends ControllerBase
         $this->view->i_am_late       = $this->timeService->amILateTime($this->auth);
         $this->view->months          = $this->day->months;
         $this->view->years           = $this->day->years;
-       $this->view->getData         =  $getData;
+        $this->view->getData         =  $getData;
+        $this->view->resultTimeR     =  $resultTimeR;
+        $this->view->resultTimeUser  =  $resultTimeUser;
 
         $this->view->form = $form;
     }
