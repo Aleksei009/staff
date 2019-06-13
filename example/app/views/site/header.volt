@@ -17,7 +17,9 @@
                             {#<p>Ты опоздал: 0 раз
                                 Если общее кол-во опозданий превысит 80 в мае. В мае будут применятся штрафные санкции.
                             </p>#}
-                            <div class="w3-container w3-red w3-center" title="Осталось -30" style="width:100%;border: 1px solid red;margin-bottom: 12px;border-radius: 30px;text-align: center;">110</div>
+                            <div class="progress mb-2">
+                                <div class="progress-bar" role="progressbar" style="width: {{ procent }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ procent }}%</div>
+                            </div>
                         </div>
                     </div>
                     <div class="right">
