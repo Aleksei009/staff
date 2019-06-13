@@ -9,6 +9,7 @@ use Phalcon\Acl\Resource;
 
 
 use Staff\Controllers\ControllerBase;
+use Staff\Models\Holidays;
 use Staff\Models\Permissions;
 use Staff\Models\Profiles;
 use Staff\Models\Results;
@@ -54,46 +55,27 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-
-        $resultTimeR = $this->day->getResultforDate($this->auth);
-        //print_die($resultTime);
-        $resultTimeUser = $this->day->resultForCoutTime($resultTimeR);
+       /* $holidays = Holidays::find();
 
 
-        //print_die($resultTimeR);
+        $i = 0;
+        $currentMonth = $this->day->weeksCurrentMouth();
 
+        foreach ($currentMonth as $item){
 
-
-        /*public function parse_timestamp($t = 0)
-        {
-            $month = floor($t / 2592000);
-            $day = ($t / 86400) % 30;
-            $hour = ($t / 3600) % 24;
-            $min = ($t / 60) % 60;
-            $sec = $t % 60;
-
-            return ['month' => $month, 'day' => $day, 'hour' => $hour, 'min' => $min, 'sec' => $sec];
-        }
-
-            public function getDate($time)
-        {
-            $hours = floor($time / 3600);
-            $minutes = ($time / 3600 - $hours) * 60;
-            $seconds = ceil(($minutes - floor($minutes)) * 60);
-
-            echo $hours . " : " . floor($minutes) . " : " . $seconds;
+            foreach ($holidays as $day){
+                if ($day->date == $item['year']){
+                    $i--;
+                }
+            }
+            if(!$item['week'] == 'Saturday' or $item['week'] == 'Sunday'){
+                $i--;
+            }else{
+                $i++;
+            }
         }*/
 
-
-
-        //Задача узнать как можно складывать время как Это все сделать;
-        //И просто протесть это
-
-
-
-
         $getData = $this->request->get();
-
 
         if($this->request->isGet() && $this->request->get()['month'] && $this->request->get()['year']){
             $data = $this->request->get();
@@ -118,11 +100,12 @@ class IndexController extends ControllerBase
             ];
         }
 
-       // print_die($weeks_current_month);
 
 
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
+
+        $resultTimeR = $this->day->getResultforDate($this->auth);
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
@@ -137,14 +120,13 @@ class IndexController extends ControllerBase
         $this->view->years           = $this->day->years;
         $this->view->getData         =  $getData;
         $this->view->resultTimeR     =  $resultTimeR;
-        $this->view->resultTimeUser  =  $resultTimeUser;
+        $this->view->resultTimeUser  =  $this->day->resultForCoutTime($resultTimeR);
 
         $this->view->form = $form;
     }
 
     public function setstartAction()
     {
-
         $timeBool = $this->day->timeStart($this->auth);
 
         if($timeBool){
@@ -152,9 +134,7 @@ class IndexController extends ControllerBase
         }else{
             return $this->response->redirect('index');
         }
-
     }
-
     public function setendAction()
     {
 
@@ -182,10 +162,6 @@ class IndexController extends ControllerBase
 
     }
 
-    public function tableAction()
-    {
-
-    }
 
 }
 

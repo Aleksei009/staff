@@ -3,6 +3,7 @@
 
 namespace Staff\Helpers;
 
+use Staff\Models\Holidays;
 use Staff\Models\Times;
 use Staff\Models\Users;
 
@@ -150,19 +151,25 @@ class Day
 
     public function countDayCurrentMonth()
     {
+        $holidays = Holidays::find();
+
         $i = 0;
-       $currentMonth = $this->weeksCurrentMouth();
+        $currentMonth = $this->weeksCurrentMouth();
 
-       foreach ($currentMonth as $item){
+        foreach ($currentMonth as $item){
 
-           if(!$item['week'] == 'Saturday' or $item['week'] == 'Sunday'){
-               $i--;
-           }else{
-               $i++;
-           }
-       }
-       return $i;
-
+            foreach ($holidays as $day){
+                if ($day->date == $item['year']){
+                    $i--;
+                }
+            }
+            if(!$item['week'] == 'Saturday' or $item['week'] == 'Sunday'){
+                $i--;
+            }else{
+                $i++;
+            }
+        }
+        return $i;
     }
 
     public function parse_timestamp($t = 0)
