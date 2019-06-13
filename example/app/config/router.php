@@ -2,9 +2,14 @@
 
 $router = new Phalcon\Mvc\Router();
 
-$router->add('/example/users/signUp', [
+$router->add('/example/ssss', [
     'controller' => 'users',
-    'action' => 'signUp'
+    'action' => 'test'
+]);
+
+$router->add('/example/test', [
+    'controller' => 'users',
+    'action' => 'test'
 ]);
 $router->add('/example/users/change-password', [
     'controller' => 'users',
@@ -20,6 +25,7 @@ $router->add('/reset-password/{code}/{email}', [
     'controller' => 'user_control',
     'action' => 'resetPassword'
 ]);
-//$router->handle();
+
+$router->handle();
  return $router;
 

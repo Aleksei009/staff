@@ -5,8 +5,6 @@ namespace Staff\Controllers;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;
 
-use Phalcon\Acl\Adapter\Memory as AclList;
-use Phalcon\Acl as Acl;
 use Phalcon\Acl\Role;
 use Phalcon\Acl\Resource;
 

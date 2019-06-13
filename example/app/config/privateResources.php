@@ -23,7 +23,6 @@ return new Config([
             'return',
             'time',
             'holiday'
-
         ],
     ]
 ]);

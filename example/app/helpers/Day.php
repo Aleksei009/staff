@@ -132,6 +132,7 @@ class Day
         }
 
     }
+
     public function correctDay($id)
     {
         $time = Times::findFirst([
@@ -236,7 +237,7 @@ class Day
 
     public function getDateResult($auth,$request)
     {
-        if ($request['year'] && $request['month']){
+        if (isset($request['year']) && isset($request['month'])){
 
             $times = Times::find([
                 'conditions' => 'current_date <= :current_date: AND current_date >= :minDate: and user_id = :user_id:',
@@ -251,8 +252,8 @@ class Day
             $times = Times::find([
                 'conditions' => 'current_date <= :current_date: AND current_date >= :minDate: and user_id = :user_id:',
                 'bind' => [
-                    'current_date' => date('Y-d').'-30',
-                    'minDate' => date('Y-d').'-01',
+                    'current_date' => '2019-06-30',
+                    'minDate' => '2019-06-01',
                     'user_id' => $auth['id']
                 ]
             ])->toArray();
@@ -272,7 +273,6 @@ class Day
         return $resultTime;
 
     }
-
 
 
 

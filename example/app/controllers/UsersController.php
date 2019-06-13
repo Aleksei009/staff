@@ -283,6 +283,10 @@ class UsersController extends ControllerBase
         }
 
     }
+    public function testAction(){
+        var_dump(213456789);
+    }
+
 
     public function timeAction($id)
     {

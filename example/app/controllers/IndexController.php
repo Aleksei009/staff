@@ -52,9 +52,9 @@ class IndexController extends ControllerBase
 
     }
 
+
     public function indexAction()
     {
-
 
         $lateUser = Lates::findFirst([
             'conditions' => 'user_id = :user_id: and current_month = :current_month:',
@@ -99,7 +99,7 @@ class IndexController extends ControllerBase
             $late->save();
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////
+
 
         $getData = $this->request->get();
 
@@ -142,12 +142,11 @@ class IndexController extends ControllerBase
 
         $procent = number_format((($resultTimeR['hour'] * 100) / $allCount), 2, '.', '') ;
 
-        ////////////////////////////////////////////////////////
+
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
         $this->view->times           = $this->timeService->allTimes();
-        //$this->view->currentWeks     = $this->day->weeksCurrentMouth();
         $this->view->currentWeks     = $weeks_current_month;
         $this->view->users           = $this->userService->sortUsers($authUser);
         $this->view->userAuthTimes   = $this->userService->getTimesForUser($authUser);
@@ -161,10 +160,6 @@ class IndexController extends ControllerBase
         $this->view->resultTimeUser  =  $allCount;
         $this->view->procent         =  $procent;
         $this->view->latesForMe      = $latesForMe;
-
-       // $cuurCouning = $this->day-> getDateResult($this->auth,$this->request->get());
-       // print_die($cuurCouning);
-      //  print_die($this->request->get());
 
         $this->view->form = $form;
     }

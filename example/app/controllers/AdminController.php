@@ -15,7 +15,7 @@ class AdminController extends  ControllerBase
 
     public function indexAction()
     {
-
+        var_dump(123123);
     }
 }
 
