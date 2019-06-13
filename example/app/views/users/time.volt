@@ -11,6 +11,7 @@
             <div>Убрать опоздание</div>
             {% if time is empty %}
                 <div style="color: green;">Пришел вовремя</div>
+                <span>Нет</span> <input type="hidden" name="corDay"  value="none">
                 {% else %}
                     {% if time['i_am_late'] == 1 %}
                        <div style="color: pink;">Опоздавший</div>
@@ -18,7 +19,7 @@
                         <span>Нет</span> <input type="radio" name="corDay"  value="off">
                     {% endif %}
             {% endif %}
-            <span>Нет</span> <input type="hidden" name="corDay"  value="none">
+
         </div>
     </div>
     <div class="row">

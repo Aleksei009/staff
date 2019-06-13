@@ -379,8 +379,6 @@ class UsersController extends ControllerBase
                 ]);
             }
 
-
-
             if ($data['corDay']){
                 if ($data['corDay'] == 'on'){
                     $bool = $this->day->correctDay($data['user_id']);

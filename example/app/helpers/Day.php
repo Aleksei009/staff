@@ -224,12 +224,17 @@ class Day
     {
         $day = $this->countDayCurrentMonth();
 
-        $hourWork = $day * 9;
+        $hourWork = $day * 8;
 
-        $result = $hourWork - $resultUser['hour'];
+        //$result = $hourWork - $resultUser['hour'];
 
 
-        return $result;
+        return $hourWork;
     }
+
+    function getPercentOfNumber($number, $percent){
+        return ($percent / 100) * $number;
+    }
+
 
 }

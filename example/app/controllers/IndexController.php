@@ -54,9 +54,33 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+
+       // $day = $this->day->countDayCurrentMonth();
+
+         //$hourWork = $day * 8;
+
+        //print_die($hourWork);
+
+
+       // $myNumber = 928;
+
+        //I want to get 25% of 928.
+               // $percentToGet = 25;
+
+        //Convert our percentage value into a decimal.
+               // $percentInDecimal = $percentToGet / 100;
+
+        //Get the result.
+               // $percent = $percentInDecimal * $myNumber;
+
+        //Print it out - Result is 232.
+            //  print_die($percent);
+
+
+
         $getData = $this->request->get();
 
-        if($this->request->isGet() && $this->request->get()['month'] && $this->request->get()['year']){
+        if($this->request->isGet() && isset($this->request->get()['month']) && $this->request->get()['month'] && $this->request->get()['year']){
             $data = $this->request->get();
         }else{
             $data = ["month" => (date('m')),"year" => (date('Y'))];
@@ -79,12 +103,13 @@ class IndexController extends ControllerBase
             ];
         }
 
-
-
         $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
         $resultTimeR = $this->day->getResultforDate($this->auth);
+        $allCount = $this->day->resultForCoutTime($resultTimeR);
+        $procent = ($resultTimeR['hour'] * 100) / $allCount;
+
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
@@ -100,7 +125,8 @@ class IndexController extends ControllerBase
         $this->view->years           = $this->day->years;
         $this->view->getData         =  $getData;
         $this->view->resultTimeR     =  $resultTimeR;
-        $this->view->resultTimeUser  =  $this->day->resultForCoutTime($resultTimeR);
+        $this->view->resultTimeUser  =  $allCount;
+        $this->view->procent         =  $procent;
 
         $this->view->form = $form;
     }

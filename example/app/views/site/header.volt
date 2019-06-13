@@ -10,9 +10,9 @@
                             <h2>You are: {{ auth['role'] }}</h2>
                             <h3>Your name: {{ auth['name'] }}</h3>
 
-
                             <p>Ваши рабочии часы за месяц: {{ resultTimeR['hour'] }}ч:{{ resultTimeR['minutes'] }}м</p>
-                            <p>Рабочих часов осталось: {{ resultTimeUser }}</p>
+                            <p>You have/Assigned: {{ procent }}%</p>
+                            <p>Assigned: {{ resultTimeUser }}</p>
                             {#<p>Ты опоздал: 0 раз
                                 Если общее кол-во опозданий превысит 80 в мае. В мае будут применятся штрафные санкции.
                             </p>#}

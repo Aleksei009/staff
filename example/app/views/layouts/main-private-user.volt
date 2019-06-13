@@ -2,7 +2,9 @@
     <?php $this->partial('site/header'); ?></div>
 </div>
 
-<div class="main-table-content">
+<?php $this->partial('site/content'); ?></div>
+
+{#<div class="main-table-content">
     <div class="content">
         <div class="table">
             <table class="table table-bordered">
@@ -148,7 +150,7 @@
                                         {% endif %}
 
                                     {% endif %}
-                                    {#Result block#}
+                                    #}{#Result block#}{#
                                     {% for result in results %}
 
                                         {% if result['user_id'] == user['id'] and item['year'] == result['date'] %}
@@ -164,7 +166,7 @@
                                         {% endif %}
 
                                     {% endfor %}
-                                    {#/Result block#}
+                                    #}{#/Result block#}{#
                                 </div>
                             </div>
                         </td>
@@ -176,7 +178,8 @@
             </table>
         </div>
     </div>
+</div>#}
+
+<div class="container">
+    <?php $this->partial('site/footer'); ?></div>
 </div>
-
-
-
