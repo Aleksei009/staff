@@ -64,30 +64,37 @@
                                     {% else %}
                                     {% if i_am_late  is empty %}
                                     {% for time in times %}
-                                    {% if user['id'] == time['user_id'] and time['i_am_late'] == 1  %}
+
+                                    {#{% if user['id'] == time['user_id'] and time['i_am_late'] == 1 and time['current_date'] == date('Y-m-d') %}
+
                                     <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                        {% else %}
+
+                                    {% else %}
+
                                         <div class="time-start-finaly" style="text-align: center;">
-                                            {% endif %}
-                                            {% endfor %}
+
+                                    {% endif %}#}
+
+                                    {% endfor %}
 
                                             {% else %}
-                                            {% if i_am_late['user_id'] == user['id']%}
+
+                                            {% if i_am_late['user_id'] == user['id'] %}
                                             <div class="time-start-finaly" style="background: pink; text-align: center;">
 
-                                                {% else %}
-
+                                            {% else %}
+                                                <div class="time-start-finaly" style="text-align: center;">
                                                 {% for time in times %}
-                                                {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 %}
-                                                <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                                    {% else %}
-                                                    <div class="time-start-finaly" style="text-align: center;">
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endif %}
+                                                    {% if user['id'] == time['user_id'] and time['i_am_late'] == 1 and time['current_date'] == date('Y-m-d')%}
+                                                    <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                                        {% else %}
+                                                        <div class="time-start-finaly" style="text-align: center;">
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            {% endif %}
 
-                                                        {% endif %}
+                                            {% endif %}
 
 
                                                         {% if times is empty %}

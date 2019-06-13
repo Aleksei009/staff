@@ -366,6 +366,15 @@ class UsersController extends ControllerBase
 
             if($timeUpdate->save()){
 
+                $resultTimeUser = $this->day->resultTime($this->auth);
+                $current_date = date('Y-m-d');
+                $this->resultService->saveAndUpdateCurrentResultTime([
+                    'date' => $current_date,
+                    'result_time' => $resultTimeUser,
+                    'user_id' => $this->auth['id']
+                ],$this->auth);
+
+
                 $this->flash->success('Данные изменены');
                 $this->dispatcher->forward([
                     'controller' => 'users',
@@ -407,6 +416,7 @@ class UsersController extends ControllerBase
                     ]);
                 }
             }
+
 
         }
 

@@ -64,30 +64,29 @@
                                     <?php } else { ?>
                                     <?php if (empty($i_am_late)) { ?>
                                     <?php foreach ($times as $time) { ?>
-                                    <?php if ($user['id'] == $time['user_id'] && $time['i_am_late'] == 1) { ?>
-                                    <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                        <?php } else { ?>
-                                        <div class="time-start-finaly" style="text-align: center;">
-                                            <?php } ?>
-                                            <?php } ?>
+
+                                    
+
+                                    <?php } ?>
 
                                             <?php } else { ?>
+
                                             <?php if ($i_am_late['user_id'] == $user['id']) { ?>
                                             <div class="time-start-finaly" style="background: pink; text-align: center;">
 
-                                                <?php } else { ?>
-
+                                            <?php } else { ?>
+                                                <div class="time-start-finaly" style="text-align: center;">
                                                 <?php foreach ($times as $time) { ?>
-                                                <?php if ($user['id'] == $time['user_id'] && $time['i_am_late'] == 1) { ?>
-                                                <div class="time-start-finaly" style="background: pink; text-align: center;">
-                                                    <?php } else { ?>
-                                                    <div class="time-start-finaly" style="text-align: center;">
-                                                        <?php } ?>
-                                                        <?php } ?>
-                                                        <?php } ?>
-                                                        <?php } ?>
+                                                    <?php if ($user['id'] == $time['user_id'] && $time['i_am_late'] == 1 && $time['current_date'] == date('Y-m-d')) { ?>
+                                                    <div class="time-start-finaly" style="background: pink; text-align: center;">
+                                                        <?php } else { ?>
+                                                        <div class="time-start-finaly" style="text-align: center;">
+                                                    <?php } ?>
+                                                <?php } ?>
+                                                <?php } ?>
+                                            <?php } ?>
 
-                                                        <?php } ?>
+                                            <?php } ?>
 
 
                                                         <?php if (empty($times)) { ?>
