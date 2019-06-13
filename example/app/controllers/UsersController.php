@@ -14,6 +14,7 @@ use Staff\Forms\SignUpUserForm;
 
 use Staff\Forms\TimeForm;
 use Staff\Models\Holidays;
+use Staff\Models\Lates;
 use Staff\Models\Times;
 use Staff\Services\UserService;
 use Staff\Models\Users;
@@ -391,8 +392,21 @@ class UsersController extends ControllerBase
             if ($data['corDay']){
                 if ($data['corDay'] == 'on'){
                     $bool = $this->day->correctDay($data['user_id']);
-                    //print_die($bool);
+
                     if($bool){
+
+                      $lateUser =  Lates::findFirst([
+                            'conditions' => 'user_id = :user_id:',
+                            'bind' => [
+                                'user_id' => $data['user_id']
+                            ]
+                        ]);
+
+                        if($lateUser){
+                            $lateUser->count_lates -= 1;
+                            $lateUser->save();
+                        }
+
                         $this->flash->success('Пользователь пришел вовремя');
                         return  $this->dispatcher->forward([
                             'controller' => 'users',
