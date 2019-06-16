@@ -2,7 +2,11 @@
 <div class="container">
     {{ content() }}
 
-    {{ form('users/create', 'method': 'post') }}
+    {% if success %}
+        <div><div class='alert alert-danger'><?php $this->flashSession->output() ?></div></div>
+    {% endif %}
+    {{ link_to('index', 'На главную') }}
+    {{ form('users/signUp', 'method': 'post') }}
 
     <h2>
         Форма регистрации
@@ -35,7 +39,6 @@
     <p>{{ form.render('Sign Up') }}</p>
 
     {{ form.render('csrf', ['value': security.getToken()]) }}
-    {{ form.messages('csrf') }}
 
     <hr>
 

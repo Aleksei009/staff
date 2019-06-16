@@ -55,7 +55,6 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-
         $lateUser = Lates::findFirst([
             'conditions' => 'user_id = :user_id: and current_month = :current_month:',
             'bind' => [

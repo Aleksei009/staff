@@ -42,34 +42,6 @@ class UsersController extends ControllerBase
     public function createAction()
     {
 
-        $form = new SignUpUserForm();
-
-        if(!$form->isValid($_POST)){
-
-            return $this->dispatcher->forward(
-                [
-                    'action' => 'signUp',
-                ]
-            );
-        }
-
-        $data = $this->request->get();
-        $data['password'] = $this->security->hash( $data['password']);
-
-        $userService = new UserService();
-
-        try {
-            $userService->registerUser($data);
-        } catch (\Exception $e) {
-
-            $this->flashSession->error('Пользователь с такими данными уже существует!');
-
-            $this->response->redirect('users/signUp');
-
-        }
-
-       return $this->response->redirect('index/index');
-
     }
 
     /**
@@ -92,7 +64,6 @@ class UsersController extends ControllerBase
 
            $this->response->redirect('users/table');
         }
-
     }
     public function returnAction($id)
     {
@@ -106,43 +77,47 @@ class UsersController extends ControllerBase
         }else{
 
             $this->flash->error('все плохо');
-
             $this->response->redirect('users/table');
         }
-
     }
 
 
     public function signInAction()
     {
-
         $form = new SignInForm();
         $this->view->form = $form;
-
     }
 
     public function signUpAction()
     {
-
+        $success = false;
         $form = new SignUpUserForm();
-        if ($this->request->isPost()) {
-            if ($form->isValid($this->request->getPost()) != false) {
-                $user = new Users([
-                    'name' => $this->request->getPost('name', 'striptags'),
-                    'email' => $this->request->getPost('email'),
-                    'password' => $this->security->hash($this->request->getPost('password'))
-                ]);
-                if ($user->save()) {
-                    return $this->dispatcher->forward([
+        if ($this->request->isPost()){
+            if(!$form->isValid($this->request->getPost())){
+                $this->flash->warning('Данные не являются валидными!');
+            }else{
+                $success = true;
+                $data = $this->request->get();
+                $data['password'] = $this->security->hash( $data['password']);
+                $userService = new UserService();
+                try {
+                    $userService->registerUser($data);
+                   // $success = false;
+                    //$this->flash->success('Пользователь успешно создан!');
+                    $this->flash->success('Пользователь успешно создан!');
+                    $this->dispatcher->forward([
                         'controller' => 'index',
                         'action' => 'index'
                     ]);
-                }
-                $this->flash->error($user->getMessages());
-            }
-        }
-        $this->view->form = $form;
 
+                } catch (\Exception $e) {
+                    $this->flashSession->error('Пользователь с такими данными уже существует!');
+                }
+            }
+
+        }
+        $this->view->success = $success;
+        $this->view->form = $form;
     }
 
 
@@ -156,7 +131,6 @@ class UsersController extends ControllerBase
                     $this->flash->error($message);
                 }
             } else {
-                //$user = $this->auth;
                 $user = Users::findFirst($this->auth['id']);
                 $user->password = $this->security->hash($this->request->getPost('password'));
 
@@ -167,9 +141,7 @@ class UsersController extends ControllerBase
                 }
             }
         }
-
         $this->view->form = $form;
-
     }
     public function tableAction()
     {
@@ -179,12 +151,10 @@ class UsersController extends ControllerBase
 
     public function correctAction($id)
     {
-
         $user = Users::findFirst($id);
         $curTimeForUser = $user->getTimes([
             'order' => 'current_date DESC',
         ]);
-
 
         if($curTimeForUser->toArray() == []){
             $curTimeForUser = [];
@@ -193,14 +163,10 @@ class UsersController extends ControllerBase
         $this->view->user = $user;
         $this->view->times = $curTimeForUser;
 
-
-
         if($this->request->isPost()){
 
             $data = $this->request->get();
             $dataForm = $this->request->getPost();
-
-          //  print_die($data);
 
             $timeUpdate = Times::findFirst([
                'conditions' => 'id = :id:',
@@ -278,15 +244,11 @@ class UsersController extends ControllerBase
                     ]);
                 }
             }
-
-
         }
-
     }
     public function testAction(){
         var_dump(213456789);
     }
-
 
     public function timeAction($id)
     {
@@ -315,8 +277,6 @@ class UsersController extends ControllerBase
 
     public function holidayAction()
     {
-       //print_die($this->request->get());
-
         $form = new HolidayForm();
 
         if ($this->request->isPost()) {
@@ -326,7 +286,6 @@ class UsersController extends ControllerBase
                 foreach ($form->getMessages() as $message) {
                     $this->flash->error($message);
                 }
-
             } else{
 
                 $data = $this->request->getPost();
@@ -344,11 +303,6 @@ class UsersController extends ControllerBase
              }
 
         }
-
         $this->view->form = $form;
-
     }
-
-
-
 }

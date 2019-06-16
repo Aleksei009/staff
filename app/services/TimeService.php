@@ -18,8 +18,6 @@ class TimeService extends MainService
 
     public function amILateTime($auth)
     {
-
-
         $time = Times::findFirst([
             'conditions' => 'current_date = :date: AND user_id = :user_id: and i_am_late = :i_am_late:',
             'bind' => [

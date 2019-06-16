@@ -5,6 +5,7 @@ namespace Staff\Forms;
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
@@ -33,7 +34,7 @@ class SignInForm extends Form
 
         $this->add($email);
 
-        $password = new Text('password',[
+        $password = new Password('password',[
             'placeholder' => 'password',
             'class' => 'form-control'
         ]);

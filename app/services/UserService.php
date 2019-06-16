@@ -9,6 +9,11 @@ use Staff\Models\Users;
 class UserService extends MainService
 {
 
+    /**
+     * @param $data
+     * @return Users
+     * @throws \Exception
+     */
     public function registerUser($data)
     {
         $users = Users::find();
@@ -57,7 +62,12 @@ class UserService extends MainService
     public function sortUsers($userAuth)
     {
         $user = Users::findFirst($userAuth['id'])->toArray();
-        $users = Users::find()->toArray();
+        $users = Users::find([
+            'conditions' => 'deleted = :deleted:',
+            'bind' => [
+                'deleted' => 0
+            ]
+        ])->toArray();
         foreach ($users as $k=>$item) {
 
             if($user['id'] == $item['id']){

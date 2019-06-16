@@ -77,6 +77,4 @@ class ResultService extends MainService
         return $result->save($array);
     }
 
-
-
 }

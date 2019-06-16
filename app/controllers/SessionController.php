@@ -27,78 +27,11 @@ class SessionController extends ControllerBase
     public function indexAction()
     {
     }
-    /**
-     * Allow a user to signup to the system
-     */
-    public function signupAction()
-    {
-
-        $form = new SignUpUserForm();
-
-        if(!$form->isValid($_POST)){
-
-            return $this->dispatcher->forward(
-                [
-                    'controller' => 'index',
-                    'action' => 'index',
-                ]
-            );
-        }else{
-            $data = $this->request->get();
-            $data['password'] = $this->security->hash( $data['password']);
-
-            $userService = new UserService();
-
-            try {
-                $userService->registerUser($data);
-
-                if($userService){
-                   // $this->flash->success('Пользователь успешно создан!');
-                    return $this->dispatcher->forward([
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ]);
-                }
-            } catch (\Exception $e) {
-
-                $this->flashSession->error('Пользователь с такими данными уже существует!');
-
-               return $this->response->redirect('index/index');
-
-
-
-
-            }
-        }
-
-       //$this->view->form = $form;
-    }
-
 
     public function signInAction()
     {
         $form = new SignInForm();
         $this->view->form = $form;
-
-    }
-    /**
-     * Starts a session in the admin backend
-     */
-    public function loginAction()
-    {
-        $login    = $this->request->getPost('login');
-        $password = $this->request->getPost('password');
-
-        $user = Users::findFirstByLogin($login);
-
-        if ($user) {
-            if ($this->security->checkHash($password, $user->password)) {
-                
-            }
-        } else {
-
-            $this->security->hash(rand());
-        }
 
     }
 
@@ -126,10 +59,7 @@ class SessionController extends ControllerBase
                                 'name' => $user->name,
                                 'user' => $user->email,
                                 'csrf' => $this->request->get('csrf')
-
-
                             ]);
-
                         }
 
                         if($user->role == 'user'){
@@ -140,10 +70,8 @@ class SessionController extends ControllerBase
                                 'name' =>  $user->name,
                                 'email' => $user->email,
                                 'csrf' => $this->request->get('csrf')
-
                             ]);
                         }
-
                         $user->status = 1;
                         $user->save();
                         $this->response->redirect('index');
@@ -181,7 +109,6 @@ class SessionController extends ControllerBase
      */
     public function removeAuthAction()
     {
-
         $user = Users::findFirst($this->session->get('auth')['id']);
         $user->status = 0;
 
@@ -193,7 +120,6 @@ class SessionController extends ControllerBase
             return $this->response->redirect('index');
         }
     }
-
 
 
 }

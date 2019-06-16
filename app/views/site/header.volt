@@ -1,4 +1,3 @@
-
 <div class="main-site clearfix pt-5" >
     <div class="main-header">
         <div class="float-left-need">
@@ -6,6 +5,9 @@
                 <div class="users-late-your-inform clearfix">
                     <div class="left" >
                         <div class="infom">
+
+                            <p><?php $this->flashSession->output() ?></p>
+
                             <h1>My Hours Log</h1>
                             <h2>You are: {{ auth['role'] }}</h2>
                             <h3>Your name: {{ auth['name'] }}</h3>
@@ -24,15 +26,21 @@
                             <h5>Главные опоздуны</h5>
                             <div class="users">
                                 {% for lated in latesUsers %}
-                                    <div class="user">
-                                        <div class="img-user">
-                                            <div class="img">
-                                                <img src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
+                                    {% if lated.count_lates == 0 %}
+                                        <div></div>
+                                        {% else %}
+
+                                            <div class="user">
+                                                <div class="img-user">
+                                                    <div class="img">
+                                                        <img src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="">
+                                                    </div>
+                                                    <div class="name-user">{{ lated.getUser().name }}</div>
+                                                    <div class="how-much-you-late">{{ lated.count_lates }}</div>
+                                                </div>
                                             </div>
-                                            <div class="name-user">{{ lated.getUser().name }}</div>
-                                            <div class="how-much-you-late">{{ lated.count_lates }}</div>
-                                        </div>
-                                    </div>
+                                    {% endif %}
+
                                 {% endfor %}
                             </div>
                         </div>
