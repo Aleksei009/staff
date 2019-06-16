@@ -5,4 +5,8 @@
 #
 # https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
 
-.idea
+*.log
+build/
+node_modules/
+.idea/
+my_notes.txt
