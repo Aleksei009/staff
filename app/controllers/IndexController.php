@@ -37,24 +37,20 @@ class IndexController extends ControllerBase
 
                 $this->view->setTemplateBefore('main-private-admin');
             }
-
             if($this->session->get('auth')['role'] == 'user'){
 
                 $this->view->setTemplateBefore('main-private-user');
             }
-
         }else{
 
             $this->view->setTemplateBefore('form-register');
-
         }
-
-
     }
-
 
     public function indexAction()
     {
+        $form     = new SignUpUserForm();
+
         $lateUser = Lates::findFirst([
             'conditions' => 'user_id = :user_id: and current_month = :current_month:',
             'bind' => [
@@ -98,39 +94,16 @@ class IndexController extends ControllerBase
             $late->save();
         }
 
-
-
         $getData = $this->request->get();
+        $weeks_current_month =$this->day->weeksCurrentMouth($getData);
 
-        if($this->request->isGet() && isset($this->request->get()['month']) && $this->request->get()['month'] && $this->request->get()['year']){
-            $data = $this->request->get();
-        }else{
-            $data = ["month" => (date('m')),"year" => (date('Y'))];
-        }
 
-        $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
-
-        $current_year = date("Y",$curMount);
-        $current_mouth = date("m",$curMount);
-        $dayofmonth = date('t',$curMount);
-
-        $weeks_current_month = [];
-
-        for ($i = 1; $i <= $dayofmonth; $i++){
-
-            $weeks_current_month[$i]= [
-                'day' => $i,
-                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
-                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
-            ];
-        }
-
-        $form     = new SignUpUserForm();
         $authUser = $this->auth;
 
-        //$resultTimeR = $this->day->getResultforDate($this->auth);
-        $resultTimeR = $this->day-> getDateResult($this->auth,$this->request->get());;
-        $allCount = $this->day->resultForCoutTime($resultTimeR);
+        $resultTimeR = $this->day-> getDateResult($this->auth,$this->request->get());
+        $allCount = $this->day->resultForCountTime($this->request->get());
+       // print_die($this->request->get());
+
         $latesForMe = Lates::findFirst([
             'conditions' => 'user_id = :user_id: and current_month = :current_month:',
                 'bind' => [
@@ -140,8 +113,6 @@ class IndexController extends ControllerBase
             ]);
 
         $procent = number_format((($resultTimeR['hour'] * 100) / $allCount), 2, '.', '') ;
-
-
 
         $this->view->auth            = $authUser;
         $this->view->totalResultTime = $this->day->resultTime($authUser);
@@ -158,7 +129,7 @@ class IndexController extends ControllerBase
         $this->view->resultTimeR     =  $resultTimeR;
         $this->view->resultTimeUser  =  $allCount;
         $this->view->procent         =  $procent;
-        $this->view->latesForMe      = $latesForMe;
+        $this->view->setVar('latesForMe',$latesForMe);
 
         $this->view->form = $form;
     }
@@ -166,8 +137,6 @@ class IndexController extends ControllerBase
     public function setstartAction()
     {
         $timeBool = $this->day->timeStart($this->auth);
-
-
 
         if($timeBool){
             return $this->response->redirect('index');

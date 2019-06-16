@@ -46,9 +46,9 @@ class Day
         return $result;
     }
 
-    public function weeksCurrentMouth()
+    public function weeksCurrentMouth($request = null)
     {
-        $dayofmonth = date('t');
+        /*$dayofmonth = date('t');
         $current_year = date("Y");
         $current_mouth = date("m");
 
@@ -63,7 +63,32 @@ class Day
             ];
         }
 
-        return $weeks_current_month;
+        return $weeks_current_month;*/
+
+        if(isset($request['month']) && $request['month'] && $request['year']){
+            $data = $request;
+        }else{
+            $data = ["month" => (date('m')),"year" => (date('Y'))];
+        }
+
+        $curMount = strtotime('01'.'-'.$data['month'].'-'.$data['year']);
+
+        $current_year = date("Y",$curMount);
+        $current_mouth = date("m",$curMount);
+        $dayofmonth = date('t',$curMount);
+
+        $weeks_current_month = [];
+
+        for ($i = 1; $i <= $dayofmonth; $i++){
+
+            $weeks_current_month[$i]= [
+                'day' => $i,
+                'week' => date('l', strtotime($current_year.'-'.$current_mouth.'-'.$i)),
+                'year' => date('Y-m-d', strtotime($current_year.'-'.$current_mouth.'-'.$i))
+            ];
+        }
+        return  $weeks_current_month;
+
 
     }
 
@@ -150,12 +175,12 @@ class Day
 
     }
 
-    public function countDayCurrentMonth()
+    public function countDayCurrentMonth($request = null)
     {
         $holidays = Holidays::find();
 
         $i = 0;
-        $currentMonth = $this->weeksCurrentMouth();
+        $currentMonth = $this->weeksCurrentMouth($request);
 
         foreach ($currentMonth as $item){
 
@@ -219,9 +244,9 @@ class Day
 
     }
 
-    public function resultForCoutTime($resultUser)
+    public function resultForCountTime($request = null)
     {
-        $day = $this->countDayCurrentMonth();
+        $day = $this->countDayCurrentMonth($request);
 
         $hourWork = $day * 8;
 
