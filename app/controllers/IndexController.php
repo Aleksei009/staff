@@ -178,6 +178,11 @@ class IndexController extends ControllerBase
       echo "hello";
     }
 
+    public function test2Action()
+    {
+      echo "hello";
+    }
+
 
 }
 
