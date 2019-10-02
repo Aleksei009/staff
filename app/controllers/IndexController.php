@@ -133,6 +133,7 @@ class IndexController extends ControllerBase
         $this->view->procent         =  $procent;
         $this->view->setVar('latesForMe',$latesForMe);
 
+
         $this->view->form = $form;
     }
 
@@ -170,6 +171,11 @@ class IndexController extends ControllerBase
             return $this->response->redirect('index');
         }
 
+    }
+
+    public function testAction()
+    {
+      echo "hello";
     }
 
 
