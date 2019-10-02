@@ -186,6 +186,14 @@ class IndexController extends ControllerBase
 
       return $data;
     }
+  public function methodForTestingAction()
+  {
+    $data = $this->request->getPost();
+    $data['name'] = 'Aleksey';
+    $data['family'] = "Limarev";
+
+    return $data;
+  }
 
 }
 
