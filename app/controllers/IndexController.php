@@ -180,9 +180,12 @@ class IndexController extends ControllerBase
 
     public function test2Action()
     {
-      echo "hello";
-    }
+      $data = $this->request->getPost();
+      $data['name'] = 'Aleksey';
+      $data['family'] = "Limarev";
 
+      return $data;
+    }
 
 }
 
